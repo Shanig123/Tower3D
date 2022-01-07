@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ConstructionController
+    - Constructor
     - Controller_Manager
     - Cursor
     - Game_Manager
@@ -9,13 +10,13 @@ ScriptsOnlyBuild:
     - NormalBullet
     - ObjPool_Manager
     - Obj_Decoration
+    - Obj_Torche
     - Object_Manager
     - PlayerController
     - Resource_Manager
     - StageController
     - Tex_Gradient
     - TowerAI
-    - UIConstruction
     - UILoad_Bar
     - UI_MainScene
     - UI_Manager
@@ -97,6 +98,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 1492}
     - Class: 114
@@ -108,17 +111,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1966}
     - Class: 114
-      Script: {instanceID: 2208}
+      Script: {instanceID: 2206}
     - Class: 114
-      Script: {instanceID: 2258}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2304}
+      Script: {instanceID: 2302}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 2318}
     - Class: 114
-      Script: {instanceID: 2330}
+      Script: {instanceID: 2328}
     - Class: 114
-      Script: {instanceID: 2632}
+      Script: {instanceID: 2630}
     - Class: 114
       Script: {instanceID: 2770}
     - Class: 114
@@ -134,13 +137,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3106}
     - Class: 114
-      Script: {instanceID: 3162}
+      Script: {instanceID: 3160}
     - Class: 114
-      Script: {instanceID: 3180}
+      Script: {instanceID: 3178}
     - Class: 114
-      Script: {instanceID: 3188}
+      Script: {instanceID: 3186}
     - Class: 114
-      Script: {instanceID: 3194}
+      Script: {instanceID: 3192}
+    - Class: 114
+      Script: {instanceID: 3196}
     - Class: 114
       Script: {instanceID: 3216}
     - Class: 114
@@ -235,9 +240,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1966}
     - Class: 114
-      Script: {instanceID: 2208}
+      Script: {instanceID: 2206}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 2318}
+    - Class: 114
+      Script: {instanceID: 2696}
     - Class: 114
       Script: {instanceID: 2770}
     - Class: 114
@@ -251,11 +258,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3078}
     - Class: 114
-      Script: {instanceID: 3142}
+      Script: {instanceID: 3160}
     - Class: 114
-      Script: {instanceID: 3162}
+      Script: {instanceID: 3178}
     - Class: 114
-      Script: {instanceID: 3180}
+      Script: {instanceID: 3196}
     - Class: 114
       Script: {instanceID: 3216}
     - Class: 114
@@ -320,9 +327,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1966}
     - Class: 114
-      Script: {instanceID: 2208}
+      Script: {instanceID: 2206}
     - Class: 114
-      Script: {instanceID: 2320}
+      Script: {instanceID: 2318}
     - Class: 114
       Script: {instanceID: 2770}
     - Class: 114
@@ -332,9 +339,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3116}
     - Class: 114
-      Script: {instanceID: 3162}
+      Script: {instanceID: 3160}
     - Class: 114
-      Script: {instanceID: 3180}
+      Script: {instanceID: 3178}
     - Class: 114
       Script: {instanceID: 3216}
     - Class: 114
@@ -734,6 +741,12 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
+      Hash: d1e02ad49f4221b0d5db89410e17283a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Constructor
+  - hash:
+      serializedVersion: 2
       Hash: e2e664096ddf813ef918842c1a3057c7
     assemblyName: Polyperfect.People.dll
     namespaceName: Polyperfect.People
@@ -920,12 +933,6 @@ ScriptsOnlyBuild:
     className: UI_MainScene
   - hash:
       serializedVersion: 2
-      Hash: d1e02ad49f4221b0d5db89410e17283a
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UIConstruction
-  - hash:
-      serializedVersion: 2
       Hash: 81bc06b01d900d58db391f7cf8fc274d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -954,6 +961,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAsset
+  - hash:
+      serializedVersion: 2
+      Hash: b224b73bfbae444098706b7f81ba9e3c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Obj_Torche
   - hash:
       serializedVersion: 2
       Hash: 94c1e0edf9a5bd7c53c0482b0312758b
