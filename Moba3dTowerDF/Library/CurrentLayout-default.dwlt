@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Inspector
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_MinSize: {x: 579, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 88
+  controlID: 69
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 89
+  controlID: 19
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_MinSize: {x: 303, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 68
+  controlID: 127
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -548,23 +548,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 04dbfeff
-      m_LastClickedID: -75004
-      m_ExpandedIDs: 641cffff6836ffffea36ffffa851ffffaef8ffff0af9ffff52fbfffff4ffffff4e3b00006e3b00008e3b00009e3b0000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 1c3bfdff383bfdff423bfdff583bfdff6e3bfdff003cfdff1c3cfdff023dfdff1a3dfdff323dfdff0441fdff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Directional Light
-        m_OriginalName: Directional Light
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -75004
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.45590463, y: 0.2627367, z: -0.14272869, w: 0.83843803}
     speed: 2
-    m_Value: {x: 0.45585236, y: 0.26270658, z: -0.14271232, w: 0.8383419}
+    m_Value: {x: -0.45590463, y: -0.26273674, z: 0.14272869, w: -0.8384381}
   m_Size:
     m_Target: 3.3339746
     speed: 2
@@ -731,22 +731,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Object/Environment
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Object/Environment
+  - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\shanig123\Documents\Visual Studio 2015\Projects\Moba3dTowerDF
+  m_LastProjectPath: C:\Users\shanig123\Documents\Tower3D\Moba3dTowerDF
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 338}
-    m_SelectedIDs: 6aee0000
-    m_LastClickedID: 61034
-    m_ExpandedIDs: 00000000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f00002a3f00002c3f00002e3f0000303f0000323f0000343f0000363f0000383f00003a3f00003c3f00003e3f0000423f00005a3f0000643f0000dc3f0000
+    scrollPos: {x: 0, y: 31}
+    m_SelectedIDs: 4a470500
+    m_LastClickedID: 345930
+    m_ExpandedIDs: 000000004a4705004c4705004e47050050470500524705005447050056470500584705005a4705005c4705005e47050060470500624705006447050066470500684705006a4705006c4705006e4705007047050072470500744705007647050078470500
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -774,7 +774,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000163f0000183f00001a3f00001c3f00001e3f0000203f0000223f0000243f0000263f0000283f00002a3f00002c3f00002e3f0000303f0000323f0000343f0000363f0000383f00003a3f00003c3f00003e3f0000403f0000423f0000
+    m_ExpandedIDs: 000000004a4705004c4705004e47050050470500524705005447050056470500584705005a4705005c4705005e47050060470500624705006447050066470500684705006a4705006c4705006e4705007047050072470500744705007647050078470500
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
