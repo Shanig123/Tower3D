@@ -15,8 +15,7 @@ public class ConstructionController : MonoBehaviour
     [SerializeField] private DataEnum.eDifficulty m_eLevel;
     [SerializeField] private Queue<GameObject> m_listAwaitObj;
     //[SerializeField] private Dictionary<int, string> m_mapIDToObjKey;
-    [SerializeField] private int m_iRandomCallCount = 0;
-
+  
     #endregion
 
     #region Property
@@ -54,8 +53,8 @@ public class ConstructionController : MonoBehaviour
             if (iPlayerGold >= GConst.BaseValue.iTowerGold)
             {
                 if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
-                {
-                    int iRandomID = ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+                {                
+                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
 
                     int iRankID = (int)DataEnum.eRankID.Normal 
                         | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
@@ -67,7 +66,7 @@ public class ConstructionController : MonoBehaviour
                 {
                     if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//특수 코스트 값이 있을 때
                     {
-                        int iRandomID = ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+                        int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
                         int iRankID = (int)_eRankID
                             | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
 
@@ -168,18 +167,4 @@ public class ConstructionController : MonoBehaviour
         return null;
     }
 
-    public int ExtractRandomNumberFromSeed(int _iMin, int _iMax)
-    {
-        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<StageController>().Get_Seed+ m_iRandomCallCount;
-        ++m_iRandomCallCount;
-        System.Random rd = new System.Random(iSeed);
-        return rd.Next(_iMin, _iMax);
-    }
-    public float ExtractRandomNumberFromSeed()
-    {
-        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<StageController>().Get_Seed + m_iRandomCallCount;
-        ++m_iRandomCallCount;
-        System.Random rd = new System.Random(iSeed);
-        return (float)rd.NextDouble();
-    }
 }

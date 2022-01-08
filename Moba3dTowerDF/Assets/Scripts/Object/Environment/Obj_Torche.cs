@@ -63,7 +63,7 @@ public class Obj_Torche : MonoBehaviour
     }
     private void CheckSeed()
     {
-        int iSeed  =  GameObject.FindGameObjectWithTag("").GetComponent<StageController>().Get_Seed;
+        int iSeed  =  GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>().Get_Seed;
 
         System.Random rd = new System.Random(iSeed);
         m_bOnOff = rd.Next(0, 1) > 0 ? true : false ;
