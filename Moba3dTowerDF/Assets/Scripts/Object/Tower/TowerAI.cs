@@ -17,29 +17,24 @@ public class TowerAI : BaseObj
     [SerializeField] private DataEnum.eState m_eNextState = DataEnum.eState.End;
     [SerializeField] private DataEnum.eState m_eCurState = DataEnum.eState.End;
 
+
+    [SerializeField] private Vector3 m_vCurModifyPos;
+    [SerializeField] private Vector3 m_vNextModifyPos;
+
     #endregion
 
     #region Property
-    public DataEnum.eState GetState
-    {
-        get
-        {
-            return m_eCurState;
-        }
-    }
-    public DataEnum.eState SetState
-    {
-        set
-        {
-            m_eNextState = value;
-        }
-    }
+    public DataEnum.eState GetStat { get { return m_eCurState; } }
+    public DataEnum.eState SetState{ set { m_eNextState = value; } }
+
+    public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tagStatus; } }
+
     #endregion
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();
+        base.Start();  
     }
 
 
@@ -47,14 +42,19 @@ public class TowerAI : BaseObj
     void Update()
     {
         if (!m_bFirstInit)
-            FirstInit();
+            UpdateInit();
         if (m_objTargetMob == null)
             m_iTargetID = 0;
         CheckState();
         DoController();
     }
-    private void FirstInit()
-    {       
+    private void UpdateInit()
+    {
+        if (0 == m_fReadyTimerMax)
+        {
+            m_fReadyTimer = 3;
+        }
+
         m_bFirstInit = true;
     }
 
@@ -144,14 +144,9 @@ public class TowerAI : BaseObj
     }
     private void DoReadyState()
     {
-        m_fReadyTimer += Time.deltaTime;
-
-        if (m_fReadyTimer > m_fReadyTimerMax)
-        {
-            m_fReadyTimer = 0;
-            m_eNextState = DataEnum.eState.Active;
-         
-        }
+        CheckInStageBoard();
+        InStageBoard();
+        ReadyToActive();
     }
     private void DoActiveState()
     {
@@ -167,9 +162,82 @@ public class TowerAI : BaseObj
 
     }
 
+    #region ReadyState_Func
+
+    private void CheckInStageBoard()
+    {
+        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+            != GConst.BaseValue.iStatFlag_CheckInStage)
+        {
+            Vector3 vPos = transform.position;
+            if (GConst.BaseValue.vLeftTop.x < vPos.x &&
+                GConst.BaseValue.vRightBottom.x > vPos.x)
+            {
+                if (GConst.BaseValue.vLeftTop.z > vPos.z &&
+                GConst.BaseValue.vRightBottom.z < vPos.z)
+                {
+                    m_vCurModifyPos = vPos;
+                    m_vNextModifyPos = vPos;
+
+                    m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
+                }
+            }
+        }
+    }
+
+    private void InStageBoard() 
+    {
+        //타워가 게임 보드 안으로 들어왔을 때
+
+        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+            == GConst.BaseValue.iStatFlag_CheckInStage)
+        {
+            if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
+             != GConst.BaseValue.iStatFlag_ReadyToIdle)
+            {
+                if(m_vCurModifyPos == m_vNextModifyPos)
+                {
+                    m_fReadyTimer += Time.deltaTime;
+                    if (m_fReadyTimer > m_fReadyTimerMax)
+                    {
+                        m_fReadyTimer = 0;
+                        m_eNextState = DataEnum.eState.Active;
+                        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_ReadyToIdle;
+                    }
+                }
+                else
+                {
+                    Modify_Pos();
+                    m_fReadyTimer = 0;
+                }
+                
+              
+            }
+           
+        }
+    }
+
+    private void ReadyToActive()
+    {
+        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
+            == GConst.BaseValue.iStatFlag_ReadyToIdle)
+        {
+            EndModifyPos();
+            m_eNextState = DataEnum.eState.Active;
+        }
+    }
+
+    private void Construction_Ready()
+    {
+
+    }
+    #endregion
+
+    #region ActiveState_Func
+
     private void CheckTarget()
     {
-        if(m_objTargetMob == null)
+        if (m_objTargetMob == null)
         {
             StageController stageController = GameObject.FindWithTag("TotalController").GetComponent<StageController>();
             int iMobCount = stageController.Get_MobCount;
@@ -182,7 +250,7 @@ public class TowerAI : BaseObj
                 for (int i = 0; i < iMaxCount; ++i)
                 {
                     //GameObject temp = GameObject.FindWithTag("Management").GetComponent<Object_Manager>().m_dictClone_Object[strWaveName][m_iTargetID];
-   
+
                     if (i >= Object_Manager.Instance.m_dictClone_Object[strWaveName].Count)
                     {
                         break;
@@ -193,7 +261,7 @@ public class TowerAI : BaseObj
                     {
                         continue;
                     }
-                    if(temp.GetComponent<MobAI>().GetState != DataEnum.eState.Active)
+                    if (temp.GetComponent<MobAI>().GetState != DataEnum.eState.Active)
                         continue;
 
                     Vector3 vecTargetToLength = temp.transform.position - m_Transform.position;
@@ -207,15 +275,10 @@ public class TowerAI : BaseObj
                 }
             }
         }
-       
-     
-        //m_tagStatus.fRange
 
-
-
-        if(m_objTargetMob)
+        if (m_objTargetMob)
             DoAttack();
-        else     
+        else
             DoIdle();
     }
 
@@ -232,13 +295,13 @@ public class TowerAI : BaseObj
                 return;
 
             }
-                m_Transform.LookAt(m_objTargetMob.transform);
+            m_Transform.LookAt(m_objTargetMob.transform);
             Vector3 vecTargetToLength = m_objTargetMob.transform.position - m_Transform.position;
             float fLength = vecTargetToLength.magnitude;
 
             if (fLength > m_tagStatus.fRange)
             {
-              //  Debug.Log("RangeOut");
+                //  Debug.Log("RangeOut");
                 m_objTargetMob = null;
                 m_iTargetID = 0;
             }
@@ -247,7 +310,7 @@ public class TowerAI : BaseObj
         if (m_tagStatus.fAtkCoolTime > m_tagStatus.fMaxAtkCoolTime)
         {
             m_tagStatus.fAtkCoolTime = 0;
-           // Debug.Log("Attack");
+            // Debug.Log("Attack");
             DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
             tagTemp.iAtk = m_tagStatus.iAtk;
             tagTemp.fMaxLifeTime = m_tagStatus.fRange;
@@ -256,7 +319,7 @@ public class TowerAI : BaseObj
             tagTemp.objTarget = m_objTargetMob;
             tagTemp.fMoveSpeed = 3.0f;
 
-            GameObject retObj =  ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
+            GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
             retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
             //공격
             //공격 중 타겟팅이 벗어나면 해제
@@ -268,5 +331,27 @@ public class TowerAI : BaseObj
     private void DoIdle()
     {
         m_tagStatus.fAtkCoolTime = 0;
+    }
+
+    #endregion
+
+    public void StartModifyPos()
+    {
+        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyStart;
+
+    }
+    public void EndModifyPos()
+    {
+        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyEnd;
+    }
+    private void Modify_Pos()
+    {
+
+
+        if (m_vCurModifyPos != m_vNextModifyPos)
+        {
+            m_vCurModifyPos = m_vNextModifyPos;
+            transform.position = m_vCurModifyPos;
+        }
     }
 }

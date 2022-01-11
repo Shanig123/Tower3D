@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GConst
 {
-    class BaseValue
+    static class BaseValue
     {
         public const int iTowerGold = 10;
         public const int iHorizontal = 11;
@@ -12,6 +12,14 @@ namespace GConst
         public const int iMaxRank_ID_Count = 8;
 
 
+        public const int iStatFlag_NULL = 0;
+        public const int iStatFlag_CheckInStage = 1;
+        public const int iStatFlag_ReadyToIdle = (1<<1);
+        public const int iStatFlag_CheckModifyStart = (1 << 2);
+        public const int iStatFlag_CheckModifyEnd = (1 << 3);
+
+        static public Vector3 vLeftTop { get { return new Vector3(-5.5f, 0, 5.5f); } }
+        static public Vector3 vRightBottom { get { return new Vector3(5.5f, 0, -5.5f); } }
     }
 
 

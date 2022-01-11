@@ -107,7 +107,7 @@ public class Object_Manager : MonoBehaviour
 
     #region InstanceFunc
 
-    private void InstanceAlphaBlock()
+    private List<GameObject> InstanceAlphaBlock()
     {
         List<GameObject> gameObjects = new List<GameObject>();
 
@@ -135,9 +135,10 @@ public class Object_Manager : MonoBehaviour
         }
 
         m_dictClone_Object.Add("AlphaBlock", gameObjects);
+        return gameObjects;
     }
 
-    private void InstanceMoster()
+    private List<GameObject> InstanceMoster()
     {
         List<GameObject> gameObjects = new List<GameObject>();
 
@@ -150,6 +151,7 @@ public class Object_Manager : MonoBehaviour
             }
         }
         m_dictClone_Object.Add("Monster", gameObjects);
+        return gameObjects;
     }
 
     public GameObject InstanceObject(Vector3 _vCreatePos, string _strCloneKeyName, string _strPrefabsKeyName0, string _strPrefabsKeyName1)
@@ -204,8 +206,16 @@ public class Object_Manager : MonoBehaviour
             return createObj;
         }
     }
-
-    private void InstanceCreateZone(Vector3 vPos)
+    public GameObject InstanceObject(Vector3 _vCreatePos, string _strPrefabsKeyName0, string _strPrefabsKeyName1)
+    {
+        Quaternion temp = Quaternion.LookRotation(new Vector3(0, 0, -1));
+        GameObject createObj = Instantiate(
+            Resource_Manager.
+            Instance.m_dictPrefabs[_strPrefabsKeyName0][_strPrefabsKeyName1].objPrefabs, _vCreatePos, temp
+            );
+        return createObj;
+    }
+    private List<GameObject> InstanceCreateZone(Vector3 vPos)
     {
         List<GameObject> gameObjects = new List<GameObject>();
 
@@ -216,6 +226,7 @@ public class Object_Manager : MonoBehaviour
 
         m_dictClone_Object.Add("CreateZone", gameObjects);
         InstanceWaypointZone(vPos);
+        return gameObjects;
     }
 
     private void InstanceWaypointZone(Vector3 vPos)
@@ -275,11 +286,7 @@ public class Object_Manager : MonoBehaviour
         //}
         m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(1, 0, 0, 0.5f));
         m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().enabled = true;
-        //foreach (GameObject iter in m_dictClone_Object["AlphaBlock"])
-        //{
-        //    iter.GetComponent<Renderer>().enabled = false;
-        //}
-
+        AlphaBlockRenderOnOff(false);
     }
 
     private void InstanceBox()
@@ -295,6 +302,14 @@ public class Object_Manager : MonoBehaviour
 
         m_dictClone_Object.Add("Box", gameObjects);
     }
+
     #endregion
 
+    public void AlphaBlockRenderOnOff(bool _bOnOff)
+    {
+        foreach (GameObject iter in m_dictClone_Object["AlphaBlock"])
+        {
+            iter.GetComponent<Renderer>().enabled = _bOnOff;
+        }
+    }
 }

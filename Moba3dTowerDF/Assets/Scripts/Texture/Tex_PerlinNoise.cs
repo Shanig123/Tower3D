@@ -12,7 +12,7 @@ public class Tex_PerlinNoise : MonoBehaviour
     [SerializeField] private float m_fAmplitude = 1;
     [SerializeField] private float m_fFrequency = 1;
 
-    [SerializeField] private StageController stageController;
+    [SerializeField] private DataController dataController;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private int XSeed = 1;
@@ -29,7 +29,7 @@ public class Tex_PerlinNoise : MonoBehaviour
     {
         Texture2D noiseTex = new Texture2D(64, 64);
         spriteRenderer.material.mainTexture = noiseTex;
-        iSeed = stageController.Get_Seed;
+        iSeed = dataController.Get_Seed;
         System.Random test = new System.Random(iSeed);
         XSeed = test.Next(0, 99999);
         YSeed = test.Next(0, 99999);

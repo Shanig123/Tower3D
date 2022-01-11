@@ -9,7 +9,6 @@ public class StageController : MonoBehaviour
     {
         m_eLevel = DataEnum.eDifficulty.End;
 
-        m_iSeedNumber = 0;
         m_iCurWave = 0;
         m_iNextWave = 0;
         m_iCreateCount = 0;
@@ -22,15 +21,13 @@ public class StageController : MonoBehaviour
       //  m_bUpdateInit = false;
         m_bCreateModeOnOff = false;
         m_bWaveOnOff = false;
+
+        m_bDayNight = false;
     }
     #region Value
 
     [SerializeField] public bool m_bWaveStart = false;
 
-    [SerializeField] private int m_iSeedNumber;
-
-
-   
     [SerializeField] private DataEnum.eDifficulty m_eLevel ;
 
     [SerializeField] private int m_iCurWave;
@@ -49,19 +46,14 @@ public class StageController : MonoBehaviour
     [SerializeField] private float m_fCreateCoolTimeMax;
 
     [SerializeField] private Object_Manager m_Object_Manager;
-
-   // [SerializeField] private bool m_bUpdateInit;
+    
     [SerializeField] private bool m_bCreateModeOnOff;
     [SerializeField] private bool m_bWaveOnOff;
+
+    [SerializeField] private bool m_bDayNight;
+
     #endregion
     #region Property
-    public int Get_Seed
-    {
-        get
-        {
-            return m_iSeedNumber;
-        }
-    }
     public DataEnum.eDifficulty Get_Difficulty
     {
         get
@@ -104,6 +96,16 @@ public class StageController : MonoBehaviour
             return m_bWaveOnOff;
         }
     }
+
+    //true = day / false = night
+    public bool Get_DayNight
+    {
+        get
+        {
+            return m_bDayNight;
+        }
+    }
+
     public void Add_MobCount()
     {
         ++m_iCurMobCount;
@@ -115,36 +117,22 @@ public class StageController : MonoBehaviour
 
     #endregion
 
-    void Awake() //Initialize
-    {
-
-        m_iSeedNumber = Time.time.GetHashCode();
-        if (m_iSeedNumber == 0)
-        {
-            m_iSeedNumber = System.DateTime.Now.GetHashCode();
-        }
-        UnityEngine.Random.InitState(m_iSeedNumber);
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        m_iSeedNumber = Time.time.GetHashCode();
-        if (m_iSeedNumber == 0)
-        {
-            m_iSeedNumber = System.DateTime.Now.GetHashCode();
-        }
-        UnityEngine.Random.InitState(m_iSeedNumber);
-        */
         m_Object_Manager = GameObject.FindGameObjectWithTag("Management").GetComponent<Object_Manager>();
+
+        int iSeed = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().Get_Seed;
+        System.Random rd = new System.Random(iSeed);
+        m_bDayNight = rd.Next(0, 2) > 0 ? true : false;
+
     }
     // Update is called once per frame
 
     void Update()
     {
         m_fStageTimer += Time.deltaTime;
+
         CheckWait();
         CheckCreateWave();
     }
@@ -241,8 +229,5 @@ public class StageController : MonoBehaviour
             m_bCreateModeOnOff = false;
         }
         //yield return null;
-    }
-    
-
-    
+    } 
 }

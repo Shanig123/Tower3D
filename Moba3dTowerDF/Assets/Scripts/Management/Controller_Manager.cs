@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class Controller_Manager : MonoBehaviour
+public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragHandler, UnityEngine.EventSystems.IEndDragHandler
 {
     // Start is called before the first frame update
 
 
     #region Value
     private static Controller_Manager m_cInstance = null;
+    private bool m_bIsClick = false;
+    private bool m_bIsDrag = false;
+
+    [SerializeField] private float m_fClickTime = 0;   
+    [SerializeField] private int m_iClickState = -1;
+
 #if UNITY_EDITOR
     public bool m_bDebugmode = false;
 #endif
@@ -27,6 +34,8 @@ public class Controller_Manager : MonoBehaviour
             return m_cInstance;
         }
     }
+
+    public float Get_ClickTime { get { return m_fClickTime; } }
     #endregion
     #region Awake
     void Awake()
@@ -55,9 +64,34 @@ public class Controller_Manager : MonoBehaviour
         m_bDebugmode = true;
         DebugConsoleMode();
 #endif
-        if(Application.platform == RuntimePlatform.Android)
+        CheckInputMouse();
+
+
+
+        if (Application.platform == RuntimePlatform.Android)
             AndroidKeyInput();
+
+
     }
+
+    #region DragFunc
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        // throw new System.NotImplementedException();
+        m_bIsDrag = true;
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // throw new System.NotImplementedException();
+        m_bIsDrag = false;
+    }
+
+    #endregion
+
+
 
     private void DebugConsoleMode()
     {
@@ -84,4 +118,47 @@ public class Controller_Manager : MonoBehaviour
         }
     }
 
+    public bool LButtonDown()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_bIsClick = true;
+            m_iClickState = 1;
+            return true;
+        }
+        return false;
+
+    }
+    public bool LButtonUp()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            m_bIsClick = false;
+            m_fClickTime = 0;
+            m_iClickState = 2;
+            return true;
+        }
+        return false;
+    }
+
+    public int CheckInputMouse()
+    {
+        // using  UnityEngine.EventSystems;
+        LButtonUp();
+        IsLongClick();
+
+        return -1;
+    }
+
+    private void IsLongClick()
+    {
+        if (m_bIsClick)
+        {
+            m_fClickTime += Time.deltaTime;
+        }
+        else
+        {
+            m_fClickTime = 0;
+        }
+    }
 }

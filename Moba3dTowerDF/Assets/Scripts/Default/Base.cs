@@ -36,7 +36,7 @@ namespace DataEnum
         End         = 0
     };
 
-    public enum eControl_Mode { NoControl, Construction, End };
+    public enum ePickingMode { Tile, Obj_Tower, End };
 
 }
 namespace DataStruct
@@ -65,6 +65,7 @@ namespace DataStruct
     {
         //DataEnum.eRankID
         public int iMobId;
+        public int iStatus;
 
         public float fRange;
 

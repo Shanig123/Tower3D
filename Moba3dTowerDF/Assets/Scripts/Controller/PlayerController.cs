@@ -4,23 +4,43 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
+  
+    /*
+     * 처음 피킹한 타워가 보드 밖이라면 -> 보드안으로 배치하는 기능이여야함.
+     * ㄴ 보드 밖이라면 타워가 보드밖인지 안인지 체크해야할 수 있음.
+     * ㄴ 짧게 눌렀을 시에만 작동.
+     * ㄴ 한번이라도 오브젝트가 타워 안으로 들어왔다면 반드시 배치해야함.
+     * 
+     * 처음 피킹항 타워가 보드 안이라면 -> 보드 안에서 이동하거나 타워를 서로 합치는 기능이여야함.
+     * ㄴ 그렇다면 이동중에 손을 뗄 시에 타워가 피킹이 된다면 합치는 기능으로 하는 것이 합당함.
+     * ㄴ 합칠 때 예외처리가 필요함. 첫 피킹시 위치를 가져올 필요가 있음.
+     * ㄴ 타워 안을 선택시 길게 누르는 기능이 필요함.
+     * 
+     * ui 관련 및 외부 지형들을 터치했을 때 리셋하는 기능 필요함.
+     * 
+     * */
 
     #region Value
+    private const int INBOARD = 1;
+    private const int OUTBOARD = 0;
+    private const int OTHER = -1;
 
     [SerializeField] private int m_iIncomeKillCount = 0;
     [SerializeField] private int m_iTotalKillCount = 0;
+    [SerializeField] private int m_iCheckPickingTower = OTHER;
 
     [SerializeField] private DataStruct.tagPlayerData m_tPlayerData;
 
     [SerializeField] private string m_strLayerMaskName = "";
 
-    [SerializeField] private StageController m_stageController;
+    [SerializeField] private DataEnum.ePickingMode m_eNextControlState = DataEnum.ePickingMode.End;
+    [SerializeField] private DataEnum.ePickingMode m_eCurControlState = DataEnum.ePickingMode.End;
 
-    [SerializeField] private DataEnum.eControl_Mode m_eNextControlState = DataEnum.eControl_Mode.End;
-    [SerializeField] private DataEnum.eControl_Mode m_eCurControlState = DataEnum.eControl_Mode.End;
+    //[SerializeField] private bool m_bFirstInit = false;
 
-    [SerializeField] private bool m_bFirstInit = false;
+    [SerializeField] private GameObject m_objPickTower;
+    [SerializeField] private Vector3 m_vPickTowerPos;
+    [SerializeField] private GameObject m_objPicking;
 
     #endregion
 
@@ -160,9 +180,10 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    // Start is called before the first frame update
     void Start()
     {
-        m_eNextControlState = DataEnum.eControl_Mode.NoControl;
+        m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         m_tPlayerData.iGold = 10000;
         //m_tPlayerData.iGold = 20;
     }
@@ -170,20 +191,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(false == m_bFirstInit)
-            FirstInit();
-
+        //if(false == m_bFirstInit)
+        //    UpdateInit();
+        CheckInputMouse();
         ChangeController();
-        DoController();
-
-
-    }
-
-    void  FirstInit()
-    {
-        m_bFirstInit = true;
+      
+        DoController(false);
 
     }
+
+    //void  UpdateInit()
+    //{
+    //    m_bFirstInit = true;
+
+    //}
 
     void ChangeController()
     {
@@ -191,14 +212,19 @@ public class PlayerController : MonoBehaviour
         {
             switch(m_eNextControlState)
             {
-                case DataEnum.eControl_Mode.Construction:
+                case DataEnum.ePickingMode.Obj_Tower:
                     {
+                        m_objPicking = null;
+                        m_objPickTower = null;
+                        m_vPickTowerPos = Vector3.zero;
+                        m_iCheckPickingTower = OTHER;
                         m_strLayerMaskName = "Tower";
                     }
                     break;
 
-                case DataEnum.eControl_Mode.NoControl:
+                case DataEnum.ePickingMode.Tile:
                     {
+                        m_objPicking = null;
                         m_strLayerMaskName = "Tile";
                     }
                     break;
@@ -209,24 +235,61 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DoController()
+    void DoController(bool _bCheckPicking)
     {
         switch (m_eCurControlState)
         {
-            case DataEnum.eControl_Mode.Construction:
+            case DataEnum.ePickingMode.Obj_Tower:
                 {
-
+                    if (_bCheckPicking)
+                        Picking_Tower();
+                    else
+                        Picked_Tower();
                 }
                 break;
-            case DataEnum.eControl_Mode.NoControl:
+            case DataEnum.ePickingMode.Tile:
                 {
-
+                    if (_bCheckPicking)
+                        Picking_Tile();
+                    else
+                        Picked_Tile();
                 }
                 break;
             default:
                 break;
         }
     }
+
+    void CheckInputMouse()
+    {
+        
+        float fClickTime =    Controller_Manager.Instance.Get_ClickTime;
+        if(fClickTime > 1.0f)
+        {
+
+        }
+        else
+        {
+           if( Controller_Manager.Instance.LButtonUp())
+           {
+
+           }
+
+        }
+    }
+
+    public void Reset_PickingInfo()
+    {
+        m_objPicking = null;
+        m_objPickTower = null;
+        m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+        m_vPickTowerPos = Vector3.zero;
+        m_iCheckPickingTower = OTHER;
+        m_strLayerMaskName = "Tower";
+
+        ChangeController();
+    }
+
     void RayPicking()
     {
         RaycastHit hit;
@@ -236,9 +299,126 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-
             print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);
 
+            if (hit.collider.gameObject)
+            {
+                m_objPicking = hit.collider.gameObject;
+                DoController(true);
+            }
+            else
+                m_objPicking = null;
         }
+    }
+
+    public bool RayPicking(string _strLayerMask)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        int iLayerMask = (1 << LayerMask.NameToLayer(_strLayerMask)) | (1 << LayerMask.NameToLayer("UI"));
+
+        if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
+        {
+            print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);           
+            return true;
+        }
+        return false;
+    }
+
+    public GameObject RayPicking(string _strLayerMask, RaycastHit _RayHit)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        int iLayerMask = (1 << LayerMask.NameToLayer(_strLayerMask)) | (1 << LayerMask.NameToLayer("UI"));
+
+        if (Physics.Raycast(ray, out _RayHit, 20.0f, iLayerMask))
+        {
+            print("Picked object name: " + _RayHit.transform.name + ", position: " + _RayHit.transform.position + "   " + iLayerMask);
+
+            return _RayHit.collider.gameObject;
+        }
+        return null;
+    }
+
+    private void Picking_Tower()
+    {
+        m_objPickTower = m_objPicking;
+        m_eNextControlState = DataEnum.ePickingMode.Tile;
+        
+        Check_TowerInBoard();
+        Check_Exception_TowerInBoard();
+
+        m_objPicking = null;
+    }
+
+    private void Picked_Tower()
+    {
+
+    }
+
+    private void Check_TowerInBoard()
+    {
+       if((m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+                == GConst.BaseValue.iStatFlag_CheckInStage)
+        {
+            m_iCheckPickingTower = INBOARD;
+            m_vPickTowerPos = m_objPickTower.transform.position;
+        }
+       else if((m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+                != GConst.BaseValue.iStatFlag_CheckInStage)
+        {
+            m_iCheckPickingTower = OUTBOARD;
+            m_vPickTowerPos = m_objPickTower.transform.position;
+        }
+    }
+    private void Check_Exception_TowerInBoard()
+    {
+        if (OTHER == m_iCheckPickingTower)
+        {
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+            m_vPickTowerPos = Vector3.zero;
+            m_objPickTower = null;
+        }
+    }
+
+    private void Picking_Tile()
+    {
+        if(INBOARD == m_iCheckPickingTower)
+        {
+
+        }
+        else if(OUTBOARD == m_iCheckPickingTower)
+        {
+            if(RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+            {
+                return; // 오브젝트가 있다면 바로 리턴함.
+            }
+
+            Vector3 vPickPos = m_objPicking.transform.position;
+            vPickPos.y = 0;
+            m_objPickTower.transform.position = vPickPos;
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+        }
+    }
+    private void Picked_Tile()
+    {
+        if (INBOARD == m_iCheckPickingTower)
+        {
+            if(RayPicking("Tower",new RaycastHit()))
+            {
+
+            }
+        }
+        else if (OUTBOARD == m_iCheckPickingTower)
+        {
+            GameObject pickedObj = RayPicking("Tower", new RaycastHit());
+            if (pickedObj)
+            {
+
+            }
+        }
+      
+
     }
 }

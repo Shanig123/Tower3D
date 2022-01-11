@@ -46,12 +46,13 @@ public class Obj_Torche : MonoBehaviour
 
     private void UpdateInit()
     {
-        CheckSeed();
+        CheckDayNight();
 
-        if (!m_bOnOff)
+        if (!m_bOnOff) // false¿œ∂ß ≥∑¿”.
         {
             //m_Light.isActiveAndEnabled = false;
-            //gameObject.
+            gameObject.SetActive(false);
+            //m_Light.
             return;
         }
         System.Random random = new System.Random(Time.deltaTime.GetHashCode());
@@ -61,11 +62,8 @@ public class Obj_Torche : MonoBehaviour
         m_fRangeRatio += m_fRandorm;
         m_bInit = true;
     }
-    private void CheckSeed()
+    private void CheckDayNight()
     {
-        int iSeed  =  GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>().Get_Seed;
-
-        System.Random rd = new System.Random(iSeed);
-        m_bOnOff = rd.Next(0, 1) > 0 ? true : false ;
+        m_bOnOff = GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>().Get_DayNight ?  false: true;
     }
 }
