@@ -1813,7 +1813,7 @@ Transform:
   m_GameObject: {fileID: 1904107386653458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20, y: 0, z: 29}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4459555001931780}
   - {fileID: 4080794540380606}
@@ -1965,8 +1965,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6, y: 0.6, z: 0.6}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &-2968284913827903855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1992,6 +1992,7 @@ MonoBehaviour:
     iAtk: 1
     iLvl: 0
     iMobId: 0
+    iStatus: 0
     fRange: 0
     fAtkCoolTime: 0
     fMaxAtkCoolTime: 0
@@ -1999,6 +2000,8 @@ MonoBehaviour:
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1926030801303212
 GameObject:
   m_ObjectHideFlags: 0

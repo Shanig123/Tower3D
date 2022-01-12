@@ -36,7 +36,13 @@ public class DataController : MonoBehaviour
 
     private void Awake()
     {
-        if (0 == Game_Manager.Instance.m_iStageSeed)
+        Game_Manager game_Manager;
+        if (Game_Manager.Instance)
+            game_Manager = Game_Manager.Instance;
+        else
+            game_Manager = GameObject.FindGameObjectWithTag("Management").GetComponent<Game_Manager>();
+
+        if (0 == game_Manager.m_iStageSeed)
         {
             m_iSeedNumber = Time.time.GetHashCode();
             if (m_iSeedNumber == 0)
@@ -48,9 +54,11 @@ public class DataController : MonoBehaviour
         {
             m_iSeedNumber = Game_Manager.Instance.m_iStageSeed;
         }
+
         //¹ã SeedTest : 958020666
         //³· : 1815607085
-        m_iSeedNumber = 958020666;
+        //m_iSeedNumber = 958020666;
+
         UnityEngine.Random.InitState(m_iSeedNumber);
     }
 

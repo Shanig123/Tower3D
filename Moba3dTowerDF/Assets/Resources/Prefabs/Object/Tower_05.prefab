@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 4853161833948474}
   - component: {fileID: 95428417968735458}
   - component: {fileID: 3416805890053555398}
+  - component: {fileID: 1287166691568360246}
   m_Layer: 6
   m_Name: Tower_05
   m_TagString: Untagged
@@ -439,7 +440,42 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1287166691568360246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206288095452438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_tagStatus:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iMobId: 0
+    iStatus: 0
+    fRange: 0
+    fAtkCoolTime: 0
+    fMaxAtkCoolTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1227004588433028
 GameObject:
   m_ObjectHideFlags: 0

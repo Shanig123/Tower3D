@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
      * ㄴ 보드 밖이라면 타워가 보드밖인지 안인지 체크해야할 수 있음.
      * ㄴ 짧게 눌렀을 시에만 작동.
      * ㄴ 한번이라도 오브젝트가 타워 안으로 들어왔다면 반드시 배치해야함.
+     * ㄴ 안으로 배치되었다면 건설컨트롤러에서 해당 오브젝트를 리스트 내에서 제거 필요함.
+     * 
      * 
      * 처음 피킹항 타워가 보드 안이라면 -> 보드 안에서 이동하거나 타워를 서로 합치는 기능이여야함.
      * ㄴ 그렇다면 이동중에 손을 뗄 시에 타워가 피킹이 된다면 합치는 기능으로 하는 것이 합당함.
@@ -250,7 +252,9 @@ public class PlayerController : MonoBehaviour
             case DataEnum.ePickingMode.Tile:
                 {
                     if (_bCheckPicking)
+                    {
                         Picking_Tile();
+                    }
                     else
                         Picked_Tile();
                 }
@@ -274,7 +278,10 @@ public class PlayerController : MonoBehaviour
            {
 
            }
-
+           else if(Controller_Manager.Instance.LButtonDown())
+           {
+                RayPicking();
+           }
         }
     }
 
@@ -308,6 +315,10 @@ public class PlayerController : MonoBehaviour
             }
             else
                 m_objPicking = null;
+        }
+        else
+        {
+            Reset_PickingInfo();
         }
     }
 
@@ -343,6 +354,7 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tower()
     {
+        print("picking Tower");
         m_objPickTower = m_objPicking;
         m_eNextControlState = DataEnum.ePickingMode.Tile;
         
@@ -384,11 +396,20 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tile()
     {
-        if(INBOARD == m_iCheckPickingTower)
+        print("picking Tile");
+        if (INBOARD == m_iCheckPickingTower)
         {
+            if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+            {
+                return; // 오브젝트가 있다면 바로 리턴함.
+            }
 
+            Vector3 vPickPos = m_objPicking.transform.position;
+            vPickPos.y = 0;
+            m_objPickTower.transform.position = vPickPos;
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
-        else if(OUTBOARD == m_iCheckPickingTower)
+        else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
         {
             if(RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
             {
@@ -412,11 +433,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (OUTBOARD == m_iCheckPickingTower)
         {
-            GameObject pickedObj = RayPicking("Tower", new RaycastHit());
-            if (pickedObj)
-            {
+            //GameObject pickedObj = RayPicking("Tower", new RaycastHit());
+            //if (pickedObj)
+            //{
 
-            }
+            //}
         }
       
 

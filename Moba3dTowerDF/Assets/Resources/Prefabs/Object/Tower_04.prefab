@@ -1045,6 +1045,7 @@ GameObject:
   - component: {fileID: 4878457660918362}
   - component: {fileID: 95149865022628894}
   - component: {fileID: -8890305379110063704}
+  - component: {fileID: -3786161470732889929}
   m_Layer: 6
   m_Name: Tower_04
   m_TagString: Untagged
@@ -1061,7 +1062,7 @@ Transform:
   m_GameObject: {fileID: 1447271420225298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10, y: 0, z: 24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4625661323867242}
   - {fileID: 4900160461069506}
@@ -1098,8 +1099,43 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6, y: 0.6, z: 0.6}
+  m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &-3786161470732889929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447271420225298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_tagStatus:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iMobId: 0
+    iStatus: 0
+    fRange: 0
+    fAtkCoolTime: 0
+    fMaxAtkCoolTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1451636307177142
 GameObject:
   m_ObjectHideFlags: 0

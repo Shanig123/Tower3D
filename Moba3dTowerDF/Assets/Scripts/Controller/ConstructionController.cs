@@ -8,12 +8,12 @@ public class ConstructionController : MonoBehaviour
         : base()
     {
         m_eLevel = DataEnum.eDifficulty.End;
-        m_listAwaitObj = new Queue<GameObject>();
+        m_listAwaitObj = new List<GameObject>();
     }
     #region Value
 
     [SerializeField] private DataEnum.eDifficulty m_eLevel;
-    [SerializeField] private Queue<GameObject> m_listAwaitObj;
+    [SerializeField] private List<GameObject> m_listAwaitObj;
     //[SerializeField] private Dictionary<int, string> m_mapIDToObjKey;
   
     #endregion
@@ -119,7 +119,7 @@ public class ConstructionController : MonoBehaviour
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
             print(strObjKey + "_" + _iTowerId);
-            m_listAwaitObj.Enqueue(Object_Manager.Instance.InstanceObject(vPos, "Tower", "Object", strObjKey));
+            m_listAwaitObj.Add(Object_Manager.Instance.InstanceObject(vPos, "Tower", "Object", strObjKey));
         }
         else
         {

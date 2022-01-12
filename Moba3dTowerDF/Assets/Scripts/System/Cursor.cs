@@ -84,8 +84,9 @@ public class Cursor : MonoBehaviour
     {
         //RaycastHit
         //Input.
-        Debug.Log(m_vCursorPos);
-        Debug.Log(Input.mousePosition);
+
+        //Debug.Log(m_vCursorPos);
+        //Debug.Log(Input.mousePosition);
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

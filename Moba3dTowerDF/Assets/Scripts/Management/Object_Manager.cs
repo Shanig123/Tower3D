@@ -295,7 +295,7 @@ public class Object_Manager : MonoBehaviour
 
         for (int x = 0; x < width; ++x)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["Box_02"].objPrefabs, new Vector3(x - 5.0f, 0.5f, -6.5f), Quaternion.identity);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["Box_02"].objPrefabs, new Vector3(-8f, 0.5f, x - 5.0f), Quaternion.identity);
             createObject.name = createObject.name + "_" + x;
             gameObjects.Add(createObject);
         }

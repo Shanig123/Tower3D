@@ -1965,8 +1965,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.6, y: 0.6, z: 0.6}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &-8521412798770373358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1992,6 +1992,7 @@ MonoBehaviour:
     iAtk: 2
     iLvl: 0
     iMobId: 0
+    iStatus: 0
     fRange: 0
     fAtkCoolTime: 0
     fMaxAtkCoolTime: 0
@@ -1999,6 +2000,8 @@ MonoBehaviour:
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1926030801303212
 GameObject:
   m_ObjectHideFlags: 0
