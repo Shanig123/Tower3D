@@ -12,6 +12,7 @@ public class Obj_Torche : MonoBehaviour
     private bool m_bInit = false;
     public float m_fRangeRatio;
     public float m_fRandorm;
+    public float m_fLightChangeSpeed = 0.5f;
     public bool m_bOnOff = true;
 
 
@@ -40,7 +41,7 @@ public class Obj_Torche : MonoBehaviour
 
     private void Update_LightRange()
     {
-        m_fTime += Time.deltaTime * m_fRandorm;
+        m_fTime += Time.deltaTime * m_fRandorm* m_fLightChangeSpeed;
         m_Light.range = m_fRange + (Mathf.Sin(m_fTime) * m_fRangeRatio);
     }
 
@@ -56,10 +57,10 @@ public class Obj_Torche : MonoBehaviour
             return;
         }
         System.Random random = new System.Random(Time.deltaTime.GetHashCode());
-
-        m_fRandorm = (float)random.NextDouble();
+       
+        m_fRandorm = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().ExtractRandomNumberFromSeed();
         m_fRandorm *= m_fRangeRatio;
-        m_fRangeRatio += m_fRandorm;
+        //m_fRangeRatio += m_fRandorm;
         m_bInit = true;
     }
     private void CheckDayNight()

@@ -98,6 +98,12 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape");
+            Game_Manager.Instance.AppQuit();
+        }
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            Debug.Log("Tab");
+            SceneManager.LoadScene("MainUIScene");
         }
     }
 

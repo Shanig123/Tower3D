@@ -13,6 +13,7 @@ public class Game_Manager : MonoBehaviour
     // public static Controller_Manager CCtrl_Mgr = Controller_Manager.Instance;
 
     // public float fDeltaTime = Time.deltaTime; 
+    public int m_iStageSeed = 0;
 
     public DataStruct.tagGameData m_tGameData;
 

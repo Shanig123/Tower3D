@@ -9,9 +9,16 @@ public class DataController : MonoBehaviour
     {
         m_iSeedNumber = 0;     
     }
+    ~DataController()
+    {
+        print("Free DataController.");
+        Game_Manager.Instance.m_iStageSeed = 0;     
+    }
+
     #region Value
 
-    [SerializeField] private int m_iRandomCallCount = 0;
+    [SerializeField] private int m_iRandomIntCallCount = 0;
+    [SerializeField] private int m_iRandomFloatCallCount = 0;
     [SerializeField] private int m_iSeedNumber;
 
     #endregion
@@ -29,11 +36,21 @@ public class DataController : MonoBehaviour
 
     private void Awake()
     {
-        m_iSeedNumber = Time.time.GetHashCode();
-        if (m_iSeedNumber == 0)
+        if (0 == Game_Manager.Instance.m_iStageSeed)
         {
-            m_iSeedNumber = System.DateTime.Now.GetHashCode();
+            m_iSeedNumber = Time.time.GetHashCode();
+            if (m_iSeedNumber == 0)
+            {
+                m_iSeedNumber = System.DateTime.Now.GetHashCode();
+            }
         }
+        else
+        {
+            m_iSeedNumber = Game_Manager.Instance.m_iStageSeed;
+        }
+        //¹ã SeedTest : 958020666
+        //³· : 1815607085
+        m_iSeedNumber = 958020666;
         UnityEngine.Random.InitState(m_iSeedNumber);
     }
 
@@ -51,15 +68,15 @@ public class DataController : MonoBehaviour
 
     public int ExtractRandomNumberFromSeed(int _iMin, int _iMax)
     {
-        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomCallCount;
-        ++m_iRandomCallCount;
+        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomIntCallCount;
+        ++m_iRandomIntCallCount;
         System.Random rd = new System.Random(iSeed);
         return rd.Next(_iMin, _iMax);
     }
     public float ExtractRandomNumberFromSeed()
     {
-        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomCallCount;
-        ++m_iRandomCallCount;
+        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomFloatCallCount;
+        ++m_iRandomFloatCallCount;
         System.Random rd = new System.Random(iSeed);
         return (float)rd.NextDouble();
     }
