@@ -86,7 +86,7 @@ public class Object_Manager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
             Debug.Log("SceneChange");
-            InstanceAlphaBlock();
+           
             m_StageController = GameObject.FindWithTag("TotalController").GetComponent<StageController>();
            if(DataEnum.eDifficulty.End == m_StageController.Get_Difficulty)
             {
@@ -94,11 +94,8 @@ public class Object_Manager : MonoBehaviour
 
                 m_StageController.Set_Difficulty = DataEnum.eDifficulty.Easy;
             }
-           if (DataEnum.eDifficulty.Easy == m_StageController.Get_Difficulty)
-                InstanceWaypointsType1();
 
-            InstanceAwaitBox();
-
+            InstanceObjects();
 
         }
 
@@ -106,6 +103,15 @@ public class Object_Manager : MonoBehaviour
     }
 
     #region InstanceFunc
+
+    private void InstanceObjects()
+    {
+        InstanceAlphaBlock();
+        if (DataEnum.eDifficulty.Easy == m_StageController.Get_Difficulty)
+            InstanceWaypointsType1();
+
+        InstanceAwaitBox();
+    }
 
     private List<GameObject> InstanceAlphaBlock()
     {
@@ -118,7 +124,7 @@ public class Object_Manager : MonoBehaviour
             for (int x = 0; x < width; ++x)
             {
                 Vector3 vCreatePos = new Vector3(x - 5.0f, -0.25f, y - 5.0f);
-                GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["Cube"].objPrefabs, vCreatePos, Quaternion.identity);
+                GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vCreatePos, Quaternion.identity);
                 createObject.name = createObject.name + "_" + i;
                 gameObjects.Add(createObject);
 
@@ -242,8 +248,9 @@ public class Object_Manager : MonoBehaviour
       
         if(m_dictClone_Object.ContainsKey("Waypoints"))
         {
-
-            m_dictClone_Object["Waypoints"].Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vPos, Quaternion.identity));
+            GameObject objCreate = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vPos, Quaternion.identity);
+            objCreate.layer = 0;
+            m_dictClone_Object["Waypoints"].Add(objCreate);
 
             //float Color = ((float)10 / 121.0f);
             //m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(Color, 0, 0, 0));
@@ -295,8 +302,57 @@ public class Object_Manager : MonoBehaviour
         m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(1, 0, 0, 0.5f));
         m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().enabled = true;
         AlphaBlockRenderOnOff(false);
+
+        NodeSetType1();
+    }
+    private void NodeSetType1()
+    {
+        int[] iArr = { -4, 3, -4 ,
+             -1, 2, -1, 3, -1, 2, -1,
+             -1, 2, -1, 3, -1, 2, -1,
+             -11,
+             3, -1, 3, -1 , 3,
+             3, -1, 3, -1 , 3,
+             3, -1, 3, -1 , 3,
+             -11,
+             -1, 2, -1, 3, -1, 2, -1,
+             -1, 2, -1, 3, -1, 2, -1,
+             -1, 2, -1, 3, -4
+        };
+
+        int iter = 0;
+
+        for(int i =0; i< iArr.Length; ++i)
+        {
+            if(iArr[i]>0)
+            {
+                for (int j = 0; j< iArr[i];++j)
+                {
+                    ++iter;
+                }
+            }
+            else
+            {
+                for (int j = 0; j < (-iArr[i]); ++j)
+                {
+                    //m_dictClone_Object["AlphaBlock"][iter].layer = (1 << LayerMask.NameToLayer("NoCollision"));
+                    m_dictClone_Object["AlphaBlock"][iter].layer = 0;
+                    ++iter;
+                }
+            }
+        }
+        
     }
 
+    private void InstanceWaypointsType2()
+    {
+
+        NodeSetType2();
+    }
+    private void NodeSetType2()
+    {
+
+    }
     private void InstanceAwaitBox()
     {
         List<GameObject> gameObjects = new List<GameObject>();

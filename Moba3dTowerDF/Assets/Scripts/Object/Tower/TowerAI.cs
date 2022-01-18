@@ -61,7 +61,12 @@ public class TowerAI : BaseObj
         {
             m_fReadyTimer = 3;
         }
-
+        if (m_tagStatus.fMaxAtkCoolTime == 0)
+            m_tagStatus.fMaxAtkCoolTime = 1f;
+        if (m_tagStatus.fRange == 0)
+            m_tagStatus.fRange = 2f;
+        if (m_tagStatus.iAtk == 0)
+            m_tagStatus.iAtk = 5;
         m_bFirstInit = true;
     }
 
@@ -324,22 +329,31 @@ public class TowerAI : BaseObj
         if (m_tagStatus.fAtkCoolTime > m_tagStatus.fMaxAtkCoolTime)
         {
             m_tagStatus.fAtkCoolTime = 0;
-            // Debug.Log("Attack");
-            DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
-            tagTemp.iAtk = m_tagStatus.iAtk;
-            tagTemp.fMaxLifeTime = m_tagStatus.fRange;
-            tagTemp.fLifeTime = 0;
-            tagTemp.strObjTagName = "Empty_Bullet";
-            tagTemp.objTarget = m_objTargetMob;
-            tagTemp.fMoveSpeed = 3.0f;
-
-            GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
-            retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
-            //공격
-            //공격 중 타겟팅이 벗어나면 해제
-            //  m_objTargetMob
-
+            CreateBullet();
         }
+    }
+
+    private void CreateBullet()
+    {
+       
+        // Debug.Log("Attack");
+        DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
+        tagTemp.iAtk = m_tagStatus.iAtk;
+        if (m_tagStatus.fRange > 0 || tagTemp.fMaxLifeTime<0)
+            tagTemp.fMaxLifeTime = m_tagStatus.fRange;
+        else
+            tagTemp.fMaxLifeTime = 1f;
+
+        tagTemp.fLifeTime = 0;
+        tagTemp.strObjTagName = "Empty_Bullet";
+        tagTemp.objTarget = m_objTargetMob;
+        tagTemp.fMoveSpeed = 3.0f;
+
+        GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
+        retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
+        //공격
+        //공격 중 타겟팅이 벗어나면 해제
+        //  m_objTargetMob
     }
 
     private void DoIdle()

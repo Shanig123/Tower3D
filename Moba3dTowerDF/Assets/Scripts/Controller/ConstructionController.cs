@@ -195,6 +195,11 @@ public class ConstructionController : MonoBehaviour
     public void Sort_AwaitList(int _iIndex)
     {
         int iListCount = m_listAwaitObj.Count;
+        if(iListCount<= _iIndex)
+        {
+            print("InputErr");
+            return;
+        }
         m_listAwaitObj.RemoveAt(_iIndex);
         Vector3 vPos;
 

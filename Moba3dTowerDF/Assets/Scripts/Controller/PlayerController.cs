@@ -475,17 +475,19 @@ public class PlayerController : MonoBehaviour
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
         {
-            if(Tile_Check_InTower()) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+            bool bCheck = Tile_Check_InTower();
+            if (bCheck) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
             {
-                GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+               
                 return; // 오브젝트가 있다면 바로 리턴함.
             }
-            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+            
 
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
-            
+
+            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
             
         }
@@ -515,7 +517,7 @@ public class PlayerController : MonoBehaviour
     {
         if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
         {
-            //타워 업글
+            //타워 업글 -> 스텟 상승
             if (m_objPicking.GetComponent<TowerAI>().m_strPrefabName ==
                 m_objPickTower.GetComponent<TowerAI>().m_strPrefabName)
             {
@@ -525,6 +527,7 @@ public class PlayerController : MonoBehaviour
                     print("sameObject");
                     return false;
                 }
+
                 TowerStatUp();
                 //타워가 같은 타워라면 타워 업글
             }
@@ -576,6 +579,7 @@ public class PlayerController : MonoBehaviour
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;
         Destroy(m_objPickTower);
+        GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
     }
 
     private void Sell_Tower()
