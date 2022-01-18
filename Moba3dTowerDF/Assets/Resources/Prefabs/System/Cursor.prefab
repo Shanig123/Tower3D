@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4440785747376523481}
   - component: {fileID: 4440785747376523482}
   - component: {fileID: 4440785747376523483}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cursor
   m_TagString: Cursor
   m_Icon: {fileID: 0}
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_vCursorPos: {x: 0, y: 0, z: 0}
-  m_eCurControlState: 2
 --- !u!212 &4440785747376523483
 SpriteRenderer:
   m_ObjectHideFlags: 0

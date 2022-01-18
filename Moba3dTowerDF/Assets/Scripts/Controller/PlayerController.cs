@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int m_iIncomeKillCount = 0;
     [SerializeField] private int m_iTotalKillCount = 0;
     [SerializeField] private int m_iCheckPickingTower = OTHER;
+    [SerializeField] private int m_iPick_AwaitBoxNumber = -1;
 
     [SerializeField] private DataStruct.tagPlayerData m_tPlayerData;
 
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_objPickTower;
     [SerializeField] private Vector3 m_vPickTowerPos;
     [SerializeField] private GameObject m_objPicking;
+
+    [SerializeField] private UpgradeController m_upgradeController;
 
     #endregion
 
@@ -185,6 +188,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         m_tPlayerData.iGold = 10000;
         //m_tPlayerData.iGold = 20;
@@ -200,6 +204,14 @@ public class PlayerController : MonoBehaviour
       
         DoController(false);
 
+        DebugText();
+
+    }
+
+    private void DebugText()
+    {
+        UnityEngine.UI.Text tLog = GameObject.Find("GoldText").GetComponent<UnityEngine.UI.Text>();
+        tLog.text = "Gold : " + m_tPlayerData.iGold +"\n"+"Life : " + m_tPlayerData.iLife + "\n";
     }
 
     //void  UpdateInit()
@@ -220,6 +232,7 @@ public class PlayerController : MonoBehaviour
                         m_objPickTower = null;
                         m_vPickTowerPos = Vector3.zero;
                         m_iCheckPickingTower = OTHER;
+                        m_iPick_AwaitBoxNumber = -1;
                         m_strLayerMaskName = "Tower";
                     }
                     break;
@@ -292,6 +305,7 @@ public class PlayerController : MonoBehaviour
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         m_vPickTowerPos = Vector3.zero;
         m_iCheckPickingTower = OTHER;
+        m_iPick_AwaitBoxNumber = -1;
         m_strLayerMaskName = "Tower";
 
         ChangeController();
@@ -331,7 +345,11 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-            print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);           
+            print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);
+
+            if (hit.collider.gameObject)
+                m_objPicking = hit.collider.gameObject;
+
             return true;
         }
         return false;
@@ -381,9 +399,56 @@ public class PlayerController : MonoBehaviour
                 != GConst.BaseValue.iStatFlag_CheckInStage)
         {
             m_iCheckPickingTower = OUTBOARD;
+            Check_AwaitBoxNumber();
             m_vPickTowerPos = m_objPickTower.transform.position;
         }
     }
+
+    private void Check_AwaitBoxNumber()
+    {
+        Vector3 vPickPos = m_objPickTower.transform.position;
+
+        vPickPos.y += 1.0f;
+  
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        int iLayerMask = 1 << LayerMask.NameToLayer("Box");
+      
+        if (Physics.Raycast(m_objPickTower.transform.position, -m_objPickTower.transform.up , out hit, 5.0f, iLayerMask))
+        {
+            if (hit.collider.gameObject)
+            {
+                string strBoxName = hit.collider.gameObject.name;
+                string strBoxNumber = null;
+
+                int i = 0;
+                int iNumber = -1;
+                while (true)
+                {
+                    string strTemp = null;
+                    strTemp = strBoxName[strBoxName.Length - (i+1)].ToString();
+
+                    if(strTemp == "_")
+                    {
+                        break;
+                    }
+                    strBoxNumber = strTemp + strBoxNumber;
+                    ++i;
+                }
+                int.TryParse(strBoxNumber, out iNumber);
+
+                if (iNumber < 0)
+                    return;
+               
+                //
+                print(strBoxName + "\n" + iNumber);
+                m_iPick_AwaitBoxNumber = iNumber;
+            }
+
+        }
+    }
+
     private void Check_Exception_TowerInBoard()
     {
         if (OTHER == m_iCheckPickingTower)
@@ -399,27 +464,30 @@ public class PlayerController : MonoBehaviour
         print("picking Tile");
         if (INBOARD == m_iCheckPickingTower)
         {
-            if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
-            {
-                return; // 오브젝트가 있다면 바로 리턴함.
-            }
+            if (Tile_Check_InTower())
+                return;
 
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
+
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
         {
-            if(RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+            if(Tile_Check_InTower()) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
             {
+                GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
                 return; // 오브젝트가 있다면 바로 리턴함.
             }
+            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
 
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
+            
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+            
         }
     }
     private void Picked_Tile()
@@ -440,6 +508,78 @@ public class PlayerController : MonoBehaviour
             //}
         }
       
+
+    }
+
+    private bool Tile_Check_InTower()
+    {
+        if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+        {
+            //타워 업글
+            if (m_objPicking.GetComponent<TowerAI>().m_strPrefabName ==
+                m_objPickTower.GetComponent<TowerAI>().m_strPrefabName)
+            {
+                //클론명도 체크해야함.
+                if(m_objPicking.name == m_objPickTower.name)
+                {
+                    print("sameObject");
+                    return false;
+                }
+                TowerStatUp();
+                //타워가 같은 타워라면 타워 업글
+            }
+            else //다르다면 티어 체크 후 같은 티어라면 티어를 업글
+            {
+                CheckTowerRank();
+            }
+
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+            return true; // 오브젝트가 있다면 바로 리턴함.
+        }
+        return false;
+    }
+
+    private void CheckTowerRank()
+    {
+        //
+        if (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.iTowerId < 0)
+            return;
+        int iPickingTowerRank = (int)((m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.iTowerId + 10) *0.1f);
+        int iPickedTowerRank = (int)((m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.iTowerId + 10) * 0.1f);
+
+        if (iPickedTowerRank != iPickingTowerRank)  //타워 랭크가 다르다면 종료
+            return;
+
+        if(iPickingTowerRank >0 && iPickingTowerRank<5)
+        {
+            CreateRankUpTower();
+        }
+        else
+        {
+            return;
+        }
+    }
+    private void CreateRankUpTower()
+    {
+        GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
+
+        if (objEvent.GetComponent<Constructor>().Construction_Tower(DataEnum.eRankID.Normal))
+        {
+            Destroy(m_objPicking);
+            Destroy(m_objPickTower);
+        }
+    }
+    
+    private void TowerStatUp()
+    {
+        DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
+        ++towerinfo.iLvl;
+        m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;
+        Destroy(m_objPickTower);
+    }
+
+    private void Sell_Tower()
+    {
 
     }
 }

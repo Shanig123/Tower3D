@@ -25,16 +25,21 @@ public class TowerAI : BaseObj
 
     #region Property
     public DataEnum.eState GetStat { get { return m_eCurState; } }
-    public DataEnum.eState SetState{ set { m_eNextState = value; } }
-
     public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tagStatus; } }
+
+
+    public DataEnum.eState SetState { set { m_eNextState = value; } }
+    public int Set_TowerID { set { m_tagStatus.iTowerId = value; } }
+    public DataStruct.tagTowerStatus Set_TowerInfo { set { m_tagStatus = value; } }
 
     #endregion
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        base.Start();  
+        base.Start();
+      //  m_tagStatus.strTowerName = gameObject.name;
+       //EditorUtility
     }
 
 
@@ -50,12 +55,21 @@ public class TowerAI : BaseObj
     }
     private void UpdateInit()
     {
+        Rename_Clone();
+       
         if (0 == m_fReadyTimerMax)
         {
             m_fReadyTimer = 3;
         }
 
         m_bFirstInit = true;
+    }
+
+    private void Rename_Clone()
+    {
+        string name = gameObject.name;
+        int iCount = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().Get_TotalCallCount;
+        gameObject.name = name + "_" + iCount;
     }
 
     #region ControllerFunc

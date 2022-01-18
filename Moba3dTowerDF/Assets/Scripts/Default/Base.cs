@@ -64,14 +64,13 @@ namespace DataStruct
     public class tagTowerStatus : tagStatus
     {
         //DataEnum.eRankID
-        public int iMobId;
+        public int iTowerId;
         public int iStatus;
 
         public float fRange;
 
         public float fAtkCoolTime;
         public float fMaxAtkCoolTime;
-
     }
 
     [System.Serializable]

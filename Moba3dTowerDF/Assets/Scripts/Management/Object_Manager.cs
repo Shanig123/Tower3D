@@ -97,7 +97,7 @@ public class Object_Manager : MonoBehaviour
            if (DataEnum.eDifficulty.Easy == m_StageController.Get_Difficulty)
                 InstanceWaypointsType1();
 
-            InstanceBox();
+            InstanceAwaitBox();
 
 
         }
@@ -147,7 +147,10 @@ public class Object_Manager : MonoBehaviour
             for (int x = 0; x < 5; ++x)
             {
                 Quaternion temp = Quaternion.LookRotation(new Vector3(0,0,-1));
-                gameObjects.Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["TestMob00"].objPrefabs, new Vector3(x + 50, 0.5f, y), temp));
+                GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["TestMob00"].objPrefabs, new Vector3(x + 50, 0.5f, y), temp);
+
+                createObj.GetComponent<BaseObj>().m_strPrefabName = "TestMob00";
+                gameObjects.Add(createObj);
             }
         }
         m_dictClone_Object.Add("Monster", gameObjects);
@@ -161,6 +164,9 @@ public class Object_Manager : MonoBehaviour
 
             Quaternion temp = Quaternion.LookRotation(new Vector3(0, 0, -1));
             GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs[_strPrefabsKeyName0][_strPrefabsKeyName1].objPrefabs, _vCreatePos, temp);
+
+            createObj.GetComponent<BaseObj>().m_strPrefabName = _strPrefabsKeyName1;
+
             m_dictClone_Object[_strCloneKeyName].Add(createObj);
 
             //float Color = ((float)10 / 121.0f);
@@ -172,6 +178,8 @@ public class Object_Manager : MonoBehaviour
             List<GameObject> gameObjects = new List<GameObject>();
             Quaternion temp = Quaternion.LookRotation(new Vector3(0, 0, -1));
             GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs[_strPrefabsKeyName0][_strPrefabsKeyName1].objPrefabs, _vCreatePos, temp);
+
+            createObj.GetComponent<BaseObj>().m_strPrefabName = _strPrefabsKeyName1;
             gameObjects.Add(createObj);
 
             m_dictClone_Object.Add(_strCloneKeyName, gameObjects);
@@ -289,13 +297,22 @@ public class Object_Manager : MonoBehaviour
         AlphaBlockRenderOnOff(false);
     }
 
-    private void InstanceBox()
+    private void InstanceAwaitBox()
     {
         List<GameObject> gameObjects = new List<GameObject>();
+        const int iBoxCreateMax = GConst.BaseValue.iAwaitBoxMax;
 
-        for (int x = 0; x < width; ++x)
+        for (int x = 0; x < iBoxCreateMax; ++x)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["Box_02"].objPrefabs, new Vector3(-8f, 0.5f, x - 5.0f), Quaternion.identity);
+            float fXPos= -9f;
+            float fZPos = x-5f;
+            if (x >= (iBoxCreateMax >> 1))
+            {
+                fXPos += 1.0f;
+                fZPos -= (iBoxCreateMax >> 1);
+            }
+            Vector3 vCreatePos = new Vector3(fXPos, 0.5f, fZPos);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["Box_02"].objPrefabs, vCreatePos, Quaternion.identity);
             createObject.name = createObject.name + "_" + x;
             gameObjects.Add(createObject);
         }

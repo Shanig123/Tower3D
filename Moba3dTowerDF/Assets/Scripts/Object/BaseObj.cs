@@ -16,11 +16,11 @@ public class BaseObj : MonoBehaviour
     [SerializeField] protected Transform m_Transform;
     [SerializeField] protected Animator m_Ani;
 
+    public string m_strPrefabName;
+
     protected virtual  void Start()
     {
         m_Transform = GetComponent<Transform>();
         m_Ani = GetComponent<Animator>();
     }
-
-
 }

@@ -21,9 +21,24 @@ public class Constructor : MonoBehaviour
     {
         
     }
-    public void Construct_Normal()
+    public bool Construct_Normal()
     {
         if (!m_stageController.Get_WaveOnOff)
-            m_construction.CallTower(DataEnum.eRankID.Normal);
+            return m_construction.CallTower(DataEnum.eRankID.Normal);
+        return false;
+    }
+    public void Construct_Normal2()
+    {
+        if (!m_stageController.Get_WaveOnOff)
+             m_construction.CallTower(DataEnum.eRankID.Normal);
+    }
+
+    public bool Construction_Tower(DataEnum.eRankID _eRankId)
+    {
+        if (!m_stageController.Get_WaveOnOff)
+        {
+            return m_construction.CallTower(_eRankId);
+        }
+        return false;
     }
 }

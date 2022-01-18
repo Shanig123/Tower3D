@@ -11,6 +11,7 @@ namespace GConst
         public const int iMaxRank_Lvl_Count = 5;
         public const int iMaxRank_ID_Count = 8;
 
+        public const int iAwaitBoxMax = 6;
 
         public const int iStatFlag_NULL = 0;
         public const int iStatFlag_CheckInStage = 1;

@@ -19,18 +19,14 @@ public class DataController : MonoBehaviour
 
     [SerializeField] private int m_iRandomIntCallCount = 0;
     [SerializeField] private int m_iRandomFloatCallCount = 0;
+    [SerializeField] private int m_iRandomTotalCallCount = 0;
     [SerializeField] private int m_iSeedNumber;
 
     #endregion
     #region Property
 
-    public int Get_Seed
-    {
-        get
-        {
-            return m_iSeedNumber;
-        }
-    } 
+    public int Get_Seed { get { return m_iSeedNumber; } }
+    public int Get_TotalCallCount { get { return m_iRandomTotalCallCount; } }
 
     #endregion
 
@@ -78,6 +74,7 @@ public class DataController : MonoBehaviour
     {
         int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomIntCallCount;
         ++m_iRandomIntCallCount;
+        ++m_iRandomTotalCallCount;
         System.Random rd = new System.Random(iSeed);
         return rd.Next(_iMin, _iMax);
     }
@@ -85,6 +82,7 @@ public class DataController : MonoBehaviour
     {
         int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomFloatCallCount;
         ++m_iRandomFloatCallCount;
+        ++m_iRandomTotalCallCount;
         System.Random rd = new System.Random(iSeed);
         return (float)rd.NextDouble();
     }
