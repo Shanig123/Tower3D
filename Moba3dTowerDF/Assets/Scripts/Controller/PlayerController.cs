@@ -565,6 +565,7 @@ public class PlayerController : MonoBehaviour
     private void CreateRankUpTower()
     {
         GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
+        GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
 
         if (objEvent.GetComponent<Constructor>().Construction_Tower(DataEnum.eRankID.Normal))
         {

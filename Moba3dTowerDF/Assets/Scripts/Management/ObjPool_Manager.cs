@@ -86,7 +86,10 @@ public class ObjPool_Manager : MonoBehaviour
                 MainGameDataLoad();
         }
         else
+        {
+            m_ObjBulletPool.Clear();
             m_bCheckLoad = false;
+        }
 
         m_strPreSceneName = SceneManager.GetActiveScene().name;
     }

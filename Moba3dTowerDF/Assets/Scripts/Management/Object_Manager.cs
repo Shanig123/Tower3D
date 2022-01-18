@@ -98,6 +98,10 @@ public class Object_Manager : MonoBehaviour
             InstanceObjects();
 
         }
+        else
+        {
+            ClearInstance();
+        }
 
         m_strPreSceneName = SceneManager.GetActiveScene().name;
     }
@@ -377,6 +381,12 @@ public class Object_Manager : MonoBehaviour
     }
 
     #endregion
+
+    private void ClearInstance()
+    {
+        m_dictClone_Object.Clear();
+        //m_dictClone_Object.
+    }
 
     public void AlphaBlockRenderOnOff(bool _bOnOff)
     {
