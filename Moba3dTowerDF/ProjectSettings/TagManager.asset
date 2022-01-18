@@ -10,17 +10,18 @@ TagManager:
   - TotalController
   - Cursor
   - Tower
+  - EventActor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NoCollision
   - Water
   - UI
   - Tower
   - WaveMob
   - Bullet
-  - Cursor
+  - Box
   - Tile
   - 
   - 
