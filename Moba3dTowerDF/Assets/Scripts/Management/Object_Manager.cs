@@ -38,6 +38,13 @@ public class Object_Manager : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        //m_dictClone_Object.Clear();
+        //m_listObject.Clear();
+    }
+
     #region Awake
     void Awake()
     {

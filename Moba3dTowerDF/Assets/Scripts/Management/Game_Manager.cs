@@ -31,6 +31,12 @@ public class Game_Manager : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnDestroy()
+    {
+
+    }
+
     #region Awake
     void Awake()
     {

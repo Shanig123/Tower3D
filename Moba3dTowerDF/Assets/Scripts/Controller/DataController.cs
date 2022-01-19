@@ -22,6 +22,7 @@ public class DataController : MonoBehaviour
     [SerializeField] private int m_iRandomTotalCallCount = 0;
     [SerializeField] private int m_iSeedNumber;
 
+    [SerializeField] private GameObject totalManager;
     #endregion
     #region Property
 
@@ -32,6 +33,10 @@ public class DataController : MonoBehaviour
 
     private void Awake()
     {
+        if (!GameObject.Find("Management"))
+        {
+            Instantiate(totalManager);
+        }
         Game_Manager game_Manager;
         if (Game_Manager.Instance)
             game_Manager = Game_Manager.Instance;

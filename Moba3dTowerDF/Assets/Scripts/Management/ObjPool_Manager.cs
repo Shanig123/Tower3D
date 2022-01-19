@@ -38,6 +38,10 @@ public class ObjPool_Manager : MonoBehaviour
         }
     }
     #endregion
+    private void OnDestroy()
+    {
+       // m_ObjBulletPool.Clear();
+    }
     #region Awake
     void Awake()
     {

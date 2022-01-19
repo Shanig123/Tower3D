@@ -37,6 +37,10 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
 
     public float Get_ClickTime { get { return m_fClickTime; } }
     #endregion
+    private void OnDestroy()
+    {
+
+    }
     #region Awake
     void Awake()
     {
@@ -55,8 +59,7 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         }
     }
     #endregion
-    
-
+ 
     // Update is called once per frame
     void Update()
     {

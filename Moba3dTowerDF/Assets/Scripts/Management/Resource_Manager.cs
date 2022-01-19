@@ -75,8 +75,13 @@ public class Resource_Manager : MonoBehaviour
 
     private void OnDestroy()
     {
+       // m_dictPrefabs.Clear();
+       // m_dictTest.Clear();
+
         Resources.UnloadUnusedAssets();
-      //  cInstance = null;
+        
+        //cInstance = null;
+
     }
     // Start is called before the first frame update
     void Start()

@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eLevel: 0
+  m_listAwaitObj: []
 --- !u!114 &3824306337273938959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +63,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_iIncomeKillCount: 0
   m_iTotalKillCount: 0
+  m_iCheckPickingTower: -1
+  m_iPick_AwaitBoxNumber: -1
   m_tPlayerData:
     iLife: 0
     iGold: 0
@@ -71,10 +74,12 @@ MonoBehaviour:
     iUniqueCost: 0
     iTowerSynergy: 0
   m_strLayerMaskName: 
-  m_stageController: {fileID: 0}
   m_eNextControlState: 2
   m_eCurControlState: 2
-  m_bFirstInit: 0
+  m_objPickTower: {fileID: 0}
+  m_vPickTowerPos: {x: 0, y: 0, z: 0}
+  m_objPicking: {fileID: 0}
+  m_upgradeController: {fileID: 0}
 --- !u!114 &7056397494146912628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bWaveStart: 0
-  m_iSeedNumber: 0
   m_eLevel: 0
   m_iCurWave: 0
   m_iNextWave: 0
@@ -104,6 +108,7 @@ MonoBehaviour:
   m_Object_Manager: {fileID: 0}
   m_bCreateModeOnOff: 0
   m_bWaveOnOff: 0
+  m_bDayNight: 0
 --- !u!54 &6378124813740513525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,4 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 290cf5f79424ec640a76fe4f208fc287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_iRandomCallCount: 0
+  m_iRandomIntCallCount: 0
+  m_iRandomFloatCallCount: 0
+  m_iRandomTotalCallCount: 0
+  m_iSeedNumber: 0
+  totalManager: {fileID: 2451762078396286777, guid: 2537009c8381574478fc5e809da1db13,
+    type: 3}
