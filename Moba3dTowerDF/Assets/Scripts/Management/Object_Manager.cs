@@ -256,10 +256,9 @@ public class Object_Manager : MonoBehaviour
 
     private void InstanceWaypointZone(Vector3 vPos)
     {
-      
         if(m_dictClone_Object.ContainsKey("Waypoints"))
         {
-            GameObject objCreate = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vPos, Quaternion.identity);
+            GameObject objCreate = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Board"]["WayPoint"].objPrefabs, vPos, Quaternion.identity);
             objCreate.layer = 0;
             m_dictClone_Object["Waypoints"].Add(objCreate);
 
@@ -270,11 +269,11 @@ public class Object_Manager : MonoBehaviour
         {
             List<GameObject> gameObjects = new List<GameObject>();
 
-            gameObjects.Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vPos, Quaternion.identity));
+            gameObjects.Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Board"]["WayPoint"].objPrefabs, vPos, Quaternion.identity));
 
             //테스트 위해 색상 설정
             float Color = ((float)10 / 121.0f);
-            gameObjects[0].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(Color, 1, 1.0f - Color, 0));
+            gameObjects[0].GetComponentInChildren<Renderer>().material.SetVector("_Color", new Vector4(Color, 1, 1.0f - Color, 0));
 
             m_dictClone_Object.Add("Waypoints", gameObjects);
         }
@@ -300,18 +299,16 @@ public class Object_Manager : MonoBehaviour
 
 
 
-
-        foreach (GameObject iter in m_dictClone_Object["Waypoints"])
-        {
-            iter.GetComponent<Renderer>().enabled = false;
-        }
+        //WayPointsRenderOnOff(false);
+        WayPointsColor(new Vector4(0, 1, 0, 0.1f));
+        ModifyWayPointsLook();
 
         //foreach (GameObject iter in m_dictClone_Object["AlphaBlock"])
         //{
         //    iter.GetComponent<Renderer>().enabled = false;
         //}
-        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(1, 0, 0, 0.5f));
-        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponent<Renderer>().enabled = true;
+        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponentInChildren<Renderer>().material.SetVector("_Color", new Vector4(1, 0, 0, 0.5f));
+        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].GetComponentInChildren<Renderer>().enabled = true;
         AlphaBlockRenderOnOff(false);
 
         NodeSetType1();
@@ -387,6 +384,18 @@ public class Object_Manager : MonoBehaviour
         m_dictClone_Object.Add("Box", gameObjects);
     }
 
+
+    private void ModifyWayPointsLook()
+    {
+        int iWayPointCount = m_dictClone_Object["Waypoints"].Count;
+
+        for(int i=0; i<iWayPointCount;++i)
+        {
+            if (iWayPointCount - 1 == i)
+                continue;
+            m_dictClone_Object["Waypoints"][i].transform.LookAt(m_dictClone_Object["Waypoints"][i + 1].transform);
+        }
+    }
     #endregion
 
     private void ClearInstance()
@@ -402,4 +411,19 @@ public class Object_Manager : MonoBehaviour
             iter.GetComponent<Renderer>().enabled = _bOnOff;
         }
     }
-}
+
+    public void WayPointsRenderOnOff(bool _bOnOff)
+    {
+        foreach (GameObject iter in m_dictClone_Object["Waypoints"])
+        {
+            iter.GetComponentInChildren<Renderer>().enabled = _bOnOff;
+        }
+    }
+    public void WayPointsColor(Vector4 _vColor)
+    {
+        foreach (GameObject iter in m_dictClone_Object["Waypoints"])
+        {
+            iter.GetComponentInChildren<Renderer>().material.SetVector("_Color", _vColor);
+        }
+    }
+ }

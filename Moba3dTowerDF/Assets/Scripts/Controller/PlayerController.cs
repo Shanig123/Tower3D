@@ -210,8 +210,17 @@ public class PlayerController : MonoBehaviour
 
     private void DebugText()
     {
-        UnityEngine.UI.Text tLog = GameObject.Find("GoldText").GetComponent<UnityEngine.UI.Text>();
-        tLog.text = "Gold : " + m_tPlayerData.iGold +"\n"+"Life : " + m_tPlayerData.iLife + "\n";
+        UnityEngine.UI.Text tLog = GameObject.Find("DataText").GetComponent<UnityEngine.UI.Text>();
+        tLog.text =
+            "<DebugText> \n"+
+            "Life : " + m_tPlayerData.iLife + "\n" +
+            "Synergy : " + m_tPlayerData.iTowerSynergy + "\n" +
+            "Gold : " + m_tPlayerData.iGold +"\n" +
+            "MagicGold : " + m_tPlayerData.iMagicCost + "\n" +
+            "RareGold : " + m_tPlayerData.iRareCost + "\n" +
+            "EpicGold : " + m_tPlayerData.iEpicCost + "\n" +
+            "UniqueGold : " + m_tPlayerData.iUniqueCost + "\n";
+
     }
 
     //void  UpdateInit()

@@ -90,7 +90,8 @@ public class Resource_Manager : MonoBehaviour
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Nature/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Default/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Bullerts/").Length;
-       
+        m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Board/").Length;
+
         Loading();
     }
 
@@ -129,6 +130,7 @@ public class Resource_Manager : MonoBehaviour
         StartCoroutine(LoadPrefabs("Nature"));
         StartCoroutine(LoadPrefabs("Default"));
         StartCoroutine(LoadPrefabs("Bullets"));
+        StartCoroutine(LoadPrefabs("Board"));
     }
 
     public void SaveData()
