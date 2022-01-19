@@ -414,16 +414,25 @@ public class Object_Manager : MonoBehaviour
 
     public void WayPointsRenderOnOff(bool _bOnOff)
     {
+        if (!m_dictClone_Object.ContainsKey("Waypoints"))
+            return;
+
         foreach (GameObject iter in m_dictClone_Object["Waypoints"])
         {
             iter.GetComponentInChildren<Renderer>().enabled = _bOnOff;
         }
+        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].
+            GetComponentInChildren<Renderer>().enabled = true;
     }
     public void WayPointsColor(Vector4 _vColor)
     {
+        if (!m_dictClone_Object.ContainsKey("Waypoints"))
+            return;
         foreach (GameObject iter in m_dictClone_Object["Waypoints"])
         {
             iter.GetComponentInChildren<Renderer>().material.SetVector("_Color", _vColor);
         }
+        m_dictClone_Object["Waypoints"][m_dictClone_Object["Waypoints"].Count - 1].
+            GetComponentInChildren<Renderer>().material.SetVector("_Color", new Vector4(1, 0, 0, 0.5f));
     }
  }

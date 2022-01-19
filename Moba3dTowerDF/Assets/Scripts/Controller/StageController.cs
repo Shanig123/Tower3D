@@ -132,7 +132,7 @@ public class StageController : MonoBehaviour
     void Update()
     {
         m_fStageTimer += Time.deltaTime;
-
+        WayPointRenderOff();
         CheckWait();
         CheckCreateWave();
     }
@@ -230,4 +230,18 @@ public class StageController : MonoBehaviour
         }
         //yield return null;
     } 
+
+    private void WayPointRenderOff()
+    {
+        if (m_fStageTimer > 6.0f)
+        {
+            m_Object_Manager.WayPointsRenderOnOff(false);
+            return;
+        }
+
+        int iFlickerCount = 3;
+        float fStageTimer = m_fStageTimer * iFlickerCount;
+        float fAlpha = (-(Mathf.Cos(fStageTimer)) + 1) * 0.5f;
+        m_Object_Manager.WayPointsColor(new Vector4(0, 1, 0, fAlpha*0.3f));
+    }
 }
