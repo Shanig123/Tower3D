@@ -10,6 +10,7 @@ public class NormalBullet : BaseBullet
 
     }
 
+    Vector3 m_vCreatePos;
 
     // Start is called before the first frame update
     // Update is called once per frame
@@ -46,12 +47,14 @@ public class NormalBullet : BaseBullet
             {
                 case DataEnum.eState.NoActive:
                     {
+                        m_vCreatePos = Vector3.zero;
                         m_bObjActiveOnOff = false;
                         //ObjPool_Manager.Instance.ReturnPool(this.gameObject, this.m_tagStatus.strObjTagName);
                     }
                     break;
                 case DataEnum.eState.Ready:
                     {
+                        m_vCreatePos = transform.position;
                         m_objTargetMob = m_tagStatus.objTarget;
                         m_bObjActiveOnOff = true;
                         m_bCheckDead = false;
@@ -64,6 +67,7 @@ public class NormalBullet : BaseBullet
                     break;
                 case DataEnum.eState.Dead:
                     {
+                        m_vCreatePos = Vector3.zero;
                         m_bCheckDead = true;
                     }
                     break;
@@ -146,8 +150,8 @@ public class NormalBullet : BaseBullet
     {
         m_tagStatus.fLifeTime += Time.deltaTime;
        
-
-        if (m_tagStatus.fLifeTime > m_tagStatus.fMaxLifeTime)
+            
+        if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
         {
             print("LifeEnd");
             m_tagStatus.fLifeTime = 0;

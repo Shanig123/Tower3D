@@ -347,7 +347,7 @@ public class TowerAI : BaseObj
         tagTemp.fLifeTime = 0;
         tagTemp.strObjTagName = "Empty_Bullet";
         tagTemp.objTarget = m_objTargetMob;
-        tagTemp.fMoveSpeed = 3.0f;
+        tagTemp.fMoveSpeed = 10.0f;
 
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
         retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
