@@ -15,19 +15,31 @@ public class ShaderController : MonoBehaviour
     public Shader Get_Shader(string _strKeyName)
     {
         if (!m_dictShader.ContainsKey(_strKeyName))
-            return null;
-
-        return m_dictShader[_strKeyName];
+        {
+            return Shader.Find("Custom/" + _strKeyName);
+        }
+        Shader temp = null;
+        temp = m_dictShader[_strKeyName];
+        if( null == m_dictShader[_strKeyName])
+        {
+            return  Shader.Find("Custom/" + _strKeyName);
+        }
+        return temp;
     }
     // Start is called before the first frame update
     private void Awake()
     {
-        m_dictShader.Add("Rimlight_Shader", Shader.Find("Custom/Rimlight_Shader"));
-        m_dictShader.Add("Default_Shader", Shader.Find("Custom/Default_Shader"));
+        NotCorutineLoadShader("Rimlight_Shader");
+        NotCorutineLoadShader("Default_Shader");
+
+        m_bCheckLoad = true;
     }
     void Start()
     {
-       
+        NotCorutineLoadShader("Rimlight_Shader");
+        NotCorutineLoadShader("Default_Shader");
+
+        m_bCheckLoad = true;
     }
 
     // Update is called once per frame
@@ -37,15 +49,30 @@ public class ShaderController : MonoBehaviour
         //    StartCoroutine(LoadShader());
     }
 
-    IEnumerator LoadShader()
+    IEnumerator LoadShader(string _strShaderName)
     {
-        m_dictShader.Add("Rimlight_Shader", Shader.Find("Custom/Rimlight_Shader"));
-        print("Add Shader");
+        if (m_dictShader.ContainsKey(_strShaderName))
+            yield return null;
+        else
+        { 
+            m_dictShader.Add(_strShaderName, Shader.Find("Custom/"+ _strShaderName));
+            print("Add Shader");
+            yield return null;
+
+            m_bCheckLoad = true;
+        }
         yield return null;
 
-        m_bCheckLoad = true;
+    }
 
-        yield return null;
+    void NotCorutineLoadShader(string _strShaderName)
+    {
+        if (m_dictShader.ContainsKey(_strShaderName))
+            return;
 
+        m_dictShader.Add(_strShaderName, Shader.Find("Custom/" + _strShaderName));
+       // print("Add Shader");
+    
+        return;
     }
 }

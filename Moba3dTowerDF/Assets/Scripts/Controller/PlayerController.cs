@@ -406,12 +406,16 @@ public class PlayerController : MonoBehaviour
 
         if (_bRimLight_OnOff)
         {
-            Shader rimlight = gameObject.GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+            Shader rimlight = GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
             //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
             if (rimlight == null)
             {
+               
+                UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
+                tLog.text = "rimlight null.";
                 print("rimlight null");
                 return;
+     
             }
             //rimlight.
             m_objPickTower.GetComponentInChildren<Renderer>().material.shader = rimlight;
@@ -444,9 +448,19 @@ public class PlayerController : MonoBehaviour
             //}
             //else
             //{
-                m_objPickTower.GetComponentInChildren<Renderer>().material.shader = gameObject.GetComponent<ShaderController>().Get_Shader("Default_Shader"); ;
+            Shader defaultshader = GetComponent<ShaderController>().Get_Shader("Default_Shader"); ;
             //}
-            
+
+            if (defaultshader == null)
+            {
+
+                UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
+                tLog.text = "defaultshader null.";
+                print("defaultshader null");
+                return;
+
+            }
+            m_objPickTower.GetComponentInChildren<Renderer>().material.shader = defaultshader;
         }
     }
 
