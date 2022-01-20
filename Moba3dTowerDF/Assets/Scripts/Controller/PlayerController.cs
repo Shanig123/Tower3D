@@ -237,6 +237,7 @@ public class PlayerController : MonoBehaviour
             {
                 case DataEnum.ePickingMode.Obj_Tower:
                     {
+                        Picking_Tower_ChangeRenderer(false);
                         m_objPicking = null;
                         m_objPickTower = null;
                         m_vPickTowerPos = Vector3.zero;
@@ -309,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
     public void Reset_PickingInfo()
     {
+        Picking_Tower_ChangeRenderer(false);
         m_objPicking = null;
         m_objPickTower = null;
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
@@ -386,6 +388,7 @@ public class PlayerController : MonoBehaviour
         m_eNextControlState = DataEnum.ePickingMode.Tile;
         
         Check_TowerInBoard();
+        Picking_Tower_ChangeRenderer(true);
         Check_Exception_TowerInBoard();
 
         m_objPicking = null;
@@ -394,6 +397,55 @@ public class PlayerController : MonoBehaviour
     private void Picked_Tower()
     {
 
+    }
+
+    private void Picking_Tower_ChangeRenderer(bool _bRimLight_OnOff)
+    {
+        if (m_objPickTower == null)
+            return;
+
+        if (_bRimLight_OnOff)
+        {
+            Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
+            if (rimlight == null)
+            {
+                print("rimlight null");
+                return;
+            }
+            //rimlight.
+            m_objPickTower.GetComponentInChildren<Renderer>().material.shader = rimlight;
+            //float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
+            m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Pow", 1.0f);
+
+            m_objPickTower.GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 1, 0));
+
+            if (m_iCheckPickingTower == OUTBOARD)
+            {
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 1);
+            }
+            else
+            {
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 0);
+            }
+        }
+        else
+        {
+            if (m_iCheckPickingTower == OUTBOARD)
+            {
+                Shader rimlight = gameObject.GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+                if (rimlight == null)
+                    return;
+
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Pow", 1.0f);
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(1, 0, 0));
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 0);
+            }
+            else
+            {
+                m_objPickTower.GetComponentInChildren<Renderer>().material.shader = Shader.Find("Standard");
+            }
+            
+        }
     }
 
     private void Check_TowerInBoard()
@@ -473,7 +525,7 @@ public class PlayerController : MonoBehaviour
         print("picking Tile");
         if (INBOARD == m_iCheckPickingTower)
         {
-            if (Tile_Check_InTower())
+            if (Tile_Check_InTower(false))
                 return;
 
             Vector3 vPickPos = m_objPicking.transform.position;
@@ -484,7 +536,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
         {
-            bool bCheck = Tile_Check_InTower();
+            bool bCheck = Tile_Check_InTower(true);
             if (bCheck) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
             {
                
@@ -522,7 +574,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private bool Tile_Check_InTower()
+    private bool Tile_Check_InTower(bool _bSort)
     {
         if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
         {
@@ -537,7 +589,7 @@ public class PlayerController : MonoBehaviour
                     return false;
                 }
 
-                TowerStatUp();
+                TowerStatUp(_bSort);
                 //타워가 같은 타워라면 타워 업글
             }
             else //다르다면 티어 체크 후 같은 티어라면 티어를 업글
@@ -583,17 +635,19 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void TowerStatUp()
+    private void TowerStatUp(bool _bSort)
     {
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;
+        if(_bSort)
+            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
         Destroy(m_objPickTower);
-        GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
     }
 
     private void Sell_Tower()
     {
 
     }
+
 }
