@@ -54,6 +54,18 @@ public class BaseBullet : BaseObj
     protected override void Start()
     {
         base.Start();
+        Shader RimShader = GameObject.FindWithTag("TotalController").GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+        //Shader defaultShader = Shader.Find("Custom/Default_Shader");
+        if (RimShader == null)
+        {
+            print("defaultShader null");
+            return;
+        }
+        GetComponentInChildren<Renderer>().material.shader = RimShader;
+        GetComponentInChildren<Renderer>().material.SetFloat("_Pow", 1.0f);
+        GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 1, 0));
+        GetComponentInChildren<Renderer>().material.SetFloat("_Holo", 0);
+
     }
 
     // Update is called once per frame

@@ -1,25 +1,21 @@
-Shader "Custom/Rimlight_Shader"
+Shader "Custom/Default_Shader"
 {
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness("Smoothness", Range(0,1)) = 0.5
-		_Metallic("Metallic", Range(0,1)) = 0.0
-			//Rimlight
-		_Holo("Hologram", Range(0,1)) = 1
-		_Pow("Rimlight_ power", Range(0,10)) = 10
-		[HDR] _RimCol("Rimlight color", Color) = (1,1,1,1)
+        _Glossiness ("Smoothness", Range(0,1)) = 0.5
+        _Metallic ("Metallic", Range(0,1)) = 0.0
     }
     SubShader
     {
-        //Tags { "RenderType"="Opaque" }
-		Tags { "RenderType" = "Transparent"  "Queue" = "Transparent"}
+      //  Tags { "RenderType"="Opaque" }
+		Tags { "RenderType" = "Transparent" "Queue" = "Transparent"}
         LOD 200
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-		//#pragma surface surf Standard fullforwardshadows
+        //#pragma surface surf Standard fullforwardshadows
 		//#pragma surface surf Standard (alpha:premul, fullforwardshadows)
 		#pragma surface surf Standard alpha
 		//#pragma surface surf Lambert  alpha:blend 
@@ -29,14 +25,9 @@ Shader "Custom/Rimlight_Shader"
 
         sampler2D _MainTex;
 
-		float _Pow;
-		float4 _RimCol;
-		float _Holo;
-
         struct Input
         {
             float2 uv_MainTex;
-			float3 viewDir;
         };
 
         half _Glossiness;
@@ -50,18 +41,6 @@ Shader "Custom/Rimlight_Shader"
             // put more per-instance properties here
         UNITY_INSTANCING_BUFFER_END(Props)
 
-		void RimColor(Input IN, inout SurfaceOutputStandard o)
-		{
-			float rim = pow(abs(1 - saturate(dot(o.Normal, IN.viewDir))), _Pow);
-			o.Emission = rim * _RimCol.rgb;
-
-			if (_Holo > 0)
-			{
-				o.Alpha = rim;
-				//o.Albedo *= rim ;
-			}
-		}
-
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             // Albedo comes from a texture tinted by color
@@ -70,15 +49,8 @@ Shader "Custom/Rimlight_Shader"
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
-			
-			o.Alpha = c.a;
-			
-			RimColor(IN, o);
-
+            o.Alpha = c.a;
         }
-
-		
-
         ENDCG
     }
     FallBack "Diffuse"

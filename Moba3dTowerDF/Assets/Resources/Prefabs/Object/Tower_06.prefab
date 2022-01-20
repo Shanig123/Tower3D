@@ -409,7 +409,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-8040016760374644022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,12 +429,13 @@ MonoBehaviour:
   m_fReadyTimerMax: 0
   m_Transform: {fileID: 0}
   m_Ani: {fileID: 0}
+  m_strPrefabName: 
   m_tagStatus:
     iHp: 0
     iMaxHp: 0
     iAtk: 0
     iLvl: 0
-    iMobId: 0
+    iTowerId: 0
     iStatus: 0
     fRange: 0
     fAtkCoolTime: 0

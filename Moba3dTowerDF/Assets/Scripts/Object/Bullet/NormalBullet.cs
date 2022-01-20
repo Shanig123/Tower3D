@@ -9,10 +9,17 @@ public class NormalBullet : BaseBullet
     {
 
     }
- 
+
 
     // Start is called before the first frame update
     // Update is called once per frame
+    protected override void Start()
+    {
+        base.Start();
+        GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
+
+    }
+
     void Update()
     {
         if (!m_bFirstInit)

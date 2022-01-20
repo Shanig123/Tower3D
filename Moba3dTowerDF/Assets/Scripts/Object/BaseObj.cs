@@ -22,5 +22,14 @@ public class BaseObj : MonoBehaviour
     {
         m_Transform = GetComponent<Transform>();
         m_Ani = GetComponent<Animator>();
+
+        Shader defaultShader = GameObject.FindWithTag("TotalController").GetComponent<ShaderController>().Get_Shader("Default_Shader");
+       //Shader defaultShader = Shader.Find("Custom/Default_Shader");
+        if (defaultShader == null)
+        {
+            print("defaultShader null");
+            return;
+        }
+        GetComponentInChildren<Renderer>().material.shader = defaultShader;
     }
 }

@@ -20,9 +20,14 @@ public class ShaderController : MonoBehaviour
         return m_dictShader[_strKeyName];
     }
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         m_dictShader.Add("Rimlight_Shader", Shader.Find("Custom/Rimlight_Shader"));
+        m_dictShader.Add("Default_Shader", Shader.Find("Custom/Default_Shader"));
+    }
+    void Start()
+    {
+       
     }
 
     // Update is called once per frame

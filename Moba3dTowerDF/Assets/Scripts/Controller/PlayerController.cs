@@ -406,7 +406,8 @@ public class PlayerController : MonoBehaviour
 
         if (_bRimLight_OnOff)
         {
-            Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
+            Shader rimlight = gameObject.GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+            //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
             if (rimlight == null)
             {
                 print("rimlight null");
@@ -421,29 +422,30 @@ public class PlayerController : MonoBehaviour
 
             if (m_iCheckPickingTower == OUTBOARD)
             {
-                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 1);
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Holo", 1);
             }
             else
             {
-                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 0);
+                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Holo", 0);
             }
         }
         else
         {
-            if (m_iCheckPickingTower == OUTBOARD)
-            {
-                Shader rimlight = gameObject.GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
-                if (rimlight == null)
-                    return;
+            //if (m_iCheckPickingTower == OUTBOARD)
+            //{
+            //    Shader rimlight = gameObject.GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+            //    //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
+            //    if (rimlight == null)
+            //        return;
 
-                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Pow", 1.0f);
-                m_objPickTower.GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(1, 0, 0));
-                m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 0);
-            }
-            else
-            {
-                m_objPickTower.GetComponentInChildren<Renderer>().material.shader = Shader.Find("Standard");
-            }
+            //    m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Pow", 1.0f);
+            //    m_objPickTower.GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(1, 0, 0));
+            //    m_objPickTower.GetComponentInChildren<Renderer>().material.SetFloat("_Hologram", 0);
+            //}
+            //else
+            //{
+                m_objPickTower.GetComponentInChildren<Renderer>().material.shader = gameObject.GetComponent<ShaderController>().Get_Shader("Default_Shader"); ;
+            //}
             
         }
     }
@@ -594,7 +596,7 @@ public class PlayerController : MonoBehaviour
             }
             else //다르다면 티어 체크 후 같은 티어라면 티어를 업글
             {
-                CheckTowerRank();
+                CheckTowerRank(_bSort);
             }
 
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
@@ -603,7 +605,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private void CheckTowerRank()
+    private void CheckTowerRank(bool _bSort)
     {
         //
         if (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.iTowerId < 0)
@@ -616,17 +618,18 @@ public class PlayerController : MonoBehaviour
 
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
         {
-            CreateRankUpTower();
+            CreateRankUpTower(_bSort);
         }
         else
         {
             return;
         }
     }
-    private void CreateRankUpTower()
+    private void CreateRankUpTower(bool _bSort)
     {
         GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
-        GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+        if(_bSort)
+            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
 
         if (objEvent.GetComponent<Constructor>().Construction_Tower(DataEnum.eRankID.Normal))
         {
