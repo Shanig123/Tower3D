@@ -303,7 +303,12 @@ public class PlayerController : MonoBehaviour
            }
            else if(Controller_Manager.Instance.LButtonDown())
            {
-                RayPicking();
+                if (!GetComponent<StageController>().Get_WaveOnOff)
+                    RayPicking();
+                else
+                {
+                    Reset_PickingInfo();
+                }
            }
         }
     }
