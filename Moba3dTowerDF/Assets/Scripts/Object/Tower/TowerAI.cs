@@ -26,7 +26,49 @@ public class TowerAI : BaseObj
     #region Property
     public DataEnum.eState GetStat { get { return m_eCurState; } }
     public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tagStatus; } }
+    public DataEnum.eRankID Get_TowerRank { get
+        {
+            int id = m_tagStatus.iTowerId+10;
+            int num =(int)(id *0.1);
 
+            if (1 == num)
+                return DataEnum.eRankID.Normal;
+            else if (1 == num)
+                return DataEnum.eRankID.Magic;
+            else if (1 == num)
+                return DataEnum.eRankID.Rare;
+            else if (1 == num)
+                return DataEnum.eRankID.Epic;
+            else if (1 == num)
+                return DataEnum.eRankID.Unique;
+            else
+                return DataEnum.eRankID.End;
+        }
+    }
+    public DataEnum.eRankID Get_TowerNum
+    {
+        get
+        {
+            if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_0) == (int)DataEnum.eRankID.RankID_0)
+                return DataEnum.eRankID.RankID_0;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_1) == (int)DataEnum.eRankID.RankID_1)
+                return DataEnum.eRankID.RankID_1;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_2) == (int)DataEnum.eRankID.RankID_2)
+                return DataEnum.eRankID.RankID_2;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_3) == (int)DataEnum.eRankID.RankID_3)
+                return DataEnum.eRankID.RankID_3;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_4) == (int)DataEnum.eRankID.RankID_4)
+                return DataEnum.eRankID.RankID_4;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_5) == (int)DataEnum.eRankID.RankID_5)
+                return DataEnum.eRankID.RankID_5;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_6) == (int)DataEnum.eRankID.RankID_6)
+                return DataEnum.eRankID.RankID_6;
+            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_7) == (int)DataEnum.eRankID.RankID_7)
+                return DataEnum.eRankID.RankID_7;
+            else
+                return DataEnum.eRankID.End;
+        }
+    }
 
     public DataEnum.eState SetState { set { m_eNextState = value; } }
     public int Set_TowerID { set { m_tagStatus.iTowerId = value; } }

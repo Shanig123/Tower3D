@@ -298,17 +298,17 @@ public class PlayerController : MonoBehaviour
         else
         {
            if( Controller_Manager.Instance.LButtonUp())
-           {
-
-           }
-           else if(Controller_Manager.Instance.LButtonDown())
-           {
+            {
                 if (!GetComponent<StageController>().Get_WaveOnOff)
                     RayPicking();
                 else
                 {
                     Reset_PickingInfo();
                 }
+            }
+           else if(Controller_Manager.Instance.LButtonDown())
+           {
+           
            }
         }
     }
@@ -658,9 +658,80 @@ public class PlayerController : MonoBehaviour
         Destroy(m_objPickTower);
     }
 
-    private void Sell_Tower()
+    public bool Sell_Tower()
     {
+        if(m_eCurControlState == DataEnum.ePickingMode.Tile
+            && m_objPickTower != null)
+        {
+            if (!Calculate_SellingTower())
+            {
+                
+                return false;
+            }
+            if (OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
+            {
+                GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+            }
+            Destroy(m_objPickTower);
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+            return true;
+        }
 
+        GFunc.Function.Print_simpleLog("Pick is null and State is Not Tile");
+        return false;
+    }
+    bool Calculate_SellingTower()
+    {
+        DataStruct.tagTowerStatus towerinfo = m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo;
+        DataEnum.eRankID eRank = m_objPickTower.GetComponent<TowerAI>().Get_TowerRank;
+
+        if(DataEnum.eRankID.End == eRank)
+        {
+            GFunc.Function.Print_simpleLog("Rank is End. " + m_objPickTower.name);
+            return false;
+        }
+
+        //if (DataEnum.eRankID.Normal == eRank)
+        //{
+        //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        //}
+        //else if (DataEnum.eRankID.Magic == eRank)
+        //{
+        //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        //}
+        //else if (DataEnum.eRankID.Rare == eRank)
+        //{
+        //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        //}
+        //else if (DataEnum.eRankID.Epic == eRank)
+        //{
+        //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        //}
+        //else if (DataEnum.eRankID.Unique == eRank)
+        //{
+        //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        //}
+        //else
+        //    return false;
+
+        if (DataEnum.eRankID.Normal == eRank ||
+            DataEnum.eRankID.Magic == eRank ||
+            DataEnum.eRankID.Rare == eRank ||
+            DataEnum.eRankID.Epic == eRank ||
+            DataEnum.eRankID.Unique == eRank
+            )
+        {
+            //특정 타워는 비싸게 팔 수 있는 기믹이 필요함.
+
+            m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
+        }
+        else
+        {
+            GFunc.Function.Print_simpleLog("Rank is Other");
+            return false;
+        }
+
+        return true;
     }
 
 }
