@@ -54,6 +54,7 @@ public class MobAI : BaseObj
     protected override void Start()
     {
         base.Start();
+        GetComponentInChildren<Renderer>().material.shader = Shader.Find("Standard");
     }
 
     // Update is called once per frame

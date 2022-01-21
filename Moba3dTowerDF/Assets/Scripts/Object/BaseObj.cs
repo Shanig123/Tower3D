@@ -28,7 +28,6 @@ public class BaseObj : MonoBehaviour
         if (defaultShader == null)
         {
             GFunc.Function.Print_Log("defaultShader null");
-            print("defaultShader null");
             return;
         }
         GetComponentInChildren<Renderer>().material.shader = defaultShader;

@@ -28,6 +28,10 @@ public class Cursor : MonoBehaviour
 
         transform.rotation = IsBillBoard().rotation;
 
+#if UNITY_EDITOR
+#else
+          GetComponent<Renderer>().enabled = false;
+#endif
     }
 
     private void Set_CursorPos()

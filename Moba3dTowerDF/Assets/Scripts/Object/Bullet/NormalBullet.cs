@@ -153,7 +153,6 @@ public class NormalBullet : BaseBullet
             
         if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
         {
-            print("LifeEnd");
             m_tagStatus.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
         }
@@ -182,7 +181,6 @@ public class NormalBullet : BaseBullet
     {
         if (!m_bCheckDead)
         {
-            print("Collision");
             GameObject obj = other.gameObject;
             obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
             m_tagStatus.fLifeTime = 0;
