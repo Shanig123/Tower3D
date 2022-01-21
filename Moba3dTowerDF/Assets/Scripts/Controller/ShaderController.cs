@@ -56,7 +56,8 @@ public class ShaderController : MonoBehaviour
         else
         { 
             m_dictShader.Add(_strShaderName, Shader.Find("Custom/"+ _strShaderName));
-            print("Add Shader");
+
+
             yield return null;
 
             m_bCheckLoad = true;
@@ -71,8 +72,7 @@ public class ShaderController : MonoBehaviour
             return;
 
         m_dictShader.Add(_strShaderName, Shader.Find("Custom/" + _strShaderName));
-       // print("Add Shader");
-    
+
         return;
     }
 }

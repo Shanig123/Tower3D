@@ -27,6 +27,7 @@ public class BaseObj : MonoBehaviour
        //Shader defaultShader = Shader.Find("Custom/Default_Shader");
         if (defaultShader == null)
         {
+            GFunc.Function.Print_Log("defaultShader null");
             print("defaultShader null");
             return;
         }

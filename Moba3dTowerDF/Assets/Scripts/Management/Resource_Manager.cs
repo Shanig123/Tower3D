@@ -175,23 +175,20 @@ public class Resource_Manager : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Load Android.";
-            print("Load Android.");
+            GFunc.Function.Print_Log("Load Android.");
+
             Load_AndroidFileData("wave.dat");
         }
         else if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Load WindowsEditor.";
-            print("Load WindowsEditor.");
+            GFunc.Function.Print_Log("Load WindowsEditor.");
+
             Load_EditorFileData("wave.dat");
         }
         else if(Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Load WindowsPlayer.";
-            print("Load WindowsPlayer.");
+            GFunc.Function.Print_Log("Load WindowsPlayer.");
+
             Load_WinFileData("wave.dat");
         }
         //yield return null;
@@ -225,33 +222,25 @@ public class Resource_Manager : MonoBehaviour
             DataStruct.tagGameData tData;
             try
             {
-                print("try");
                 tData = (DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
-                print("Deserialize");
             }
             catch (System.Runtime.Serialization.SerializationException e)
             {
-                print("catch");
-                print("Err : " + e.Message);
+                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
                 throw;
             }
             finally
             {
-                print("finally");
                 fs.Close();
-                print("Stram close");
                 Save_EditorFileData(_strFileName);
             }
             Game_Manager.Instance.m_tGameData = tData;
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Load Complete.";
-            print("Load Complete.");
+
+            GFunc.Function.Print_Log("Load Complete.");
         }
         else
         {
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Err_File is Not Found.";
-            print("Err_File is Not Found.");
+            GFunc.Function.Print_Log("Err_File is Not Found.");
         }
     }
     private void Save_AndroidFileData(string _strFileName)
@@ -280,74 +269,59 @@ public class Resource_Manager : MonoBehaviour
             DataStruct.tagGameData tData;
             try
             {
-                print("try");
                 tData=(DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
-                print("Deserialize");
             }
             catch(System.Runtime.Serialization.SerializationException e)
             {
-                print("catch");
-                print("Err : " + e.Message);
+                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
+     
                 throw;
             }
             finally
             {
-                print("finally");
                 fs.Close();
-                print("Stram close");
                 Save_EditorFileData(_strFileName);
             }
-     
-            //fs.Close();
-            //print("Stram close");
 
             Game_Manager.Instance.m_tGameData = tData;
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Load Complete.";
-            print("Load Complete.");
+
+
+            GFunc.Function.Print_Log("Load Complete.");
         }
         else
         {
-            UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-            tLog.text = "Err_File is Not Found.";
-            print("Err_File is Not Found.");
+            GFunc.Function.Print_Log("Err_File is Not Found.");
         }
 
     }
 
     private void Save_EditorFileData(string _strFileName)
     {
-        print("Save");
+        GFunc.Function.Print_Log("Save.");
 
         string strPath = Application.persistentDataPath + "/" + _strFileName;
         BinaryFormatter bf = new BinaryFormatter();
 
         FileStream fs = File.Create(strPath);
-        print("fs open");
+
         DataStruct.tagGameData tData = new DataStruct.tagGameData();
 
         tData.iBestWave = Game_Manager.Instance.m_tGameData.iBestWave;
         tData.iUnLockLevel = Game_Manager.Instance.m_tGameData.iUnLockLevel;
-        print("write");
+
 
         try
         {
-            print("try");
             bf.Serialize(fs, tData);
-            print("Serialize");
         }
         catch (System.Runtime.Serialization.SerializationException e)
         {
-            print("catch");
-            print("Err : " + e.Message);
+            GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
             throw;
         }
         finally
         {
-            print("finally");
             fs.Close();
-            print("write fs close");
-
         }
 
 

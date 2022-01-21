@@ -1,6 +1,9 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#region DATA
 
 namespace DataEnum
 {
@@ -117,17 +120,58 @@ namespace DataStruct
 
 }
 
+#endregion
+
+#region Function
+
+namespace GFunc
+{
+    class Function
+    {
+        public static void Print_Log(string message)
+        {
+#if UNITY_EDITOR
+            Debug.Log(message);
+            if (GameObject.Find("Log_File"))
+            {
+                UnityEngine.UI.Text tLog =
+               GameObject.Find("Log_File").
+               GetComponent<UnityEngine.UI.Text>();
+                tLog.text = message;
+            }
+#else
+          
+#endif
+            return;
+        }
+
+        public static void Print_simpleLog(string message)
+        {
+#if UNITY_EDITOR
+            Debug.Log(message);
+#else
+          
+#endif
+            return;
+        }
+    }
+
+}
+
+#endregion
+
+
 //public class Base : MonoBehaviour
 //{
 //    // Start is called before the first frame update
 //    void Start()
 //    {
-        
+
 //    }
 
 //    // Update is called once per frame
 //    void Update()
 //    {
-        
+
 //    }
 //}

@@ -47,7 +47,8 @@ public class ConstructionController : MonoBehaviour
     {
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
-        print("list count : " + m_listAwaitObj.Count + " \n Const :  " + GConst.BaseValue.iHorizontal);
+
+
         if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
         {
             if (iPlayerGold >= GConst.BaseValue.iTowerGold)
@@ -77,12 +78,13 @@ public class ConstructionController : MonoBehaviour
             }
             else
             {
-                print("Not enough gold.");
+                GFunc.Function.Print_Log("Not enough gold.");
             }
         }
         else
         {
-            print("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+            GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+    
         }
         return false;
     }
@@ -98,12 +100,12 @@ public class ConstructionController : MonoBehaviour
                 MinPlayerGold(_eRankID);
                 return true;
             }
-            print("list is full or not enough gold.");
+            GFunc.Function.Print_Log("list is full or not enough gold.");
+
         }
         else
         {
-            print("Tower Call input Err.");
-
+            GFunc.Function.Print_Log("Tower Call input Err.");
         }
         return false;
     }
@@ -118,16 +120,12 @@ public class ConstructionController : MonoBehaviour
             vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iListCount].transform.position;
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
-            print(strObjKey + "_" + _iTowerId);
+
             GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Object", strObjKey);
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
 
             m_listAwaitObj.Add(objInstance);
-        }
-        else
-        {
-            print("err not found Key : Box");
         }
     }
 

@@ -81,14 +81,14 @@ public class PlayerController : MonoBehaviour
     {
         if(_eRankID == DataEnum.eRankID.Normal)
         {
-            print("Input Err. Player Controller.Get_SpecialCost. Err: -2");
+            GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost. Err: -2");
             return -2;
         }
         else if(_eRankID == DataEnum.eRankID.Magic)
         {
             if(m_tPlayerData.iMagicCost< 0)
             {
-                print("Input Err. Player Controller.Get_SpecialCost. Err: -3");
+                GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost. Err: -3");
                 return -3;
             }
             return m_tPlayerData.iMagicCost;
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         {
             if (m_tPlayerData.iRareCost < 0)
             {
-                print("Input Err. Player Controller.Get_SpecialCost. Err: -3");
+                GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost. Err: -3");
                 return -3;
             }
             return m_tPlayerData.iRareCost;
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             if (m_tPlayerData.iEpicCost < 0)
             {
-                print("Input Err. Player Controller.Get_SpecialCost. Err: -3");
+                GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost. Err: -3");
                 return -3;
             }
             return m_tPlayerData.iEpicCost;
@@ -115,14 +115,14 @@ public class PlayerController : MonoBehaviour
         {
             if (m_tPlayerData.iUniqueCost < 0)
             {
-                print("Input Err. Player Controller.Get_SpecialCost. Err: -3");
+                GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost. Err: -3");
                 return -3;
             }
             return m_tPlayerData.iUniqueCost;
         }
         else
         {
-            print("Input Err. Player Controller.Get_SpecialCost. Err: -1");
+            GFunc.Function.Print_Log("Input Err. Player Controller.Get_SpecialCost.  Err: -1");
             return -1;
         }
     }
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_eRankID == DataEnum.eRankID.Normal)
         {
-            print("Input Err. Player Controller.Add_SpecialCost. Err: -2");
+            GFunc.Function.Print_Log("Input Err. Player Controller.Add_SpecialCost. Err: -2");
             return -2;
         }
         else if (_eRankID == DataEnum.eRankID.Magic)
@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            print("Input Err. Player Controller.Add_SpecialCost. Err: -1");
+            GFunc.Function.Print_Log("Input Err. Player Controller.Add_SpecialCost. Err: -1");
             return -1;
         }
     }
@@ -331,8 +331,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-            print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);
-
             if (hit.collider.gameObject)
             {
                 m_objPicking = hit.collider.gameObject;
@@ -356,8 +354,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-            print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);
-
             if (hit.collider.gameObject)
                 m_objPicking = hit.collider.gameObject;
 
@@ -374,8 +370,6 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out _RayHit, 20.0f, iLayerMask))
         {
-            print("Picked object name: " + _RayHit.transform.name + ", position: " + _RayHit.transform.position + "   " + iLayerMask);
-
             return _RayHit.collider.gameObject;
         }
         return null;
@@ -383,7 +377,8 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tower()
     {
-        print("picking Tower");
+        GFunc.Function.Print_simpleLog("picking Tower");
+
         m_objPickTower = m_objPicking;
         m_eNextControlState = DataEnum.ePickingMode.Tile;
         
@@ -410,10 +405,7 @@ public class PlayerController : MonoBehaviour
             //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
             if (rimlight == null)
             {
-               
-                UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-                tLog.text = "rimlight null.";
-                print("rimlight null");
+                GFunc.Function.Print_Log("rimlight null.");
                 return;
      
             }
@@ -453,10 +445,8 @@ public class PlayerController : MonoBehaviour
 
             if (defaultshader == null)
             {
-
-                UnityEngine.UI.Text tLog = GameObject.Find("Log_File").GetComponent<UnityEngine.UI.Text>();
-                tLog.text = "defaultshader null.";
-                print("defaultshader null");
+                GFunc.Function.Print_Log("defaultshader null.");
+                
                 return;
 
             }
@@ -518,8 +508,6 @@ public class PlayerController : MonoBehaviour
                 if (iNumber < 0)
                     return;
                
-                //
-                print(strBoxName + "\n" + iNumber);
                 m_iPick_AwaitBoxNumber = iNumber;
             }
 
@@ -538,7 +526,9 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tile()
     {
-        print("picking Tile");
+
+        GFunc.Function.Print_simpleLog("picking Tile");
+        
         if (INBOARD == m_iCheckPickingTower)
         {
             if (Tile_Check_InTower(false))
@@ -601,7 +591,8 @@ public class PlayerController : MonoBehaviour
                 //클론명도 체크해야함.
                 if(m_objPicking.name == m_objPickTower.name)
                 {
-                    print("sameObject");
+                    GFunc.Function.Print_simpleLog("sameObject");
+
                     return false;
                 }
 

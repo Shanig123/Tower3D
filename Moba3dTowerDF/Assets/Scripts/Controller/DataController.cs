@@ -11,7 +11,7 @@ public class DataController : MonoBehaviour
     }
     ~DataController()
     {
-        print("Free DataController.");
+        GFunc.Function.Print_Log("Free DataController.");
         Game_Manager.Instance.m_iStageSeed = 0;     
     }
 

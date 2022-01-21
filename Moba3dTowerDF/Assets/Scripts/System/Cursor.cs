@@ -105,8 +105,6 @@ public class Cursor : MonoBehaviour
         //if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         //{
 
-        //    print("Picked object name: " + hit.transform.name + ", position: " + hit.transform.position + "   " + iLayerMask);
-
         //}
     }
 
