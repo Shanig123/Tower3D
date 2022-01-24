@@ -31,6 +31,7 @@ public class ShaderController : MonoBehaviour
     {
         NotCorutineLoadShader("Rimlight_Shader");
         NotCorutineLoadShader("Default_Shader");
+        NotCorutineLoadShader("RimlightNoAlpha_Shader");
 
         m_bCheckLoad = true;
     }
@@ -38,6 +39,7 @@ public class ShaderController : MonoBehaviour
     {
         NotCorutineLoadShader("Rimlight_Shader");
         NotCorutineLoadShader("Default_Shader");
+        NotCorutineLoadShader("RimlightNoAlpha_Shader");
 
         m_bCheckLoad = true;
     }

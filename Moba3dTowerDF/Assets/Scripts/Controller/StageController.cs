@@ -207,7 +207,7 @@ public class StageController : MonoBehaviour
     
             Vector3 vPos = m_Object_Manager.m_dictClone_Object["CreateZone"][0].GetComponent<Transform>().position;
           
-            GameObject TempGameObject = m_Object_Manager.InstanceObject(vPos, m_strWaveName, "Object", "TestMob00", m_iCreateCount);
+            GameObject TempGameObject = m_Object_Manager.InstanceObject(vPos, m_strWaveName, "Wave_Monster", "TestMob00", m_iCreateCount);
             MobAI Ai = TempGameObject.GetComponent<MobAI>();
 
             Ai.SetState = DataEnum.eState.Ready;

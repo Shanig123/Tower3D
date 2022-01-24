@@ -121,7 +121,7 @@ public class ConstructionController : MonoBehaviour
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
 
-            GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Object", strObjKey);
+            GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Tower", strObjKey);
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
 
@@ -215,7 +215,7 @@ public class ConstructionController : MonoBehaviour
         //    vPos.y += 0.5f;
         //    string strObjKey = ObjKeyTostrTowerID(_iTowerId);
         //    print(strObjKey + "_" + _iTowerId);
-        //    GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Object", strObjKey);
+        //    GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Tower", strObjKey);
 
         //    objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
 

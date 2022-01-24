@@ -6,6 +6,8 @@ public class BaseObj : MonoBehaviour
 {
     public bool m_bCheckDead = true;
     public bool m_bObjActiveOnOff = false;
+    public bool m_bSelect = false;
+
 
     [SerializeField] protected bool m_bFirstInit = false;
 

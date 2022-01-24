@@ -92,6 +92,7 @@ public class TowerAI : BaseObj
             UpdateInit();
         if (m_objTargetMob == null)
             m_iTargetID = 0;
+        RenderFunc();
         CheckState();
         DoController();
     }
@@ -112,12 +113,54 @@ public class TowerAI : BaseObj
         m_bFirstInit = true;
     }
 
+    private void RenderFunc()
+    {
+        if(m_bSelect)
+        {
+            Shader rimlight = GameObject.FindWithTag("TotalController").GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
+            //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
+            if (rimlight == null)
+            {
+                GFunc.Function.Print_Log("rimlight null.");
+                return;
+
+            }
+            //rimlight.
+            GetComponentInChildren<SkinnedMeshRenderer>().material.shader = rimlight;
+            //float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
+            GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 1.0f);
+
+            GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 1, 0));
+        }
+        else
+        {
+            Shader rimlight =GameObject.FindWithTag("TotalController"). GetComponent<ShaderController>().Get_Shader("RimlightNoAlpha_Shader");
+            //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
+            if (rimlight == null)
+            {
+                GFunc.Function.Print_Log("rimlight null.");
+                return;
+
+            }
+            //rimlight.
+            GetComponentInChildren<SkinnedMeshRenderer>().material.shader = rimlight;
+            //float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
+            GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 8.0f);
+            //GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Holo", 0);
+            if (Get_TowerRank == DataEnum.eRankID.Normal)
+                GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
+        }
+      
+    }
+
     private void Rename_Clone()
     {
         string name = gameObject.name;
         int iCount = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().Get_TotalCallCount;
         gameObject.name = name + "_" + iCount;
     }
+
+
 
     #region ControllerFunc
 
@@ -199,6 +242,7 @@ public class TowerAI : BaseObj
     }
 
     #endregion
+
     private void DoNoActiveState()
     {
        

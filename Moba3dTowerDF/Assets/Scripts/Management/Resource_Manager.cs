@@ -87,6 +87,8 @@ public class Resource_Manager : MonoBehaviour
     void Start()
     {
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Object/").Length;
+        m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Tower/").Length;
+        m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Wave_Monster/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Nature/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Default/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Bullerts/").Length;
@@ -127,6 +129,8 @@ public class Resource_Manager : MonoBehaviour
         LoadFileData();
 
         StartCoroutine(LoadPrefabs("Object"));
+        StartCoroutine(LoadPrefabs("Tower"));
+        StartCoroutine(LoadPrefabs("Wave_Monster"));
         StartCoroutine(LoadPrefabs("Nature"));
         StartCoroutine(LoadPrefabs("Default"));
         StartCoroutine(LoadPrefabs("Bullets"));

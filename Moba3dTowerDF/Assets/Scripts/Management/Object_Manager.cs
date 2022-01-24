@@ -164,7 +164,7 @@ public class Object_Manager : MonoBehaviour
             for (int x = 0; x < 5; ++x)
             {
                 Quaternion temp = Quaternion.LookRotation(new Vector3(0,0,-1));
-                GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["TestMob00"].objPrefabs, new Vector3(x + 50, 0.5f, y), temp);
+                GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Wave_Monster"]["TestMob00"].objPrefabs, new Vector3(x + 50, 0.5f, y), temp);
 
                 createObj.GetComponent<BaseObj>().m_strPrefabName = "TestMob00";
                 gameObjects.Add(createObj);

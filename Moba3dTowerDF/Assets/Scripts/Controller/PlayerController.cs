@@ -237,6 +237,8 @@ public class PlayerController : MonoBehaviour
             {
                 case DataEnum.ePickingMode.Obj_Tower:
                     {
+                        if(m_objPickTower)
+                            m_objPickTower.GetComponent<BaseObj>().m_bSelect = false;
                         Picking_Tower_ChangeRenderer(false);
                         m_objPicking = null;
                         m_objPickTower = null;
@@ -315,6 +317,8 @@ public class PlayerController : MonoBehaviour
 
     public void Reset_PickingInfo()
     {
+        if (m_objPickTower)
+            m_objPickTower.GetComponent<BaseObj>().m_bSelect = false;
         Picking_Tower_ChangeRenderer(false);
         m_objPicking = null;
         m_objPickTower = null;
@@ -391,6 +395,7 @@ public class PlayerController : MonoBehaviour
         Picking_Tower_ChangeRenderer(true);
         Check_Exception_TowerInBoard();
 
+        m_objPickTower.GetComponent<BaseObj>().m_bSelect = true;
         m_objPicking = null;
     }
 
@@ -691,6 +696,7 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
+        //추후 랭크 별로 다른 골드를 지급할 시 필요함.
         //if (DataEnum.eRankID.Normal == eRank)
         //{
         //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
