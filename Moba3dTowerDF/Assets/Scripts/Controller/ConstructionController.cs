@@ -110,6 +110,72 @@ public class ConstructionController : MonoBehaviour
         return false;
     }
 
+    public bool CallTower(DataEnum.eRankID _eRankID, int _iTowerNum)
+    {
+        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
+        if (((int)_eRankID & iFlag) > 0)
+        {
+            GameObject obj = GameObject.FindWithTag("TotalController");
+            int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+
+            if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+            {
+                int iRandomID = _iTowerNum; // 타워 키값 0-8번 추출
+
+                int iRankID = (int)_eRankID
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+                InstanceTower(iRankID); //인스턴스 타워
+                return true;
+            }
+            else
+            {
+                GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+
+            }
+            GFunc.Function.Print_Log("list is full.");
+            return false;
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Tower Call input Err.");
+        }
+        return false;
+    }
+    public bool CallTower(DataEnum.eRankID _eRankID, int _iTowerNumMin, int _iTowerNumMax)
+    {
+        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
+        if (((int)_eRankID & iFlag) > 0)
+        {
+            GameObject obj = GameObject.FindWithTag("TotalController");
+            int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+
+            if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+            {
+   
+                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iTowerNumMin, _iTowerNumMax); // 타워 키값 0-8번 추출
+
+                int iRankID = (int)_eRankID
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+                InstanceTower(iRankID); //인스턴스 타워
+                return true;
+            }
+            else
+            {
+                GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+
+            }
+            GFunc.Function.Print_Log("list is full.");
+            return false;
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Tower Call input Err.");
+        }
+        return false;
+    }
+
     private void InstanceTower(int _iTowerId)
     {
         //타워 인스턴스
@@ -120,7 +186,6 @@ public class ConstructionController : MonoBehaviour
             vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iListCount].transform.position;
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
-
             GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Tower", strObjKey);
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));

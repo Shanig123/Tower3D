@@ -633,26 +633,52 @@ public class PlayerController : MonoBehaviour
 
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
         {
-            CreateRankUpTower(_bSort);
+            CreateRankUpTower(_bSort, iPickingTowerRank);
         }
         else
         {
             return;
         }
     }
-    private void CreateRankUpTower(bool _bSort)
+    private void CreateRankUpTower(bool _bSort, int _iPickiTowerRank)
     {
         GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
         if(_bSort)
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
-
-        if (objEvent.GetComponent<Constructor>().Construction_Tower(DataEnum.eRankID.Normal))
+        if(_iPickiTowerRank >= 1)
+        {
+            if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)),0,2))
+            {
+                Destroy(m_objPicking);
+                Destroy(m_objPickTower);
+            }
+        }
+        if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1<<(_iPickiTowerRank+1))))
         {
             Destroy(m_objPicking);
             Destroy(m_objPickTower);
         }
     }
-    
+    private void CreateRankUpTower(bool _bSort, int _iPickiTowerRank, bool _bTest)
+    {
+        GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
+        if (_bSort)
+            GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+        if (_iPickiTowerRank == 1)
+        {
+            if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)), 0))
+            {
+                Destroy(m_objPicking);
+                Destroy(m_objPickTower);
+            }
+        }
+        if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank + 1))))
+        {
+            Destroy(m_objPicking);
+            Destroy(m_objPickTower);
+        }
+    }
+
     private void TowerStatUp(bool _bSort)
     {
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;

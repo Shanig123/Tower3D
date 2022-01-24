@@ -111,12 +111,21 @@ namespace DataStruct
         public int iTowerSynergy;
     }
 
+    [System.Serializable]
+    public class tagEffectInfo
+    {
+
+        public Color colorEffect =  new Color(1,1,1,1);
+        public Vector3 vScale = new Vector3(1,1);
+        public float fSpeed = 1;
+        public int iSpeed = 1;
+    }
+
     public struct tagPrefab
     {
         public GameObject objPrefabs;
         public string strKeys;
     }
-
 
 }
 

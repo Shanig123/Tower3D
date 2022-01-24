@@ -21,6 +21,8 @@ public class TowerAI : BaseObj
     [SerializeField] private Vector3 m_vCurModifyPos;
     [SerializeField] private Vector3 m_vNextModifyPos;
 
+    public DataStruct.tagEffectInfo m_tEffectInfo;
+
     #endregion
 
     #region Property
@@ -28,18 +30,18 @@ public class TowerAI : BaseObj
     public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tagStatus; } }
     public DataEnum.eRankID Get_TowerRank { get
         {
-            int id = m_tagStatus.iTowerId+10;
-            int num =(int)(id *0.1);
+            int id = m_tagStatus.iTowerId + 10;
+            int num = (int)(id * 0.1);
 
             if (1 == num)
                 return DataEnum.eRankID.Normal;
-            else if (1 == num)
+            else if (2 == num)
                 return DataEnum.eRankID.Magic;
-            else if (1 == num)
+            else if (3 == num)
                 return DataEnum.eRankID.Rare;
-            else if (1 == num)
+            else if (4 == num)
                 return DataEnum.eRankID.Epic;
-            else if (1 == num)
+            else if (5 == num)
                 return DataEnum.eRankID.Unique;
             else
                 return DataEnum.eRankID.End;
@@ -80,8 +82,8 @@ public class TowerAI : BaseObj
     protected override void Start()
     {
         base.Start();
-      //  m_tagStatus.strTowerName = gameObject.name;
-       //EditorUtility
+        //  m_tagStatus.strTowerName = gameObject.name;
+        //EditorUtility
     }
 
 
@@ -96,10 +98,12 @@ public class TowerAI : BaseObj
         CheckState();
         DoController();
     }
+
     private void UpdateInit()
     {
         Rename_Clone();
-       
+        UpdateInit_Effect();
+
         if (0 == m_fReadyTimerMax)
         {
             m_fReadyTimer = 3;
@@ -110,8 +114,44 @@ public class TowerAI : BaseObj
             m_tagStatus.fRange = 2f;
         if (m_tagStatus.iAtk == 0)
             m_tagStatus.iAtk = 5;
+
         m_bFirstInit = true;
     }
+
+    private void UpdateInit_Effect()
+    {
+        Base_Effect effect = GetComponentInChildren<Base_Effect>();
+        if (effect != null)
+        {
+            effect.m_tEffectInfo.vScale = new Vector3(0.5f, 0.5f, 0.5f);
+            if (DataEnum.eRankID.Normal == Get_TowerRank)
+            {
+            }
+            else if (DataEnum.eRankID.Magic == Get_TowerRank)
+            {
+                effect.m_tEffectInfo.colorEffect = Color.blue;
+                effect.m_tEffectInfo.fSpeed = 1.25f;
+            }
+            else if (DataEnum.eRankID.Rare == Get_TowerRank)
+            {
+                effect.m_tEffectInfo.colorEffect = Color.cyan;
+                effect.m_tEffectInfo.fSpeed = 1.5f;
+            }
+            else if (DataEnum.eRankID.Epic == Get_TowerRank)
+            {
+                effect.m_tEffectInfo.colorEffect = Color.magenta;
+                effect.m_tEffectInfo.fSpeed = 1.75f;
+            }
+            else if (DataEnum.eRankID.Unique == Get_TowerRank)
+            {
+                effect.m_tEffectInfo.colorEffect = new Color();
+                effect.m_tEffectInfo.fSpeed = 2;
+            }
+            effect.Copy_ClassInfoToParticleSys();
+        }
+
+    }
+
 
     private void RenderFunc()
     {

@@ -41,4 +41,20 @@ public class Constructor : MonoBehaviour
         }
         return false;
     }
+    public bool Construction_Tower(DataEnum.eRankID _eRankId, int _iTowernum)
+    {
+        if (!m_stageController.Get_WaveOnOff)
+        {
+            return m_construction.CallTower(_eRankId, _iTowernum);
+        }
+        return false;
+    }
+    public bool Construction_Tower(DataEnum.eRankID _eRankId, int _iTowernumMin, int _iTowernumMax)
+    {
+        if (!m_stageController.Get_WaveOnOff)
+        {
+            return m_construction.CallTower(_eRankId, _iTowernumMin, _iTowernumMax);
+        }
+        return false;
+    }
 }

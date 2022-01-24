@@ -109,7 +109,7 @@ public class ObjPool_Manager : MonoBehaviour
         Queue<GameObject> queueObjs = new Queue<GameObject>();
         for(int i=0; i< m_iMaxPoolSize; ++i)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Bullets"]["Empty_Bullet"].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Bullets"]["TestEffect_Bullet"].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
             createObject.name = createObject.name + "_" + i;
             queueObjs.Enqueue(createObject);
             yield return null;
