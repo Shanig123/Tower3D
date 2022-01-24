@@ -42,50 +42,57 @@ public class ConstructionController : MonoBehaviour
 
     }
 
-    //이 함수가 호출되면 타워가 생성됨.
-    private bool Construction_Tower(DataEnum.eRankID _eRankID) //생성 성공시 참 실패시 거짓반환
+    public bool AutoInBoard()
     {
-        GameObject obj = GameObject.FindWithTag("TotalController");
-        int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
-
-
-        if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+        if(m_listAwaitObj.Count > 0)
         {
-            if (iPlayerGold >= GConst.BaseValue.iTowerGold)
+            int i = 0;
+            foreach (GameObject iter in m_listAwaitObj)
             {
-                if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
-                {
-                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
-
-                    int iRankID = (int)DataEnum.eRankID.Normal
-                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
-
-                    InstanceTower(iRankID); //인스턴스 타워
-                    return true;
-                }
-                else  //특수 타워 소환
-                {
-                    if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//특수 코스트 값이 있을 때
-                    {
-                        int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
-                        int iRankID = (int)_eRankID
-                            | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
-
-                        InstanceTower(iRankID);//인스턴스 타워      
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                GFunc.Function.Print_Log("Not enough gold.");
-            }
-        }
-        else
-        {
-            GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+                //타일의 레이어 체크 및 레이어 위 오브젝트 있는지 체크 필요
     
+                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
+                {
+                    while(i < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
+                    {
+                        int iIndex = i;
+
+                        if (i < GConst.BaseValue.iHorizontal * 3)
+                            iIndex += GConst.BaseValue.iHorizontal * 3;
+                        if (i > GConst.BaseValue.iHorizontal * 7)
+                            iIndex -= GConst.BaseValue.iHorizontal * 7;
+
+                        if ( Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
+                            == LayerMask.NameToLayer("Tile"))
+                        {
+                            //타일위에 오브젝트가 있는 지 판단이 필요함.
+                            RaycastHit hit;
+                         
+                            Vector3 vector3Orin = Object_Manager.Instance.
+                               m_dictClone_Object["AlphaBlock"][iIndex].transform.position;
+
+                            vector3Orin.y -= 0.5f;
+                            Ray ray = new Ray(vector3Orin,
+                               new Vector3(0,1,0));
+
+                            if (!(Physics.Raycast(ray, out hit,  3f, (1 << LayerMask.NameToLayer("Tower"))))) 
+                            {
+                                vector3Orin.y += 1f;
+                                iter.transform.position = vector3Orin;
+                                ++i;
+                                break;
+                            }   
+                        }
+                        ++i;
+                    }
+                   
+                }
+
+            }
+            m_listAwaitObj.Clear();
+            return true;
         }
+
         return false;
     }
 
@@ -102,6 +109,24 @@ public class ConstructionController : MonoBehaviour
             }
             GFunc.Function.Print_Log("list is full or not enough gold.");
 
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Tower Call input Err.");
+        }
+        return false;
+    }
+
+    public bool CallTowerNotInAwait(DataEnum.eRankID _eRankID, Vector3 _vCreatePos)
+    {
+        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
+        if (((int)_eRankID & iFlag) > 0)
+        {
+            if (Construction_Tower(_eRankID,_vCreatePos))
+            {
+                MinPlayerGold(_eRankID);
+                return true;
+            }
         }
         else
         {
@@ -175,6 +200,144 @@ public class ConstructionController : MonoBehaviour
         }
         return false;
     }
+    public bool CallTower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos, int _iTowerNumMin, int _iTowerNumMax)
+    {
+        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
+        if (((int)_eRankID & iFlag) > 0)
+        {
+            if (Construction_Tower(_eRankID,_vCreatePos,_iTowerNumMin, _iTowerNumMax))
+            {
+                MinPlayerGold(_eRankID);
+                return true;
+            }
+            //GFunc.Function.Print_Log("Not enough gold.");
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Tower Call input Err.");
+        }
+        return false;
+    }
+
+    //이 함수가 호출되면 타워가 생성됨.
+    private bool Construction_Tower(DataEnum.eRankID _eRankID) //생성 성공시 참 실패시 거짓반환
+    {
+        GameObject obj = GameObject.FindWithTag("TotalController");
+        int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+
+
+        if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+        {
+            if (iPlayerGold >= GConst.BaseValue.iTowerGold)
+            {
+                if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
+                {
+                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+
+                    int iRankID = (int)DataEnum.eRankID.Normal
+                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+                    InstanceTower(iRankID); //인스턴스 타워
+                    return true;
+                }
+                else  //특수 타워 소환
+                {
+                    if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//특수 코스트 값이 있을 때
+                    {
+                        int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+                        int iRankID = (int)_eRankID
+                            | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
+
+                        InstanceTower(iRankID);//인스턴스 타워      
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                GFunc.Function.Print_Log("Not enough gold.");
+            }
+        }
+        else
+        {
+            GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
+
+        }
+        return false;
+    }
+
+    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos) //생성 성공시 참 실패시 거짓반환
+    {
+        GameObject obj = GameObject.FindWithTag("TotalController");
+        int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+
+        if (iPlayerGold >= GConst.BaseValue.iTowerGold)
+        {
+            if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
+            {
+                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+
+                int iRankID = (int)DataEnum.eRankID.Normal
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+                InstanceTower(iRankID, _vCreatePos); //인스턴스 타워
+                return true;
+            }
+            else  //특수 타워 소환
+            {
+                if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//특수 코스트 값이 있을 때
+                {
+                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+                    int iRankID = (int)_eRankID
+                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
+
+                    InstanceTower(iRankID, _vCreatePos);//인스턴스 타워      
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Not enough gold.");
+        }
+
+        return false;
+    }
+
+    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos,int _iRandomMin, int _iRandomMax) //생성 성공시 참 실패시 거짓반환
+    {
+        GameObject obj = GameObject.FindWithTag("TotalController");
+        int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+
+        if (iPlayerGold >= GConst.BaseValue.iTowerGold)
+        {
+            //if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
+            //{
+            //    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // 타워 키값 0-8번 추출
+
+            //    int iRankID = (int)DataEnum.eRankID.Normal
+            //        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+            //    InstanceTower(iRankID,_vCreatePos); //인스턴스 타워
+            //    return true;
+            //}
+            //else  //특수 타워 소환
+            //{
+                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // 타워 키값 0-8번 추출
+                int iRankID = (int)_eRankID
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
+
+                InstanceTower(iRankID, _vCreatePos);//인스턴스 타워      
+                return true;
+            //}
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Not enough gold.");
+        }
+
+        return false;
+    }
 
     private void InstanceTower(int _iTowerId)
     {
@@ -186,11 +349,24 @@ public class ConstructionController : MonoBehaviour
             vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iListCount].transform.position;
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
+            GFunc.Function.Print_Log("InAwait");
+
             GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Tower", strObjKey);
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
 
             m_listAwaitObj.Add(objInstance);
+        }
+    }
+    private void InstanceTower(int _iTowerId,  Vector3 _vCreatePos)
+    {
+        if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
+        {
+            string strObjKey = ObjKeyTostrTowerID(_iTowerId);
+            GFunc.Function.Print_Log("X: " + _vCreatePos.x + "\n" + "X: " + _vCreatePos.y + "\n" + "X: " + _vCreatePos.z + "\n");
+            GameObject objInstance = Object_Manager.Instance.InstanceObject(_vCreatePos, "Tower", "Tower", strObjKey);
+
+            objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
         }
     }
 

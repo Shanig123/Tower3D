@@ -640,24 +640,30 @@ public class PlayerController : MonoBehaviour
             return;
         }
     }
+
     private void CreateRankUpTower(bool _bSort, int _iPickiTowerRank)
     {
         GameObject objEvent = GameObject.FindGameObjectWithTag("EventActor");
-        if(_bSort)
+        if(_bSort && (m_iCheckPickingTower == OUTBOARD))
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
         if(_iPickiTowerRank >= 1)
         {
-            if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)),0,2))
+            if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position, 0,2))
             {
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
-            }
+                return;
+            }           
         }
-        if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1<<(_iPickiTowerRank+1))))
+        else
         {
-            Destroy(m_objPicking);
-            Destroy(m_objPickTower);
+            GFunc.Function.Print_simpleLog("PickRank : " + _iPickiTowerRank);
         }
+        //if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1<<(_iPickiTowerRank+1)), m_objPicking.transform.position))
+        //{
+        //    Destroy(m_objPicking);
+        //    Destroy(m_objPickTower);
+        //}
     }
     private void CreateRankUpTower(bool _bSort, int _iPickiTowerRank, bool _bTest)
     {
@@ -684,7 +690,15 @@ public class PlayerController : MonoBehaviour
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;
-        if(_bSort)
+        Base_Effect effect = m_objPicking.GetComponentInChildren<Base_Effect>();
+        ParticleSystem ps = m_objPicking.GetComponentInChildren<ParticleSystem>();
+        var mainModule = ps.main;
+        var vsize = mainModule.startSize;
+        effect.m_tEffectInfo.fParticleScale += 1;
+        vsize.constantMax = effect.m_tEffectInfo.fParticleScale;
+        mainModule.startSize = vsize;
+        mainModule.simulationSpeed += 0.5f;
+        if (_bSort)
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
         Destroy(m_objPickTower);
     }

@@ -29,7 +29,7 @@ public class Constructor : MonoBehaviour
     }
     public void Construct_Normal2()
     {
-        if (!m_stageController.Get_WaveOnOff)
+        //if (!m_stageController.Get_WaveOnOff)
              m_construction.CallTower(DataEnum.eRankID.Normal);
     }
 
@@ -41,6 +41,7 @@ public class Constructor : MonoBehaviour
         }
         return false;
     }
+
     public bool Construction_Tower(DataEnum.eRankID _eRankId, int _iTowernum)
     {
         if (!m_stageController.Get_WaveOnOff)
@@ -49,11 +50,21 @@ public class Constructor : MonoBehaviour
         }
         return false;
     }
-    public bool Construction_Tower(DataEnum.eRankID _eRankId, int _iTowernumMin, int _iTowernumMax)
+
+    public bool Construction_Tower_NoAwait(DataEnum.eRankID _eRankId, Vector3 _vCreatePos)
     {
         if (!m_stageController.Get_WaveOnOff)
         {
-            return m_construction.CallTower(_eRankId, _iTowernumMin, _iTowernumMax);
+            return m_construction.CallTower(_eRankId,_vCreatePos,0,8);
+        }
+        return false;
+    }
+
+    public bool Construction_Tower_NoAwait(DataEnum.eRankID _eRankId, Vector3 _vCreatePos, int _iTowernumMin, int _iTowernumMax)
+    {
+        if (!m_stageController.Get_WaveOnOff)
+        {
+            return m_construction.CallTower(_eRankId, _vCreatePos, _iTowernumMin, _iTowernumMax);
         }
         return false;
     }

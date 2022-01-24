@@ -123,18 +123,28 @@ public class TowerAI : BaseObj
         Base_Effect effect = GetComponentInChildren<Base_Effect>();
         if (effect != null)
         {
+            effect.m_tEffectInfo.fParticleScale = 5f;
             effect.m_tEffectInfo.vScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Vector3 vPos = effect.transform.position;
+            vPos.y += 0.5f;
+            effect.transform.position = vPos;
             if (DataEnum.eRankID.Normal == Get_TowerRank)
             {
             }
             else if (DataEnum.eRankID.Magic == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.blue;
+                effect.m_tEffectInfo.colorEffect = Color.black;
                 effect.m_tEffectInfo.fSpeed = 1.25f;
+                ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+                ParticleSystem.ShapeModule sha =   ps.shape;
+                sha.radius = 0;
+                sha.radiusThickness = 1;
+                effect.m_tEffectInfo.vScale = new Vector3(1.5f, 1.5f, 1.5f);
+                //ps.shape = sha;
             }
             else if (DataEnum.eRankID.Rare == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.cyan;
+                effect.m_tEffectInfo.colorEffect = Color.blue;
                 effect.m_tEffectInfo.fSpeed = 1.5f;
             }
             else if (DataEnum.eRankID.Epic == Get_TowerRank)
@@ -144,14 +154,13 @@ public class TowerAI : BaseObj
             }
             else if (DataEnum.eRankID.Unique == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = new Color();
+                effect.m_tEffectInfo.colorEffect = Color.red;
                 effect.m_tEffectInfo.fSpeed = 2;
             }
             effect.Copy_ClassInfoToParticleSys();
         }
 
     }
-
 
     private void RenderFunc()
     {
@@ -174,7 +183,7 @@ public class TowerAI : BaseObj
         }
         else
         {
-            Shader rimlight =GameObject.FindWithTag("TotalController"). GetComponent<ShaderController>().Get_Shader("RimlightNoAlpha_Shader");
+            Shader rimlight =GameObject.FindWithTag("TotalController"). GetComponent<ShaderController>().Get_Shader("Default_Shader");
             //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
             if (rimlight == null)
             {
@@ -184,11 +193,11 @@ public class TowerAI : BaseObj
             }
             //rimlight.
             GetComponentInChildren<SkinnedMeshRenderer>().material.shader = rimlight;
-            //float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
-            GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 8.0f);
-            //GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Holo", 0);
-            if (Get_TowerRank == DataEnum.eRankID.Normal)
-                GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
+            ////float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
+            //GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 8.0f);
+            ////GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Holo", 0);
+            //if (Get_TowerRank == DataEnum.eRankID.Normal)
+            //    GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
         }
       
     }

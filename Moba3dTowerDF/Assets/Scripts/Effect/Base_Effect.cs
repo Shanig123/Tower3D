@@ -17,6 +17,11 @@ public class Base_Effect : MonoBehaviour
         var mainModule = ps.main;
         mainModule.startColor = m_tEffectInfo.colorEffect;
         mainModule.simulationSpeed = m_tEffectInfo.fSpeed;
+        //mainModule.startSize.constantMin *= m_tEffectInfo.fParticleScale;
+
+        var vsize = mainModule.startSize;
+        vsize.constantMax = m_tEffectInfo.fParticleScale;
+        mainModule.startSize = vsize;
 
         var scale = GetComponent<Transform>().localScale;
         scale.x *= m_tEffectInfo.vScale.x; scale.y *= m_tEffectInfo.vScale.y; scale.z *= m_tEffectInfo.vScale.z;

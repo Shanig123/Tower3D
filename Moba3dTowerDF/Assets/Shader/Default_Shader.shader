@@ -15,9 +15,9 @@ Shader "Custom/Default_Shader"
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        //#pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows
 		//#pragma surface surf Standard (alpha:premul, fullforwardshadows)
-		#pragma surface surf Standard alpha
+		//#pragma surface surf Standard alpha
 		//#pragma surface surf Lambert  alpha:blend 
 		//#pragma surface surf Standard
         // Use shader model 3.0 target, to get nicer looking lighting
