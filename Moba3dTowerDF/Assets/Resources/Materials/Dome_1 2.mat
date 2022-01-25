@@ -153,5 +153,5 @@ Material:
     - _Tile3: {r: 1, g: 1, b: 0, a: 0}
     - _TileDs: {r: 1, g: 1, b: 0, a: 0}
     - _TileDsl: {r: 1, g: 1, b: 0, a: 0}
-    - _TintColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.69803923}
+    - _TintColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5254902}
   m_BuildTextureStacks: []
