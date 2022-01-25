@@ -257,26 +257,31 @@ public class TowerAI : BaseObj
         {
             case DataEnum.eState.NoActive:
                 {
+                    gameObject.layer = 0;
                     DoNoActiveState();
                 }
                 break;
             case DataEnum.eState.Ready:
                 {
+                    gameObject.layer = LayerMask.NameToLayer("Tower");
                     DoReadyState();
                 }
                 break;
             case DataEnum.eState.Active:
                 {
+                    gameObject.layer = LayerMask.NameToLayer("Tower");
                     DoActiveState();
                 }
                 break;
             case DataEnum.eState.Dead:
                 {
+                    gameObject.layer = 0;
                     DoDeadState();
                 }
                 break;
             default:
                 {
+                    gameObject.layer = 0;
                     m_fReadyTimer += Time.deltaTime;
 
                     if (m_fReadyTimer > m_fReadyTimerMax)
@@ -324,18 +329,36 @@ public class TowerAI : BaseObj
             != GConst.BaseValue.iStatFlag_CheckInStage)
         {
             Vector3 vPos = transform.position;
-            if (GConst.BaseValue.vLeftTop.x < vPos.x &&
-                GConst.BaseValue.vRightBottom.x > vPos.x)
-            {
-                if (GConst.BaseValue.vLeftTop.z > vPos.z &&
-                GConst.BaseValue.vRightBottom.z < vPos.z)
-                {
-                    m_vCurModifyPos = vPos;
-                    m_vNextModifyPos = vPos;
 
-                    m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
-                }
+            RaycastHit hit;
+
+            Vector3 vector3Orin = vPos;
+
+            vector3Orin.y += 0.5f;
+            Ray ray = new Ray(vector3Orin,
+               new Vector3(0, -1, 0));
+
+            if (Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tile"))))
+            {
+                m_vCurModifyPos = vPos;
+                m_vNextModifyPos = vPos;
+
+                m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
             }
+
+
+            //if (GConst.BaseValue.vLeftTop.x < vPos.x &&
+            //    GConst.BaseValue.vRightBottom.x > vPos.x)
+            //{
+            //    if (GConst.BaseValue.vLeftTop.z > vPos.z &&
+            //    GConst.BaseValue.vRightBottom.z < vPos.z)
+            //    {
+            //        m_vCurModifyPos = vPos;
+            //        m_vNextModifyPos = vPos;
+
+            //        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
+            //    }
+            //}
         }
     }
 
@@ -351,13 +374,13 @@ public class TowerAI : BaseObj
             {
                 if(m_vCurModifyPos == m_vNextModifyPos)
                 {
-                    m_fReadyTimer += Time.deltaTime;
-                    if (m_fReadyTimer > m_fReadyTimerMax)
-                    {
+                    //m_fReadyTimer += Time.deltaTime;
+                    //if (m_fReadyTimer > m_fReadyTimerMax)
+                    //{
                         m_fReadyTimer = 0;
                         m_eNextState = DataEnum.eState.Active;
                         m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_ReadyToIdle;
-                    }
+                   // }
                 }
                 else
                 {
