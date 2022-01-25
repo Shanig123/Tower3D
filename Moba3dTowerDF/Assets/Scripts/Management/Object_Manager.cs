@@ -376,7 +376,7 @@ public class Object_Manager : MonoBehaviour
                 fZPos -= (iBoxCreateMax >> 1);
             }
             Vector3 vCreatePos = new Vector3(fXPos, 0.5f, fZPos);
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["Box_02"].objPrefabs, vCreatePos, Quaternion.identity);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Object"]["AwaitListBox"].objPrefabs, vCreatePos, Quaternion.identity);
             createObject.name = createObject.name + "_" + x;
             gameObjects.Add(createObject);
         }

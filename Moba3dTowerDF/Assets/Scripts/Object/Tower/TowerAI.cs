@@ -133,13 +133,8 @@ public class TowerAI : BaseObj
             }
             else if (DataEnum.eRankID.Magic == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.black;
+                effect.m_tEffectInfo.colorEffect = Color.yellow;
                 effect.m_tEffectInfo.fSpeed = 1.25f;
-                ParticleSystem ps = effect.GetComponent<ParticleSystem>();
-                ParticleSystem.ShapeModule sha =   ps.shape;
-                sha.radius = 0;
-                sha.radiusThickness = 1;
-                effect.m_tEffectInfo.vScale = new Vector3(1.5f, 1.5f, 1.5f);
                 //ps.shape = sha;
             }
             else if (DataEnum.eRankID.Rare == Get_TowerRank)
@@ -154,8 +149,14 @@ public class TowerAI : BaseObj
             }
             else if (DataEnum.eRankID.Unique == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.red;
-                effect.m_tEffectInfo.fSpeed = 2;
+                effect.m_tEffectInfo.colorEffect = Color.black;
+                effect.m_tEffectInfo.fSpeed = 2f;
+                ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+                ParticleSystem.ShapeModule sha = ps.shape;
+                sha.radius = 0;
+                sha.radiusThickness = 1;
+                effect.m_tEffectInfo.vScale = new Vector3(1.25f, 1.25f, 1.25f);
+
             }
             effect.Copy_ClassInfoToParticleSys();
         }

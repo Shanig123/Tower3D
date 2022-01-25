@@ -207,13 +207,22 @@ public class PlayerController : MonoBehaviour
         DebugText();
 
     }
+
+    //void  UpdateInit()
+    //{
+    //    m_bFirstInit = true;
+
+    //}
+
     private void UpdateInit()
     {
         int k = 0;
-        for (int i =0; i<4; ++i)
+        for (int i =0; i<5; ++i)
         {
             for(int j=0; j<8;++j)
             {
+                if (i == 4 && j > 1)
+                    break;
                 if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
                 {
                     while (k < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
@@ -277,12 +286,6 @@ public class PlayerController : MonoBehaviour
             "UniqueGold : " + m_tPlayerData.iUniqueCost + "\n";
 
     }
-
-    //void  UpdateInit()
-    //{
-    //    m_bFirstInit = true;
-
-    //}
 
     void ChangeController()
     {

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7183326039966109160}
   - component: {fileID: 3824306337273938959}
   - component: {fileID: 7056397494146912628}
-  - component: {fileID: 6378124813740513525}
   - component: {fileID: 5887501098282684081}
   - component: {fileID: 8837801615193768457}
+  - component: {fileID: 2681744102251199781}
   m_Layer: 0
   m_Name: TotalController
   m_TagString: TotalController
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_vPickTowerPos: {x: 0, y: 0, z: 0}
   m_objPicking: {fileID: 0}
   m_upgradeController: {fileID: 0}
+  m_bFirstInit: 0
 --- !u!114 &7056397494146912628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,22 +111,6 @@ MonoBehaviour:
   m_bCreateModeOnOff: 0
   m_bWaveOnOff: 0
   m_bDayNight: 0
---- !u!54 &6378124813740513525
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8789768317058688254}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5887501098282684081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,3 +141,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dda49008b32699a43a4c1cb99edbe220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &2681744102251199781
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789768317058688254}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

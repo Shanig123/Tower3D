@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ca804d6b18f6d4db4ebe14203336f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalSound: {fileID: 8300000, guid: e213f073542414fcbbb5795da66a953a, type: 3}
+  animalSound: {fileID: 0}
   walking: {fileID: 8300000, guid: 231f5e48c4f0c49ec9d12e4698c08e8a, type: 3}
   eating: {fileID: 0}
   running: {fileID: 8300000, guid: 231f5e48c4f0c49ec9d12e4698c08e8a, type: 3}

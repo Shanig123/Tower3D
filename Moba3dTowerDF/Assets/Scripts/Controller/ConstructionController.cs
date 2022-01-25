@@ -8,12 +8,12 @@ public class ConstructionController : MonoBehaviour
         : base()
     {
         m_eLevel = DataEnum.eDifficulty.End;
-        m_listAwaitObj = new List<GameObject>();
     }
     #region Value
 
     [SerializeField] private DataEnum.eDifficulty m_eLevel;
-    [SerializeField] private List<GameObject> m_listAwaitObj;
+    
+
     //[SerializeField] private Dictionary<int, string> m_mapIDToObjKey;
 
     #endregion
@@ -40,60 +40,6 @@ public class ConstructionController : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public bool AutoInBoard()
-    {
-        if(m_listAwaitObj.Count > 0)
-        {
-            int i = 0;
-            foreach (GameObject iter in m_listAwaitObj)
-            {
-                //타일의 레이어 체크 및 레이어 위 오브젝트 있는지 체크 필요
-    
-                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
-                {
-                    while(i < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
-                    {
-                        int iIndex = i;
-
-                        if (i < GConst.BaseValue.iHorizontal * 3)
-                            iIndex += GConst.BaseValue.iHorizontal * 3;
-                        if (i > GConst.BaseValue.iHorizontal * 7)
-                            iIndex -= GConst.BaseValue.iHorizontal * 7;
-
-                        if ( Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
-                            == LayerMask.NameToLayer("Tile"))
-                        {
-                            //타일위에 오브젝트가 있는 지 판단이 필요함.
-                            RaycastHit hit;
-                         
-                            Vector3 vector3Orin = Object_Manager.Instance.
-                               m_dictClone_Object["AlphaBlock"][iIndex].transform.position;
-
-                            vector3Orin.y -= 0.5f;
-                            Ray ray = new Ray(vector3Orin,
-                               new Vector3(0,1,0));
-
-                            if (!(Physics.Raycast(ray, out hit,  3f, (1 << LayerMask.NameToLayer("Tower"))))) 
-                            {
-                                vector3Orin.y += 1f;
-                                iter.transform.position = vector3Orin;
-                                ++i;
-                                break;
-                            }   
-                        }
-                        ++i;
-                    }
-                   
-                }
-
-            }
-            m_listAwaitObj.Clear();
-            return true;
-        }
-
-        return false;
     }
 
     //이 함수가 호출되는 것은 플레이어가 버튼을 눌렀을 때 동작함.
@@ -144,7 +90,7 @@ public class ConstructionController : MonoBehaviour
             GameObject obj = GameObject.FindWithTag("TotalController");
             int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
 
-            if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+            if (BoxOnObjCount() < GConst.BaseValue.iAwaitBoxMax)
             {
                 int iRandomID = _iTowerNum; // 타워 키값 0-8번 추출
 
@@ -153,11 +99,6 @@ public class ConstructionController : MonoBehaviour
 
                 InstanceTower(iRankID); //인스턴스 타워
                 return true;
-            }
-            else
-            {
-                GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
-
             }
             GFunc.Function.Print_Log("list is full.");
             return false;
@@ -198,8 +139,8 @@ public class ConstructionController : MonoBehaviour
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
 
-
-        if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
+        print(BoxOnObjCount());
+        if (BoxOnObjCount() < GConst.BaseValue.iAwaitBoxMax)
         {
             if (iPlayerGold >= GConst.BaseValue.iTowerGold)
             {
@@ -230,11 +171,6 @@ public class ConstructionController : MonoBehaviour
             {
                 GFunc.Function.Print_Log("Not enough gold.");
             }
-        }
-        else
-        {
-            GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
-
         }
         return false;
     }
@@ -301,11 +237,27 @@ public class ConstructionController : MonoBehaviour
     private void InstanceTower(int _iTowerId)
     {
         //타워 인스턴스
-        int iListCount = m_listAwaitObj.Count;
+        GameObject objBox = null;
+
+        int iOnBoxCount = 0;
+        int iBoxIndex = 0;
+        foreach (GameObject iter in Object_Manager.Instance.m_dictClone_Object["Box"])
+        {
+            if (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj != null)
+            {
+                ++iOnBoxCount;
+            }
+            else
+            {
+                objBox = iter;
+                break;
+            }
+            ++iBoxIndex;
+        }
         Vector3 vPos;
         if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
         {
-            vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iListCount].transform.position;
+            vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iBoxIndex].transform.position;
             vPos.y += 0.5f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
             GFunc.Function.Print_Log("InAwait");
@@ -314,7 +266,7 @@ public class ConstructionController : MonoBehaviour
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
 
-            m_listAwaitObj.Add(objInstance);
+            objBox.GetComponent<Obj_AwaitListBox>().m_OnTowerObj = objInstance;
         }
     }
     private void InstanceTower(int _iTowerId,  Vector3 _vCreatePos)
@@ -392,34 +344,124 @@ public class ConstructionController : MonoBehaviour
 
     public void Sort_AwaitList(int _iIndex)
     {
-        int iListCount = m_listAwaitObj.Count;
-        if(iListCount<= _iIndex)
+        if(BoxOnObjCount() <= _iIndex)
         {
             print("InputErr");
             return;
         }
-        m_listAwaitObj.RemoveAt(_iIndex);
-        Vector3 vPos;
 
-        for (int i = _iIndex; i<iListCount-1;++i)
+        for (int i = 0; i<6;++i)
         {
-            vPos = Object_Manager.Instance.m_dictClone_Object["Box"][i].transform.position;
-            vPos.y += 0.5f;
-            m_listAwaitObj[i].transform.position = vPos;
+            RaycastHit hit;
+            if (!BoxToRay(i, out hit))
+                Object_Manager.Instance.m_dictClone_Object["Box"][i].GetComponent<Obj_AwaitListBox>().m_OnTowerObj = null;
         }
        
+    }
 
-        //if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
-        //{
-        //    vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iListCount].transform.position;
-        //    vPos.y += 0.5f;
-        //    string strObjKey = ObjKeyTostrTowerID(_iTowerId);
-        //    print(strObjKey + "_" + _iTowerId);
-        //    GameObject objInstance = Object_Manager.Instance.InstanceObject(vPos, "Tower", "Tower", strObjKey);
+    public bool AutoInBoard()
+    {
+        if (BoxOnObjCount() > 0)
+        {
+            //제대로 동작되지 않음.
+            List<GameObject> listobj_Boxes= Object_Manager.Instance.m_dictClone_Object["Box"];
 
-        //    objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));
+            int i = 0;
+            foreach (GameObject iter in listobj_Boxes)
+            {
+                //타일의 레이어 체크 및 레이어 위 오브젝트 있는지 체크 필요
 
-        //    m_listAwaitObj.Add(objInstance);
-        //}
+                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
+                {
+                    while (i < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
+                    {
+                        int iIndex = i;
+
+                        if (i < GConst.BaseValue.iHorizontal * 8) //i가 77미만일경우
+                            iIndex += GConst.BaseValue.iHorizontal * 3;
+                        else // i가 
+                            iIndex =i - GConst.BaseValue.iHorizontal * 8;
+
+                        if (Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
+                            == LayerMask.NameToLayer("Tile"))
+                        {
+                            //타일위에 오브젝트가 있는 지 판단이 필요함.
+                            RaycastHit hit;
+
+                            Vector3 vector3Orin = Object_Manager.Instance.
+                               m_dictClone_Object["AlphaBlock"][iIndex].transform.position;
+
+                            vector3Orin.y -= 1f;
+                            Ray ray = new Ray(vector3Orin,
+                               new Vector3(0, 1, 0));
+
+                            if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
+                            {
+                                print(Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].name);
+                                vector3Orin.y += 1.5f;
+                                if(null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj))
+                                {
+                                    iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj.transform.position = vector3Orin;
+                                    iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj = null;
+                                }
+                                ++i;
+                                break;
+                            }
+                        }
+                        ++i;
+                    }
+
+                }
+
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool BoxToRay(int _iBoxIndex, out RaycastHit _hit)
+    {
+        Vector3 vOrinPos = Object_Manager.Instance.
+           m_dictClone_Object["Box"][_iBoxIndex].transform.position;
+
+        vOrinPos.y -= 2f;
+        Ray ray = new Ray(vOrinPos,
+           new Vector3(0, 1, 0));
+
+        return Physics.Raycast(ray, out _hit, 10f, (1 << LayerMask.NameToLayer("Tower")));
+    }
+
+    private List<GameObject> BoxOnObjectList()
+    {
+        List<GameObject> listRayHitObject = new List<GameObject>();
+        if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
+        {
+            for (int j = 0; j < Object_Manager.Instance.m_dictClone_Object["Box"].Count; ++j)
+            {
+                RaycastHit hit;
+
+                if (BoxToRay(j, out hit))
+                {
+                    listRayHitObject.Add(hit.collider.gameObject);
+                }
+            }
+        }
+        return listRayHitObject;
+    }
+
+    private int BoxOnObjCount()
+    {
+        int iBoxOnCount = 0;
+
+        foreach(GameObject iter in Object_Manager.Instance.m_dictClone_Object["Box"])
+        {
+            if( iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj != null)
+            {
+                ++iBoxOnCount;
+            }
+        }
+        return iBoxOnCount;
     }
 }
