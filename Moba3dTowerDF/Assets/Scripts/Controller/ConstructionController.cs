@@ -169,7 +169,30 @@ public class ConstructionController : MonoBehaviour
         return false;
     }
 
-     //이 함수가 호출되면 타워가 생성됨.
+    public bool CallTower(DataEnum.eRankID _eRankID, int _iTowerNum, Vector3 _vPos )
+    {
+        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
+        if (((int)_eRankID & iFlag) > 0)
+        {
+            GameObject obj = GameObject.FindWithTag("TotalController");
+            int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
+            int iRandomID = _iTowerNum; // 타워 키값 0-8번 추출
+
+            int iRankID = (int)_eRankID
+                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+
+            InstanceTower(iRankID, _vPos); //인스턴스 타워
+            return true;
+           
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Tower Call input Err.");
+        }
+        return false;
+    }
+
+    //이 함수가 호출되면 타워가 생성됨.
     private bool Construction_Tower(DataEnum.eRankID _eRankID) //생성 성공시 참 실패시 거짓반환
     {
         GameObject obj = GameObject.FindWithTag("TotalController");

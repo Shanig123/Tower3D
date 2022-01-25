@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-
+  public  bool m_bFirstInit =  false;
     // Start is called before the first frame update
     void Start()
     {
@@ -197,8 +197,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(false == m_bFirstInit)
-        //    UpdateInit();
+        if (false == m_bFirstInit)
+            UpdateInit();
         CheckInputMouse();
         ChangeController();
       
@@ -206,6 +206,61 @@ public class PlayerController : MonoBehaviour
 
         DebugText();
 
+    }
+    private void UpdateInit()
+    {
+        int k = 0;
+        for (int i =0; i<4; ++i)
+        {
+            for(int j=0; j<8;++j)
+            {
+                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
+                {
+                    while (k < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
+                    {
+                        int iIndex = k;
+
+                        if (Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
+                            == LayerMask.NameToLayer("Tile"))
+                        {
+                            //타일위에 오브젝트가 있는 지 판단이 필요함.
+                            RaycastHit hit;
+
+                            Vector3 vector3Orin = Object_Manager.Instance.
+                               m_dictClone_Object["AlphaBlock"][iIndex].transform.position;
+
+                            vector3Orin.y -= 0.5f;
+                            Ray ray = new Ray(vector3Orin,
+                               new Vector3(0, 1, 0));
+                            print(k);
+                            if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
+                            {
+                                vector3Orin.y += 1f;
+
+                                if (GetComponent<ConstructionController>().CallTower((DataEnum.eRankID)(1 << (i)),
+                                    j,
+                                    vector3Orin))
+                                {
+                                    print("succese");
+                                }
+                                else
+                                {
+                                    print("Create Fail");
+                                }
+                                ++k;
+                                break;
+                            }
+                        }
+                        ++k;
+                    }
+
+                }
+                else
+                { print("No Cotains"); }
+            }
+          
+        }
+        m_bFirstInit = true;
     }
 
     private void DebugText()
