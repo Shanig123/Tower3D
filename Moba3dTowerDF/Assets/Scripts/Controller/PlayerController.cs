@@ -371,6 +371,25 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    public bool TileUpto_RayPicking(string _strLayerMask, Vector3 _vDir)
+    {
+        RaycastHit hit;
+        Vector3 vPickObjPos = m_objPicking.transform.position;
+        vPickObjPos.y -= 0.5f;
+        Ray ray = new Ray(vPickObjPos, _vDir);
+
+        int iLayerMask = (1 << LayerMask.NameToLayer(_strLayerMask)) | (1 << LayerMask.NameToLayer("UI"));
+
+        if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
+        {
+            if (hit.collider.gameObject)
+                m_objPicking = hit.collider.gameObject;
+
+            return true;
+        }
+        return false;
+    }
+
     public GameObject RayPicking(string _strLayerMask, RaycastHit _RayHit)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -592,7 +611,7 @@ public class PlayerController : MonoBehaviour
 
     private bool Tile_Check_InTower(bool _bSort)
     {
-        if (RayPicking("Tower")) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
+        if (TileUpto_RayPicking("Tower",new Vector3(0,1,0))) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
         {
             //타워 업글 -> 스텟 상승
             if (m_objPicking.GetComponent<TowerAI>().m_strPrefabName ==
@@ -605,18 +624,18 @@ public class PlayerController : MonoBehaviour
 
                     return false;
                 }
-
                 TowerStatUp(_bSort);
                 //타워가 같은 타워라면 타워 업글
             }
             else //다르다면 티어 체크 후 같은 티어라면 티어를 업글
             {
+                
                 CheckTowerRank(_bSort);
             }
 
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
             return true; // 오브젝트가 있다면 바로 리턴함.
-        }
+        }      
         return false;
     }
 
@@ -633,6 +652,7 @@ public class PlayerController : MonoBehaviour
 
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
         {
+            GFunc.Function.Print_simpleLog("TowerRankUp");
             CreateRankUpTower(_bSort, iPickingTowerRank);
         }
         else
@@ -648,12 +668,13 @@ public class PlayerController : MonoBehaviour
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
         if(_iPickiTowerRank >= 1)
         {
-            if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position, 0,2))
+            if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position))
             {
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
                 return;
-            }           
+            }
+            GFunc.Function.Print_simpleLog("TowerRankUpFailed");
         }
         else
         {

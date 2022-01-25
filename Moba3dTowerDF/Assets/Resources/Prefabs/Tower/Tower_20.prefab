@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2820618604926506274}
   - component: {fileID: 2820618604919552712}
-  - component: {fileID: 2820618605368075600}
-  - component: {fileID: 2820618605368075602}
-  - component: {fileID: 2820618605368075603}
+  - component: {fileID: 5453261376108750375}
+  - component: {fileID: 8086102785531593569}
   m_Layer: 0
   m_Name: Tower_20
   m_TagString: Untagged
@@ -29,10 +28,11 @@ Transform:
   m_GameObject: {fileID: 2820618604926929154}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 6456333868079588364}
   - {fileID: 6456333868079588414}
+  - {fileID: 805767884334591104}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55,8 +55,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &2820618605368075600
-CharacterController:
+--- !u!114 &5453261376108750375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820618604926929154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bSelect: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_strPrefabName: 
+  m_tagStatus:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iTowerId: 0
+    iStatus: 0
+    fRange: 0
+    fAtkCoolTime: 0
+    fMaxAtkCoolTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
+--- !u!65 &8086102785531593569
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -66,102 +108,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.75
-  m_Radius: 0.19
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.375, z: 0}
---- !u!114 &2820618605368075602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2820618604926929154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36003be02bd7fc54db18675085e2ab6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleStates:
-  - stateName: isLooking
-    animationBool: isLooking
-    minStateTime: 1
-    maxStateTime: 6
-    stateWeight: 7
-  movementStates:
-  - stateName: Walking
-    animationBool: isWalking
-    maxStateTime: 100
-    moveSpeed: 1
-    turnSpeed: 200
-  - stateName: Running
-    animationBool: isRunning
-    maxStateTime: 3
-    moveSpeed: 6
-    turnSpeed: 350
-  - stateName: Flyinjg
-    animationBool: isFlying
-    maxStateTime: 6
-    moveSpeed: 8
-    turnSpeed: 500
-  attackingStates:
-  - stateName: isAttacking
-    animationBool: isAttacking
-  deathStates:
-  - stateName: Dead
-    animationBool: isDead
-  species: Hen
-  stats: {fileID: 11400000, guid: 206b9a7643c46db4089459065a136bc0, type: 2}
-  wanderZone: 16.71
-  awareness: 30
-  scent: 30
-  constainedToWanderZone: 0
-  nonAgressiveTowards: []
-  matchSurfaceRotation: 0
-  surfaceRotationSpeed: 2
-  logChanges: 0
-  showGizmos: 0
-  drawWanderRange: 1
-  drawScentRange: 1
-  drawAwarenessRange: 1
-  deathEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  attackingEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  idleEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  CurrentState: 0
---- !u!195 &2820618605368075603
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2820618604926929154}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.2
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.61
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6456333868079429664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1020,8 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1083,6 +1033,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -3247,3 +3198,78 @@ Transform:
   m_Father: {fileID: 6456333868079588738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7650901764140585891
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2820618604926506274}
+    m_Modifications:
+    - target: {fileID: 918842147716031605, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_Name
+      value: CircleTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 59cb9c03a61fa4947b57d652094ffe87, type: 3}
+--- !u!4 &805767884334591104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+    type: 3}
+  m_PrefabInstance: {fileID: 7650901764140585891}
+  m_PrefabAsset: {fileID: 0}

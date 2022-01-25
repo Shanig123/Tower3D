@@ -1062,7 +1062,7 @@ Transform:
   m_GameObject: {fileID: 1447271420225298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 0, z: 24}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4625661323867242}
   - {fileID: 4900160461069506}
@@ -1142,8 +1142,8 @@ MonoBehaviour:
   m_tEffectInfo:
     colorEffect: {r: 0, g: 0, b: 0, a: 0}
     vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
     fSpeed: 1
-    iSpeed: 1
 --- !u!1 &1451636307177142
 GameObject:
   m_ObjectHideFlags: 0

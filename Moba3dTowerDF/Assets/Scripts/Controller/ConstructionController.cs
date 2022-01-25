@@ -127,6 +127,7 @@ public class ConstructionController : MonoBehaviour
                 MinPlayerGold(_eRankID);
                 return true;
             }
+            GFunc.Function.Print_Log("Tower Call input Err.");
         }
         else
         {
@@ -167,59 +168,8 @@ public class ConstructionController : MonoBehaviour
         }
         return false;
     }
-    public bool CallTower(DataEnum.eRankID _eRankID, int _iTowerNumMin, int _iTowerNumMax)
-    {
-        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
-        if (((int)_eRankID & iFlag) > 0)
-        {
-            GameObject obj = GameObject.FindWithTag("TotalController");
-            int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
 
-            if (m_listAwaitObj.Count < GConst.BaseValue.iAwaitBoxMax)
-            {
-   
-                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iTowerNumMin, _iTowerNumMax); // 타워 키값 0-8번 추출
-
-                int iRankID = (int)_eRankID
-                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
-
-                InstanceTower(iRankID); //인스턴스 타워
-                return true;
-            }
-            else
-            {
-                GFunc.Function.Print_Log("list count(" + m_listAwaitObj.Count + ") is over " + GConst.BaseValue.iHorizontal);
-
-            }
-            GFunc.Function.Print_Log("list is full.");
-            return false;
-        }
-        else
-        {
-            GFunc.Function.Print_Log("Tower Call input Err.");
-        }
-        return false;
-    }
-    public bool CallTower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos, int _iTowerNumMin, int _iTowerNumMax)
-    {
-        int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
-        if (((int)_eRankID & iFlag) > 0)
-        {
-            if (Construction_Tower(_eRankID,_vCreatePos,_iTowerNumMin, _iTowerNumMax))
-            {
-                MinPlayerGold(_eRankID);
-                return true;
-            }
-            //GFunc.Function.Print_Log("Not enough gold.");
-        }
-        else
-        {
-            GFunc.Function.Print_Log("Tower Call input Err.");
-        }
-        return false;
-    }
-
-    //이 함수가 호출되면 타워가 생성됨.
+     //이 함수가 호출되면 타워가 생성됨.
     private bool Construction_Tower(DataEnum.eRankID _eRankID) //생성 성공시 참 실패시 거짓반환
     {
         GameObject obj = GameObject.FindWithTag("TotalController");
@@ -273,28 +223,14 @@ public class ConstructionController : MonoBehaviour
 
         if (iPlayerGold >= GConst.BaseValue.iTowerGold)
         {
-            if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //일반타워 소환
-            {
-                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
 
-                int iRankID = (int)DataEnum.eRankID.Normal
-                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//노말타워타입과 키값 혼합
+            int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
+            int iRankID = (int)_eRankID
+                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
 
-                InstanceTower(iRankID, _vCreatePos); //인스턴스 타워
-                return true;
-            }
-            else  //특수 타워 소환
-            {
-                if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//특수 코스트 값이 있을 때
-                {
-                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // 타워 키값 0-8번 추출
-                    int iRankID = (int)_eRankID
-                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //인풋타워타입과 타워 키값 혼합
+            InstanceTower(iRankID, _vCreatePos);//인스턴스 타워      
+            return true;
 
-                    InstanceTower(iRankID, _vCreatePos);//인스턴스 타워      
-                    return true;
-                }
-            }
         }
         else
         {

@@ -55,17 +55,22 @@ public class Constructor : MonoBehaviour
     {
         if (!m_stageController.Get_WaveOnOff)
         {
-            return m_construction.CallTower(_eRankId,_vCreatePos,0,8);
+            return m_construction.CallTowerNotInAwait(_eRankId,_vCreatePos);
         }
         return false;
     }
 
-    public bool Construction_Tower_NoAwait(DataEnum.eRankID _eRankId, Vector3 _vCreatePos, int _iTowernumMin, int _iTowernumMax)
+    public void AotoInBoard()
     {
-        if (!m_stageController.Get_WaveOnOff)
-        {
-            return m_construction.CallTower(_eRankId, _vCreatePos, _iTowernumMin, _iTowernumMax);
-        }
-        return false;
+        m_construction.AutoInBoard();
     }
+
+    //public bool Construction_Tower_NoAwait(DataEnum.eRankID _eRankId, Vector3 _vCreatePos, int _iTowernumMin, int _iTowernumMax)
+    //{
+    //    if (!m_stageController.Get_WaveOnOff)
+    //    {
+    //        return m_construction.CallTowerNotInAwait(_eRankId, _vCreatePos, _iTowernumMin, _iTowernumMax);
+    //    }
+    //    return false;
+    //}
 }

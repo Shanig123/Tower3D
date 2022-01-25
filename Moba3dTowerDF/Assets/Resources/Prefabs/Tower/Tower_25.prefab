@@ -324,6 +324,8 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -335,6 +337,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -780,11 +783,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4909805588602726}
   - component: {fileID: 95827728344365426}
-  - component: {fileID: 143446801359637758}
   - component: {fileID: 82754932295691656}
   - component: {fileID: 114596199732060686}
-  - component: {fileID: 114730609460955830}
-  - component: {fileID: 195644442718834230}
+  - component: {fileID: -6421834205905372473}
+  - component: {fileID: -1123057023077864713}
   m_Layer: 0
   m_Name: Tower_25
   m_TagString: Untagged
@@ -801,9 +803,10 @@ Transform:
   m_GameObject: {fileID: 1514481875857408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4907367357004816}
+  - {fileID: 4447536072311691608}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -826,24 +829,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!143 &143446801359637758
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514481875857408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 1.06
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.06, z: 0}
 --- !u!82 &82754932295691656
 AudioSource:
   m_ObjectHideFlags: 0
@@ -959,7 +944,7 @@ MonoBehaviour:
   attacking: {fileID: 8300000, guid: 2e77463d056f93647b1f400e5c8a0c56, type: 3}
   death: {fileID: 0}
   sleeping: {fileID: 0}
---- !u!114 &114730609460955830
+--- !u!114 &-6421834205905372473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -968,80 +953,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 1514481875857408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36003be02bd7fc54db18675085e2ab6f, type: 3}
+  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleStates:
-  - stateName: StandUp
-    animationBool: isStanding
-    minStateTime: 5
-    maxStateTime: 10
-    stateWeight: 1
-  movementStates:
-  - stateName: Walk
-    animationBool: isWalking
-    maxStateTime: 10
-    moveSpeed: 2
-    turnSpeed: 100
-  - stateName: Running
-    animationBool: isRunning
-    maxStateTime: 20
-    moveSpeed: 6
-    turnSpeed: 200
-  attackingStates:
-  - stateName: Attack
-    animationBool: isAttacking
-  deathStates:
-  - stateName: Death
-    animationBool: isDead
-  species: Bear
-  stats: {fileID: 11400000, guid: 7c0caf258cdab7a4fa8d1b3f9a9a5510, type: 2}
-  wanderZone: 25
-  awareness: 30
-  scent: 30
-  constainedToWanderZone: 0
-  nonAgressiveTowards: []
-  matchSurfaceRotation: 0
-  surfaceRotationSpeed: 2
-  logChanges: 0
-  showGizmos: 0
-  drawWanderRange: 1
-  drawScentRange: 1
-  drawAwarenessRange: 1
-  deathEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  attackingEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  idleEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  movementEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!195 &195644442718834230
-NavMeshAgent:
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bSelect: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_strPrefabName: 
+  m_tagStatus:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iTowerId: 0
+    iStatus: 0
+    fRange: 0
+    fAtkCoolTime: 0
+    fMaxAtkCoolTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
+--- !u!65 &-1123057023077864713
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514481875857408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1529970377729522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,3 +1620,78 @@ Transform:
   m_Father: {fileID: 4684730704264996}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 5.9857206, y: 121.20128, z: -158.79024}
+--- !u!1001 &6681949311279031931
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4909805588602726}
+    m_Modifications:
+    - target: {fileID: 918842147716031605, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_Name
+      value: CircleTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 59cb9c03a61fa4947b57d652094ffe87, type: 3}
+--- !u!4 &4447536072311691608 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6990676243644170019, guid: 59cb9c03a61fa4947b57d652094ffe87,
+    type: 3}
+  m_PrefabInstance: {fileID: 6681949311279031931}
+  m_PrefabAsset: {fileID: 0}
