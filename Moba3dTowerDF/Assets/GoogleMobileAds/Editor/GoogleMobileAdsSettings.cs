@@ -15,8 +15,10 @@ namespace GoogleMobileAds.Editor
 
         private static GoogleMobileAdsSettings instance;
 
+        //[SerializeField]
+        //private string adMobAndroidAppId = string.Empty;
         [SerializeField]
-        private string adMobAndroidAppId = string.Empty;
+        private string adMobAndroidAppId = "ca-app-pub-5521461896884251~1080890646";
 
         [SerializeField]
         private string adMobIOSAppId = string.Empty;

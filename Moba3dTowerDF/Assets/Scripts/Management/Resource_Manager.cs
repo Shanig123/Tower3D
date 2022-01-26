@@ -120,7 +120,7 @@ public class Resource_Manager : MonoBehaviour
         if (m_bCheckLoadResource && (m_fCheckLoadTime > 5.0f) && (SceneManager.GetActiveScene().name == "FirstLoadScene"))
         {
             m_fCheckLoadTime = 0;
-            SceneManager.LoadScene("MainUIScene");
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
 

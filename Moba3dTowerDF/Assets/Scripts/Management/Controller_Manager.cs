@@ -106,7 +106,7 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             Debug.Log("Tab");
-            SceneManager.LoadScene("MainUIScene");
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
 

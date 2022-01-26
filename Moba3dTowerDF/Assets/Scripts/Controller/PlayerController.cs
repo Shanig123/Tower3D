@@ -188,6 +188,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (Caching.ClearCache())
+            print("CLEAR CACHE");
         m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         m_tPlayerData.iGold = 10000;
