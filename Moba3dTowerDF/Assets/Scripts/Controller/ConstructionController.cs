@@ -397,7 +397,7 @@ public class ConstructionController : MonoBehaviour
 
                             if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
                             {
-                                print(Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].name);
+                                //print(Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].name);
                                 vector3Orin.y += 1.5f;
                                 if(null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj))
                                 {

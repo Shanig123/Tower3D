@@ -5,7 +5,7 @@ using UnityEngine;
 public class Base_Effect : MonoBehaviour
 {
     public DataStruct.tagEffectInfo m_tEffectInfo = new DataStruct.tagEffectInfo();
-
+    public  bool m_bIsOn = true;
     // Start is called before the first frame update
     protected virtual void Start()
     {

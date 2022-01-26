@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7056397494146912628}
   - component: {fileID: 5887501098282684081}
   - component: {fileID: 8837801615193768457}
+  - component: {fileID: 598630965584686506}
   - component: {fileID: 2681744102251199781}
   m_Layer: 0
   m_Name: TotalController
@@ -49,7 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eLevel: 0
-  m_listAwaitObj: []
 --- !u!114 &3824306337273938959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +139,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dda49008b32699a43a4c1cb99edbe220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &598630965584686506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789768317058688254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e684367d2b5ec3c4794e0acfb4c6f250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &2681744102251199781

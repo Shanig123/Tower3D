@@ -93,6 +93,9 @@ public class Resource_Manager : MonoBehaviour
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Default/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Bullerts/").Length;
         m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Board/").Length;
+        m_iMaxLoadCount += Resources.LoadAll<GameObject>("Prefabs/Effect/").Length;
+
+        
 
         Loading();
     }
@@ -135,6 +138,7 @@ public class Resource_Manager : MonoBehaviour
         StartCoroutine(LoadPrefabs("Default"));
         StartCoroutine(LoadPrefabs("Bullets"));
         StartCoroutine(LoadPrefabs("Board"));
+        StartCoroutine(LoadPrefabs("Effect"));
     }
 
     public void SaveData()

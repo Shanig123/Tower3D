@@ -67,7 +67,7 @@ public class ObjPool_Manager : MonoBehaviour
         m_ObjBulletPool = new Dictionary<string, Queue<GameObject>>();
         m_ObjUpdate = new List<GameObject>();
 
-        m_iMaxPoolSize = 1;
+        m_iMaxPoolSize = 10;
     }
 
     // Update is called once per frame
@@ -136,13 +136,13 @@ public class ObjPool_Manager : MonoBehaviour
             }
             else
             {
-                GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
+                //GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
 
-                createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
-                createObject.name = createObject.name + "_" + m_iMaxPoolSize;
-                ++m_iMaxPoolSize;
-                createObject.SetActive(true);
-                return createObject;
+                //createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
+                //createObject.name = createObject.name + "_" + m_iMaxPoolSize;
+                //++m_iMaxPoolSize;
+                //createObject.SetActive(true);
+                //return createObject;
             }
 
         }

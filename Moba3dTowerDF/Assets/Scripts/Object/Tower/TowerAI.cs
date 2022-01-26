@@ -94,6 +94,7 @@ public class TowerAI : BaseObj
             UpdateInit();
         if (m_objTargetMob == null)
             m_iTargetID = 0;
+        EffectFunc();
         RenderFunc();
         CheckState();
         DoController();
@@ -118,6 +119,55 @@ public class TowerAI : BaseObj
         m_bFirstInit = true;
     }
 
+    private void EffectFunc()
+    {
+        Base_Effect effect = GetComponentInChildren<Base_Effect>();
+        if (effect != null)
+        {
+            if (DataEnum.eRankID.Normal == Get_TowerRank)
+            {
+
+            }
+            else if (DataEnum.eRankID.Magic == Get_TowerRank)
+            {
+
+                //ps.shape = sha;
+            }
+            else if (DataEnum.eRankID.Rare == Get_TowerRank)
+            {
+                //var rot = effect.transform.rotation;
+                //var vAngle = rot.eulerAngles;
+                //vAngle.y += (Time.deltaTime*90f);
+                //if (vAngle.y > 360)
+                //    vAngle.y = 0;
+                //rot.eulerAngles = vAngle;
+                //effect.transform.rotation = rot;
+            }
+            else if (DataEnum.eRankID.Epic == Get_TowerRank)
+            {
+                //var rot = effect.transform.rotation;
+                //var vAngle = rot.eulerAngles;
+                //vAngle.y += (Time.deltaTime * 90f);
+                //if (vAngle.y > 360)
+                //    vAngle.y = 0;
+                //rot.eulerAngles = vAngle;
+                //effect.transform.rotation = rot;
+            }
+            else if (DataEnum.eRankID.Unique == Get_TowerRank)
+            {
+                var rot = effect.transform.rotation;
+                var vAngle = rot.eulerAngles;
+                vAngle.y += (Time.deltaTime * 90f);
+                if (vAngle.y > 360)
+                    vAngle.y = 0;
+                vAngle.x = -vAngle.y;
+                rot.eulerAngles = vAngle;
+                effect.transform.rotation = rot;
+
+            }
+        }
+    }
+
     private void UpdateInit_Effect()
     {
         Base_Effect effect = GetComponentInChildren<Base_Effect>();
@@ -139,7 +189,7 @@ public class TowerAI : BaseObj
             }
             else if (DataEnum.eRankID.Rare == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.blue;
+                effect.m_tEffectInfo.colorEffect = Color.green;
                 effect.m_tEffectInfo.fSpeed = 1.5f;
             }
             else if (DataEnum.eRankID.Epic == Get_TowerRank)
@@ -506,9 +556,11 @@ public class TowerAI : BaseObj
         tagTemp.fLifeTime = 0;
         tagTemp.strObjTagName = "Empty_Bullet";
         tagTemp.objTarget = m_objTargetMob;
-        tagTemp.fMoveSpeed = 10.0f;
-
-        GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(this.transform.position, tagTemp);
+        tagTemp.fMoveSpeed = 5.0f;
+        Vector3 vDir = m_objTargetMob.transform.position - this.transform.position;
+        vDir.Normalize();
+        Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
+        GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
         retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
         //공격
         //공격 중 타겟팅이 벗어나면 해제

@@ -197,8 +197,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (false == m_bFirstInit)
-            UpdateInit();
+        //if (false == m_bFirstInit)
+        //    UpdateInit();
         CheckInputMouse();
         ChangeController();
       
@@ -398,9 +398,13 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
+            Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust", hit.collider.gameObject.transform.position);
+       
             if (hit.collider.gameObject)
             {
                 m_objPicking = hit.collider.gameObject;
+             
+               
                 DoController(true);
             }
             else
