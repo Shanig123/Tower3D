@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 83901407}
   - component: {fileID: 83901408}
   m_Layer: 0
-  m_Name: AdMobs
+  m_Name: AdMobs_TopBanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
