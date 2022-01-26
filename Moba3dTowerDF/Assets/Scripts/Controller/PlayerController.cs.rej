@@ -1,0 +1,10 @@
+diff a/Moba3dTowerDF/Assets/Scripts/Controller/PlayerController.cs b/Moba3dTowerDF/Assets/Scripts/Controller/PlayerController.cs	(rejected hunks)
+@@ -639,7 +639,7 @@
+                
+                 return; // ������Ʈ�� �ִٸ� �ٷ� ������.
+             }
+-            
++
+ 
+             Vector3 vPickPos = m_objPicking.transform.position;
+             vPickPos.y = 0;
