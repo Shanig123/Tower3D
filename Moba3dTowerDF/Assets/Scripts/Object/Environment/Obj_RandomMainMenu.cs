@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obj_RandomMainUI : MonoBehaviour
+public class Obj_RandomMainMenu : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

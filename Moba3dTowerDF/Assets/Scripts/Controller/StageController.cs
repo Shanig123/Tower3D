@@ -10,7 +10,7 @@ public class StageController : MonoBehaviour
         m_eLevel = DataEnum.eDifficulty.End;
 
         m_iCurWave = 0;
-        m_iNextWave = 0;
+     //   m_iNextWave = 0;
         m_iCreateCount = 0;
         m_iMaxCreateCount = 0;
         m_iCurMobCount = 0;
@@ -31,7 +31,7 @@ public class StageController : MonoBehaviour
     [SerializeField] private DataEnum.eDifficulty m_eLevel ;
 
     [SerializeField] private int m_iCurWave;
-    [SerializeField] private int m_iNextWave;
+   // [SerializeField] private int m_iNextWave;
 
     [SerializeField] private string m_strWaveName;
 

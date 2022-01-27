@@ -258,7 +258,7 @@ public class ConstructionController : MonoBehaviour
         if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
         {
             vPos = Object_Manager.Instance.m_dictClone_Object["Box"][iBoxIndex].transform.position;
-            vPos.y += 0.5f;
+            vPos.y += 1f;
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
             GFunc.Function.Print_Log("InAwait");
 

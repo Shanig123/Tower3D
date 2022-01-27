@@ -8,23 +8,18 @@ public class Cursor : MonoBehaviour
     #region Value
 
     public Vector3 m_vCursorPos;
-    //[SerializeField] private DataEnum.eControl_Mode m_eCurControlState = DataEnum.eControl_Mode.End;
 
     #endregion
 
     void Start()
     {
-        //m_eCurControlState = DataEnum.eControl_Mode.NoControl;
+      
     }
 
     // Update is called once per frame
     void Update()
     {
         Set_CursorPos();
- 
-
-        KeyDownLeft();
-        KeyDownRight();
 
         transform.rotation = IsBillBoard().rotation;
 
@@ -41,26 +36,6 @@ public class Cursor : MonoBehaviour
 
         m_vCursorPos = Camera.main.ScreenToWorldPoint(vMousePos);
         gameObject.transform.position = m_vCursorPos;
-    }
-
-    private void KeyDownLeft()
-    {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            RayPicking();
-        }
-    }
-    private void KeyDownRight()
-    {
-
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    if (m_eCurControlState == DataEnum.eControl_Mode.NoControl)
-        //        m_eCurControlState = DataEnum.eControl_Mode.Construction;
-        //    else
-        //        m_eCurControlState = DataEnum.eControl_Mode.NoControl;
-        //}
     }
 
     private Matrix4x4 IsBillBoard()
@@ -83,33 +58,4 @@ public class Cursor : MonoBehaviour
 
         return  matBill;
     }
-
-    private void RayPicking()
-    {
-        //RaycastHit
-        //Input.
-
-        //Debug.Log(m_vCursorPos);
-        //Debug.Log(Input.mousePosition);
-
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        string strLayerName = "";
-
-        //if (m_eCurControlState == DataEnum.eControl_Mode.NoControl) //일반 모드
-        //{
-        //    strLayerName = "Tile";
-        //}
-        //else
-        //{
-        //    strLayerName = "Tower";
-        //}
-        //int iLayerMask = (1 << LayerMask.NameToLayer(strLayerName)) | (1 << LayerMask.NameToLayer("UI"));
-
-        //if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
-        //{
-
-        //}
-    }
-
 }

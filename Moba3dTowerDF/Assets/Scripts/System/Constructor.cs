@@ -29,7 +29,7 @@ public class Constructor : MonoBehaviour
     }
     public void Construct_Normal2()
     {
-        //if (!m_stageController.Get_WaveOnOff)
+        if (!m_stageController.Get_WaveOnOff)
              m_construction.CallTower(DataEnum.eRankID.Normal);
     }
 
