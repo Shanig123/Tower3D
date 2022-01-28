@@ -11,6 +11,7 @@ public class UI_AbilityBoard : MonoBehaviour
 
     public int m_iWidth;
     public int m_iHeight;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -48,26 +49,24 @@ public class UI_AbilityBoard : MonoBehaviour
                 m_listItem[iIndex].GetComponent<RectTransform>().localPosition = pos;
             }
         }
-
-
+      //  ChangeBanner();
+      //  ChangeScript();
+      //  ChangeSprite();
     }
     private void OnEnable()
     {
-        ChangeSprite();
         ChangeBanner();
         ChangeScript();
+        ChangeSprite();
     }
 
     private void ChangeSprite()
     {
         if (Game_Manager.Instance)
         {
-            bool[] arrUnlock = Game_Manager.Instance.m_tGameData.bArrUnlockAbility;
-            if (arrUnlock.Length != m_listItem.Count)
-                print("Size is not correct");
             for (int i = 0; i < m_listItem.Count; ++i)
             {
-                if (arrUnlock[i])
+                if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[i])
                 {
                     if (i == Game_Manager.Instance.m_tStageInfo.iStartAbility)
                         m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[2];
@@ -75,38 +74,49 @@ public class UI_AbilityBoard : MonoBehaviour
                         m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[1];
                 }
                 else
+                {
                     m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[0];
+                }
             }
-
         }
+
     }
     private void ChangeBanner()
     {
+        GameObject objBanner = gameObject.transform.Find("AbilityBanner").gameObject;
+
         if (Option_Manager.Instance)
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                m_listText[0].GetComponent<UnityEngine.UI.Text>().text = "특 성 선 택"; 
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "특 성 선 택"; 
             }
             else
             {
-                m_listText[0].GetComponent<UnityEngine.UI.Text>().text = "ABILITY";
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "ABILITY";
             }
         }
     }
     private void ChangeScript()
-    {
-        if(Option_Manager.Instance)
+    {     
+        GameObject objScript = gameObject.transform.Find("AbilityScriptTxt").gameObject;
+        if (Option_Manager.Instance)
         {
             if(Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                m_listText[1].GetComponent<UnityEngine.UI.Text>().text =""+ Game_Manager.Instance.m_tStageInfo.iStartAbility;
+                if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[Game_Manager.Instance.m_tStageInfo.iStartAbility])
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "특성_" + Game_Manager.Instance.m_tStageInfo.iStartAbility;
+                else
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "잠김";
             }
             else
             {
-                m_listText[1].GetComponent<UnityEngine.UI.Text>().text = ""+Game_Manager.Instance.m_tStageInfo.iStartAbility;
+                if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[Game_Manager.Instance.m_tStageInfo.iStartAbility])
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "ABILITY_" + Game_Manager.Instance.m_tStageInfo.iStartAbility;
+                else
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "LOCK";
             }
-        }   
+        }
     }
     // Update is called once per frame
     void Update()
@@ -114,19 +124,20 @@ public class UI_AbilityBoard : MonoBehaviour
         
     }
 
-    public void ClickItem()
+    public void ClickItem(UnityEngine.UI.Button _objButton)
     {
-        GameObject objClick = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
-        if(Game_Manager.Instance)
-        {
-            if (objClick) 
-            print(objClick.name);
-            //int iKey = objClick.GetComponent<UI_AbilityMainMenu>().m_iKey;
+        UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
 
-            //Game_Manager.Instance.m_tStageInfo.iStartAbility = iKey;
-            //ChangeSprite();
-            //ChangeScript();
+        if(uI_AbilityMainMenu)
+        {
+            if(Game_Manager.Instance)
+            {
+
+                Game_Manager.Instance.m_tStageInfo.iStartAbility = uI_AbilityMainMenu.m_iKey;
+                ChangeSprite();
+                ChangeScript();
+            }
         }
-  
+
     }
 }

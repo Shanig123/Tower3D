@@ -56,6 +56,11 @@ MonoBehaviour:
     iBestWave: 0
     iTotalKillCount: 0
     iUnLockLevel: 0
+    bArrUnlockAbility: 000000000000000000000000000000000000000000
+  m_tStageInfo:
+    eDifficulty: 0
+    iStartAbility: 0
+    bKor: 0
 --- !u!114 &2451762078396286780
 MonoBehaviour:
   m_ObjectHideFlags: 0

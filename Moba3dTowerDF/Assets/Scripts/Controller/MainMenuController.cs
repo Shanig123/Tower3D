@@ -300,14 +300,12 @@ public class MainMenuController : MonoBehaviour
                 case eMenuInFoState.Main:
                     foreach(GameObject iter in m_objBoardUIList)
                     {
-                        print(iter.name + "false");
                         iter.SetActive(false);
                     }
                     break;
                 default:
                     foreach (GameObject iter in m_objBoardUIList)
                     {
-                        print(iter.name + "false");
                         iter.SetActive(false);
                     }
                     break;

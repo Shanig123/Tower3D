@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Game_Manager : MonoBehaviour
 {
+    Game_Manager()
+        : base()
+    {
+        m_tStageInfo.iStartAbility = 0;
+    }
     #region Value
     private static Game_Manager m_cInstance = null;
 
@@ -43,6 +48,7 @@ public class Game_Manager : MonoBehaviour
         if (null == m_cInstance)
         {
             m_cInstance = this;
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -60,8 +66,6 @@ public class Game_Manager : MonoBehaviour
     void Start()
     {
         //  Screen.SetResolution(1920, 1080, true);
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        m_tGameData.bArrUnlockAbility = new bool[21];
         m_tGameData.bArrUnlockAbility[0] = true;
         m_tGameData.bArrUnlockAbility[3] = true;
     }
@@ -69,7 +73,6 @@ public class Game_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void AppQuit()

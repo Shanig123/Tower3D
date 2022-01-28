@@ -90,7 +90,7 @@ namespace DataStruct
     }
    
     [System.Serializable]
-    public struct tagGameData
+    public class tagGameData
     {
         public int iWave;
         public int iBestWave;
@@ -98,7 +98,7 @@ namespace DataStruct
 
         public uint iUnLockLevel;
 
-        public bool[] bArrUnlockAbility;
+        public bool[] bArrUnlockAbility = new bool[21];
     }
 
     //public struct tagAbilityInfo

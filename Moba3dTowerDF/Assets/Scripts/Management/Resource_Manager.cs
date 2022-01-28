@@ -235,6 +235,7 @@ public class Resource_Manager : MonoBehaviour
             catch (System.Runtime.Serialization.SerializationException e)
             {
                 GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
+                tData = new DataStruct.tagGameData();
                 throw;
             }
             finally
@@ -282,7 +283,7 @@ public class Resource_Manager : MonoBehaviour
             catch(System.Runtime.Serialization.SerializationException e)
             {
                 GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
-     
+                tData = new DataStruct.tagGameData();
                 throw;
             }
             finally

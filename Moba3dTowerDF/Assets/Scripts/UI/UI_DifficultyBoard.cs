@@ -5,62 +5,58 @@ using UnityEngine;
 public class UI_DifficultyBoard : MonoBehaviour
 {
     // Start is called before the first frame update
-  
+
     public List<Sprite> m_Arrsprite;
+    public List<GameObject> m_listButton;
     void Start()
     {
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
         Game_Manager.Instance.m_tGameData.iUnLockLevel |= (uint)DataEnum.eDifficulty.Easy;
         Game_Manager.Instance.m_tGameData.iUnLockLevel |= (uint)DataEnum.eDifficulty.Normal;
+        ChangeSprite();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnEnable()
     {
-        BoardInit();
+        OnClick_Easy();
+        ChangeSprite();
     }
     private void OnDisable()
     {
         if (Game_Manager.Instance)
             Game_Manager.Instance.m_tStageInfo.eDifficulty = DataEnum.eDifficulty.End;
     }
-    private void BoardInit()
+
+    private void ChangeSprite()
     {
-        OnClick_Easy();
-        GameObject objEasy = gameObject.transform.Find("Easy").gameObject;
-        GameObject objNormal = gameObject.transform.Find("Normal").gameObject;
-        GameObject objHard = gameObject.transform.Find("Hard").gameObject;
-        GameObject objInfifite = gameObject.transform.Find("Infinity").gameObject;
-
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
-
-
-        objEasy.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[1];
+        m_listButton[0].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[1];
 
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Normal) == (uint)DataEnum.eDifficulty.Normal)
-            objNormal.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[2]; 
+            m_listButton[1].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[2];
         else
-            objNormal.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
+            m_listButton[1].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
 
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Hard) == (uint)DataEnum.eDifficulty.Hard)
-            objHard.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[3];
+            m_listButton[2].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[3];
         else
-            objHard.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
+            m_listButton[2].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
 
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Infinite) == (uint)DataEnum.eDifficulty.Infinite)
-            objInfifite.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[4];
+            m_listButton[3].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[4];
         else
-            objInfifite.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
+            m_listButton[3].GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
     }
 
     public void OnClick_Easy()
     {
         GameObject objDifficulty = gameObject.transform.Find("DifficultyText").gameObject;
-        GameObject objScript = gameObject.transform.Find("ScriptTxt").gameObject;
+        GameObject objScript = gameObject.transform.Find("DifficultyScriptTxt").gameObject;
 
         if (Option_Manager.Instance.m_tOptiondata.bKor)
         {
@@ -87,7 +83,7 @@ public class UI_DifficultyBoard : MonoBehaviour
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Normal) == (uint)DataEnum.eDifficulty.Normal)
         {
             GameObject objDifficulty = gameObject.transform.Find("DifficultyText").gameObject;
-            GameObject objScript = gameObject.transform.Find("ScriptTxt").gameObject;
+            GameObject objScript = gameObject.transform.Find("DifficultyScriptTxt").gameObject;
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
@@ -115,7 +111,7 @@ public class UI_DifficultyBoard : MonoBehaviour
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Hard) == (uint)DataEnum.eDifficulty.Hard)
         {
             GameObject objDifficulty = gameObject.transform.Find("DifficultyText").gameObject;
-            GameObject objScript = gameObject.transform.Find("ScriptTxt").gameObject;
+            GameObject objScript = gameObject.transform.Find("DifficultyScriptTxt").gameObject;
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
@@ -148,7 +144,7 @@ public class UI_DifficultyBoard : MonoBehaviour
         if((iUnlockLevl & (int)DataEnum.eDifficulty.Infinite) == (uint)DataEnum.eDifficulty.Infinite)
         {
             GameObject objDifficulty = gameObject.transform.Find("DifficultyText").gameObject;
-            GameObject objScript = gameObject.transform.Find("ScriptTxt").gameObject;
+            GameObject objScript = gameObject.transform.Find("DifficultyScriptTxt").gameObject;
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {

@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 78394448}
   - component: {fileID: 78394447}
   m_Layer: 5
-  m_Name: ScriptTxt
+  m_Name: AbilityScriptTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3302,7 +3302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 320}
+  m_AnchoredPosition: {x: 0, y: 320}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774391736
@@ -3332,7 +3332,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 60
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3989,7 +3989,7 @@ GameObject:
   - component: {fileID: 868944564}
   - component: {fileID: 868944563}
   m_Layer: 5
-  m_Name: Banner
+  m_Name: AbilityBanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4820,8 +4820,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 175, y: 20}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 550, y: 20}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1340004315
 MonoBehaviour:
@@ -5647,6 +5647,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7d053d3b3746a204bb3be41bbecff78f, type: 3}
   - {fileID: 21300000, guid: eed1ebcab0d6c3743950949d537f1f5b, type: 3}
   - {fileID: 21300000, guid: aa9220a4630dfef45adbd0c6f1be9d0a, type: 3}
+  m_listButton:
+  - {fileID: 1926383872}
+  - {fileID: 2031229821}
+  - {fileID: 798901435}
+  - {fileID: 1383095415}
 --- !u!1 &1497626184
 GameObject:
   m_ObjectHideFlags: 0
@@ -6559,7 +6564,7 @@ GameObject:
   - component: {fileID: 1665978063}
   - component: {fileID: 1665978062}
   m_Layer: 5
-  m_Name: ScriptTxt
+  m_Name: DifficultyScriptTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9037,7 +9042,7 @@ PrefabInstance:
     - target: {fileID: 7217654953707649921, guid: d45b03550d1f75a48a262fa1321f7522,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7217654953707649921, guid: d45b03550d1f75a48a262fa1321f7522,
         type: 3}
@@ -9061,8 +9066,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7217654953707649921, guid: d45b03550d1f75a48a262fa1321f7522,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 7217654954917418248}
+    - target: {fileID: 7217654953707649921, guid: d45b03550d1f75a48a262fa1321f7522,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: UnityEngine.UI.Button, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 7217654953707649923, guid: d45b03550d1f75a48a262fa1321f7522,
         type: 3}
@@ -9082,3 +9092,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7217654954917418246}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7217654954917418248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7217654953707649921, guid: d45b03550d1f75a48a262fa1321f7522,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217654954917418246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217654954917418247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
