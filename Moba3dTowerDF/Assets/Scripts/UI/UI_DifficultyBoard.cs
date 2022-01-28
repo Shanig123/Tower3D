@@ -37,15 +37,20 @@ public class UI_DifficultyBoard : MonoBehaviour
         GameObject objInfifite = gameObject.transform.Find("Infinity").gameObject;
 
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
+
+
         objEasy.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[1];
+
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Normal) == (uint)DataEnum.eDifficulty.Normal)
             objNormal.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[2]; 
         else
             objNormal.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
+
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Hard) == (uint)DataEnum.eDifficulty.Hard)
             objHard.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[3];
         else
             objHard.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[0];
+
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Infinite) == (uint)DataEnum.eDifficulty.Infinite)
             objInfifite.GetComponent<UnityEngine.UI.Image>().sprite = m_Arrsprite[4];
         else
