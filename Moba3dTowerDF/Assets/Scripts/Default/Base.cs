@@ -98,6 +98,17 @@ namespace DataStruct
 
         public uint iUnLockLevel;
     }
+    [System.Serializable]
+    public struct tagOptionData
+    {
+        public int iDayNight; //-1 항상 밤, 0 랜덤, 1 항상 낮
+        public int iShadow; // 저품질 중품질 고품질
+        public float fMasterVol; // 0-1
+        public float fSfxVol;
+        public float fBgmVol;
+
+        public bool bKor; //1 : kor 0 : eng
+    }
 
     [System.Serializable]
     public struct tagPlayerData
@@ -109,6 +120,15 @@ namespace DataStruct
         public int iEpicCost;
         public int iUniqueCost;
         public int iTowerSynergy;
+    }
+
+    [System.Serializable]
+    public struct tagStageInfo
+    {
+        public DataEnum.eDifficulty eDifficulty;
+        public int iStartAbility;
+
+        public bool bKor; //1 : kor 0 : eng
     }
 
     [System.Serializable]

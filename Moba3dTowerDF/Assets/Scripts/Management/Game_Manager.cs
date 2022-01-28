@@ -16,7 +16,7 @@ public class Game_Manager : MonoBehaviour
     public int m_iStageSeed = 0;
 
     public DataStruct.tagGameData m_tGameData;
-
+    public DataStruct.tagStageInfo m_tStageInfo;
     #endregion
     #region Property
     public static Game_Manager Instance

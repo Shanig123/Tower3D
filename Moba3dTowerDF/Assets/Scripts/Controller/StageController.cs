@@ -28,7 +28,8 @@ public class StageController : MonoBehaviour
 
     [SerializeField] public bool m_bWaveStart = false;
 
-    [SerializeField] private DataEnum.eDifficulty m_eLevel ;
+    [SerializeField] private DataEnum.eDifficulty m_eLevel;
+    [SerializeField] private int m_iMaxWave;
 
     [SerializeField] private int m_iCurWave;
    // [SerializeField] private int m_iNextWave;
@@ -124,8 +125,32 @@ public class StageController : MonoBehaviour
 
         int iSeed = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().Get_Seed;
         System.Random rd = new System.Random(iSeed);
-        m_bDayNight = rd.Next(0, 2) > 0 ? true : false;
+        int iDayNight = Option_Manager.Instance.m_tOptiondata.iDayNight;
 
+        if (iDayNight < 0)
+            m_bDayNight = false;
+        else if (iDayNight > 0)
+            m_bDayNight = true;
+        else
+            m_bDayNight = rd.Next(0, 2) > 0 ? true : false;
+
+        StageSettingInfo();
+    }
+
+    void StageSettingInfo()
+    {
+        if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Infinite)
+        {
+           m_iMaxWave = -1;
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Hard)
+        {
+            m_iMaxWave = 40;
+        }
+        else 
+        {
+            m_iMaxWave = 30;
+        }       
     }
     // Update is called once per frame
 

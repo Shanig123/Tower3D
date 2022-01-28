@@ -16,6 +16,7 @@ public class Object_Manager : MonoBehaviour
     
     public Dictionary<string, List<GameObject>> m_dictClone_Object;
     public List<GameObject> m_listObject;
+    //public DataStruct.tagStageInfo m_tStageInfo;
 
     [SerializeField] private GameObject m_objAlphaBlock;
     [SerializeField] private int width = 6;
@@ -107,6 +108,8 @@ public class Object_Manager : MonoBehaviour
         }
         else
         {
+            if(Game_Manager.Instance)
+                Game_Manager.Instance.m_tStageInfo.eDifficulty = DataEnum.eDifficulty.End;
             ClearInstance();
         }
 

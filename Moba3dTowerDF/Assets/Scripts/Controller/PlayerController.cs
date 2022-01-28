@@ -192,9 +192,41 @@ public class PlayerController : MonoBehaviour
             print("CLEAR CACHE");
         m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+        StageSettingInfo();
         m_tPlayerData.iGold = 10000;
         //m_tPlayerData.iGold = 20;
     }
+    void StageSettingInfo()
+    {
+        if(Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Easy)
+        {
+            m_tPlayerData.iLife = 30;
+            m_tPlayerData.iGold = 30;
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Normal)
+        {
+            m_tPlayerData.iLife = 20;
+            m_tPlayerData.iGold = 20;
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Hard)
+        {
+
+            m_tPlayerData.iLife = 20;
+            m_tPlayerData.iGold = 20;
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Infinite)
+        {
+            m_tPlayerData.iLife = 15;
+            m_tPlayerData.iGold = 20;
+        }
+        else
+        {
+            m_tPlayerData.iLife = 30;
+            m_tPlayerData.iGold = 30;
+        }
+        
+    }
+
 
     // Update is called once per frame
     void Update()

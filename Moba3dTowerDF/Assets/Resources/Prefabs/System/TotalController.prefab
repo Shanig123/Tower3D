@@ -97,7 +97,6 @@ MonoBehaviour:
   m_bWaveStart: 0
   m_eLevel: 0
   m_iCurWave: 0
-  m_iNextWave: 0
   m_strWaveName: 
   m_iCreateCount: 0
   m_iMaxCreateCount: 25
@@ -153,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e684367d2b5ec3c4794e0acfb4c6f250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_strPreSceneName: NoScene
+  m_bCheckLoad: 0
+  m_iMaxPoolSize: 0
 --- !u!54 &2681744102251199781
 Rigidbody:
   m_ObjectHideFlags: 0

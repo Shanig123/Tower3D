@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -678173119434084527}
   - component: {fileID: 7423541711322088317}
   - component: {fileID: 3140017555719974582}
+  - component: {fileID: 827955550560556739}
   m_Layer: 0
   m_Name: Management
   m_TagString: Management
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe0982b2a9eb8c47897b52cc0f8c689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iStageSeed: 0
   m_tGameData:
     iWave: 0
     iBestWave: 0
@@ -84,6 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db2f5b80738805438ac8754c6e7e2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fClickTime: 0
+  m_iClickState: -1
   m_bDebugmode: 0
 --- !u!114 &2451762078396286781
 MonoBehaviour:
@@ -147,3 +151,22 @@ MonoBehaviour:
   objectPoolLength: 20
   soundDistance: 7
   logSounds: 0
+--- !u!114 &827955550560556739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2451762078396286777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371629ceef3213b4fa9d61052594733c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_tOptiondata:
+    iDayNight: 0
+    iShadow: 0
+    fMasterVol: 0
+    fSfxVol: 0
+    fBgmVol: 0
+    bKor: 0
