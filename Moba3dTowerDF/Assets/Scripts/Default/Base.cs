@@ -97,7 +97,16 @@ namespace DataStruct
         public int iTotalKillCount;
 
         public uint iUnLockLevel;
+
+        public bool[] bArrUnlockAbility;
     }
+
+    //public struct tagAbilityInfo
+    //{
+    //    public int iKey;
+    //    public bool bCheckUnlock;
+    //}
+
     [System.Serializable]
     public struct tagOptionData
     {
@@ -120,6 +129,7 @@ namespace DataStruct
         public int iEpicCost;
         public int iUniqueCost;
         public int iTowerSynergy;
+        public int[] iArrAbility;
     }
 
     [System.Serializable]

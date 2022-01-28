@@ -61,6 +61,9 @@ public class Game_Manager : MonoBehaviour
     {
         //  Screen.SetResolution(1920, 1080, true);
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        m_tGameData.bArrUnlockAbility = new bool[21];
+        m_tGameData.bArrUnlockAbility[0] = true;
+        m_tGameData.bArrUnlockAbility[3] = true;
     }
 
     // Update is called once per frame
