@@ -57,6 +57,13 @@ public class UI_AbilityBoard : MonoBehaviour
     {
         ChangeBanner();
         ChangeScript();
+        if (GameObject.Find("Log_File"))
+        {
+            UnityEngine.UI.Text tLog =
+           GameObject.Find("Log_File").
+           GetComponent<UnityEngine.UI.Text>();
+            tLog.text = "OnEnable_sprite";
+        }
         ChangeSprite();
     }
 
@@ -64,10 +71,33 @@ public class UI_AbilityBoard : MonoBehaviour
     {
         if (Game_Manager.Instance)
         {
+            string tf = "";
+            if (GameObject.Find("Log_File"))
+            {
+                UnityEngine.UI.Text tLog =
+               GameObject.Find("Log_File").
+               GetComponent<UnityEngine.UI.Text>();
+                tLog.text = "Instance GameManger";
+            }
             for (int i = 0; i < m_listItem.Count; ++i)
             {
+                if (GameObject.Find("Log_File"))
+                {
+                    UnityEngine.UI.Text tLog =
+                   GameObject.Find("Log_File").
+                   GetComponent<UnityEngine.UI.Text>();
+                    tLog.text = "for"+i;
+                }
                 if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[i])
                 {
+                    tf += "1";
+                    if (GameObject.Find("Log_File"))
+                    {
+                        UnityEngine.UI.Text tLog =
+                       GameObject.Find("Log_File").
+                       GetComponent<UnityEngine.UI.Text>();
+                        tLog.text = "for" + i +"_true";
+                    }
                     if (i == Game_Manager.Instance.m_tStageInfo.iStartAbility)
                         m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[2];
                     else
@@ -75,8 +105,24 @@ public class UI_AbilityBoard : MonoBehaviour
                 }
                 else
                 {
+                    tf += "0";
+                    if (GameObject.Find("Log_File"))
+                    {
+                        UnityEngine.UI.Text tLog =
+                       GameObject.Find("Log_File").
+                       GetComponent<UnityEngine.UI.Text>();
+                        tLog.text = "for" + i + "_false";
+                    }
                     m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[0];
                 }
+            }
+
+            if (GameObject.Find("Log_File"))
+            {
+                UnityEngine.UI.Text tLog =
+               GameObject.Find("Log_File").
+               GetComponent<UnityEngine.UI.Text>();
+                tLog.text = tf;
             }
         }
 

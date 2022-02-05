@@ -22,7 +22,6 @@ public class StageController : MonoBehaviour
         m_bCreateModeOnOff = false;
         m_bWaveOnOff = false;
 
-        m_bDayNight = false;
     }
     #region Value
 
@@ -50,8 +49,6 @@ public class StageController : MonoBehaviour
     
     [SerializeField] private bool m_bCreateModeOnOff;
     [SerializeField] private bool m_bWaveOnOff;
-
-    [SerializeField] private bool m_bDayNight;
 
     #endregion
     #region Property
@@ -98,14 +95,6 @@ public class StageController : MonoBehaviour
         }
     }
 
-    //true = day / false = night
-    public bool Get_DayNight
-    {
-        get
-        {
-            return m_bDayNight;
-        }
-    }
 
     public void Add_MobCount()
     {
@@ -122,18 +111,6 @@ public class StageController : MonoBehaviour
     void Start()
     {
         m_Object_Manager = GameObject.FindGameObjectWithTag("Management").GetComponent<Object_Manager>();
-
-        int iSeed = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().Get_Seed;
-        System.Random rd = new System.Random(iSeed);
-        int iDayNight = Option_Manager.Instance.m_tOptiondata.iDayNight;
-
-        if (iDayNight < 0)
-            m_bDayNight = false;
-        else if (iDayNight > 0)
-            m_bDayNight = true;
-        else
-            m_bDayNight = rd.Next(0, 2) > 0 ? true : false;
-
         StageSettingInfo();
     }
 

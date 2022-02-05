@@ -90,7 +90,7 @@ namespace DataStruct
     }
    
     [System.Serializable]
-    public class tagGameData
+    public struct tagGameData
     {
         public int iWave;
         public int iBestWave;
@@ -98,8 +98,10 @@ namespace DataStruct
 
         public uint iUnLockLevel;
 
-        public bool[] bArrUnlockAbility = new bool[21];
+        public bool[] bArrUnlockAbility;
     }
+
+  
 
     //public struct tagAbilityInfo
     //{
@@ -193,8 +195,22 @@ namespace GFunc
 #endif
             return;
         }
-    }
 
+
+        public static DataStruct.tagGameData InitGameData()
+        {
+            DataStruct.tagGameData tagData = new DataStruct.tagGameData();
+            tagData.iBestWave = 0;
+            tagData.iWave = 0;
+            tagData.iTotalKillCount = 0;
+            tagData.iUnLockLevel = 0;
+            tagData.bArrUnlockAbility = new bool[21];
+            return tagData;
+        }
+        
+
+    }
+   
 }
 
 #endregion

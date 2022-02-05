@@ -58,7 +58,7 @@ public class DataController : MonoBehaviour
 
         //¹ã SeedTest : 958020666
         //³· : 1815607085
-        m_iSeedNumber = 1815607085;
+        //m_iSeedNumber = 1815607085;
 
         UnityEngine.Random.InitState(m_iSeedNumber);
     }

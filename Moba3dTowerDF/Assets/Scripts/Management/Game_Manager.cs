@@ -9,6 +9,10 @@ public class Game_Manager : MonoBehaviour
         : base()
     {
         m_tStageInfo.iStartAbility = 0;
+        m_tGameData = GFunc.Function.InitGameData();
+        m_tDefaultGameData = GFunc.Function.InitGameData();
+        m_tDefaultGameData.bArrUnlockAbility[0] = true;
+        m_tDefaultGameData.bArrUnlockAbility[1] = true;
     }
     #region Value
     private static Game_Manager m_cInstance = null;
@@ -21,6 +25,8 @@ public class Game_Manager : MonoBehaviour
     public int m_iStageSeed = 0;
 
     public DataStruct.tagGameData m_tGameData;
+    [SerializeField]
+    private DataStruct.tagGameData m_tDefaultGameData;
     public DataStruct.tagStageInfo m_tStageInfo;
     #endregion
     #region Property
@@ -34,7 +40,12 @@ public class Game_Manager : MonoBehaviour
             }
             return m_cInstance;
         }
+
+        
     }
+
+    public DataStruct.tagGameData Get_DefaultGameData { get { return m_tDefaultGameData; } }
+
     #endregion
 
     private void OnDestroy()
@@ -49,6 +60,10 @@ public class Game_Manager : MonoBehaviour
         {
             m_cInstance = this;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            //if (m_tGameData.bArrUnlockAbility[0] == false)
+            //    m_tGameData.bArrUnlockAbility[0] = true;
+            //if (m_tGameData.bArrUnlockAbility[1] == false)
+            //    m_tGameData.bArrUnlockAbility[1] = true;
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -66,8 +81,8 @@ public class Game_Manager : MonoBehaviour
     void Start()
     {
         //  Screen.SetResolution(1920, 1080, true);
-        m_tGameData.bArrUnlockAbility[0] = true;
-        m_tGameData.bArrUnlockAbility[3] = true;
+      
+
     }
 
     // Update is called once per frame

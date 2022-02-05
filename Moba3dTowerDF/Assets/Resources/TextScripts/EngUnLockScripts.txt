@@ -1,0 +1,3 @@
+Ability1 _Life+5 _
+Ability2 _Tier1 atk+10% _
+Ability3 _Locked _

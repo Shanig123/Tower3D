@@ -23,7 +23,6 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] List<GameObject> m_objBoardUIList;
     #endregion
 
-
     // Start is called before the first frame update
     private void Awake()
     {
@@ -169,12 +168,15 @@ public class MainMenuController : MonoBehaviour
                 m_objUIList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[6];
                 m_objUIList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[7];
                 m_objUIList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[8];
+                m_objUIList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "º¸»ó±¤°í";
+
             }
             else
             {
                 m_objUIList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strEng[6];
                 m_objUIList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strEng[7];
                 m_objUIList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strEng[8];
+                m_objUIList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "RewardAd";
             }
         }
     }
@@ -287,9 +289,11 @@ public class MainMenuController : MonoBehaviour
                     break;
                 case eMenuInFoState.GeneralOption:
                     m_objBoardUIList[2].SetActive(true);
+                    m_objBoardUIList[3].SetActive(false);
                     break;
                 case eMenuInFoState.SoundOption:
                     m_objBoardUIList[2].SetActive(false);
+                    m_objBoardUIList[3].SetActive(true);
                     break;
                 case eMenuInFoState.Emty2:
                     if (m_eCurMenuInfoState == eMenuInFoState.GeneralOption)

@@ -5,13 +5,11 @@ using UnityEngine;
 public class UI_SoundOptionBoard : MonoBehaviour
 {
     // Start is called before the first frame update
-    public List<Sprite> m_Arrsprite;
+
     public List<GameObject> m_BarList;
     public List<UnityEngine.UI.Text> m_TextsList;
     public GameObject m_objResetButton;
-
-    public GameObject m_Temp;
-
+    
     public List<UnityEngine.UI.Text> m_ValueTextList;
 
     void Start()
@@ -37,8 +35,9 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if (Option_Manager.Instance)
         {
             AllChangeText(Option_Manager.Instance.m_tOptiondata.bKor);
-  
-  
+            ChangeMasterVolText();
+            ChangeSFXVolText();
+            ChangeBGMVolText();
         }
     }
 
@@ -46,29 +45,15 @@ public class UI_SoundOptionBoard : MonoBehaviour
     {
         if(_bKor)
         {
-            // m_ButtonsList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = "�׻� ��";
-            // m_ButtonsList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = "����";
-            // m_ButtonsList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = "�׻� ��";
-            // m_ButtonsList[3].GetComponentInChildren<UnityEngine.UI.Text>().text = "����";
-            // m_ButtonsList[4].GetComponentInChildren<UnityEngine.UI.Text>().text = "�߰�";
-            // m_ButtonsList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "����";
-
-            m_TextsList[0].text = "���� �ɼ�";
-            m_TextsList[1].text = "���";
-            m_TextsList[2].text = "ȯ��";
-            m_TextsList[3].text = "�׸��� ǰ��";
+            m_TextsList[0].text = "사운드 옵션";
+            m_TextsList[1].text = "마스터 볼륨";
+            m_TextsList[2].text = "SFX 볼륨";
+            m_TextsList[3].text = "BGM 볼륨";
             
-            m_objResetButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "�⺻��";
+            m_objResetButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "기본값";
         }
         else
         {
-            // m_ButtonsList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = "Night";
-            // m_ButtonsList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = "Random";
-            // m_ButtonsList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = "Day";
-            // m_ButtonsList[3].GetComponentInChildren<UnityEngine.UI.Text>().text = "Low";
-            // m_ButtonsList[4].GetComponentInChildren<UnityEngine.UI.Text>().text = "Mid";
-            // m_ButtonsList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "High";
-
             m_TextsList[0].text = "Sound Option";
             m_TextsList[1].text = "Master Vol";
             m_TextsList[2].text = "SFX Vol";
@@ -76,10 +61,6 @@ public class UI_SoundOptionBoard : MonoBehaviour
 
             m_objResetButton.GetComponentInChildren<UnityEngine.UI.Text>().text = "Reset";
         }
-
-        ChangeMasterVolText();
-        ChangeSFXVolText();
-        ChangeBGMVolText();
     }
 
 
@@ -88,6 +69,7 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fMasterVol;
+            m_BarList[0].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[0].text =""+iConvert;
         }
@@ -98,6 +80,7 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fSfxVol;
+            m_BarList[1].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[1].text =""+iConvert;
         }
@@ -108,31 +91,30 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fBgmVol;
+            m_BarList[2].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[2].text =""+iConvert;
         }
     }    
 
-    public void Scroll_MasterVol(float _fScollValue)
+    public void Scroll_MasterVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
-       float fVol =  _fScollValue   ;
-       Option_Manager.Instance.m_tOptiondata.fBgmVol = fVol;
+       float fVol = _scrollbar.value;
+       Option_Manager.Instance.m_tOptiondata.fMasterVol = fVol;
        ChangeMasterVolText();
     }
        
-    public void Scroll_SFXVol(float _fScollValue)
+    public void Scroll_SFXVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
-       float fVol =  _fScollValue   ;
-       Option_Manager.Instance.m_tOptiondata.fSfxVol = fVol;
+        float fVol = _scrollbar.value;
+        Option_Manager.Instance.m_tOptiondata.fSfxVol = fVol;
        ChangeSFXVolText();
     }
         
-    public void Scroll_BGMVol(float _fScollValue)
+    public void Scroll_BGMVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
-        //UnityEngine.UI.ScrollBar = new UnityEngine.UI.ScrollBar();
-
-       float fVol =  _fScollValue   ;
-       Option_Manager.Instance.m_tOptiondata.fBgmVol = fVol;
+        float fVol = _scrollbar.value;
+        Option_Manager.Instance.m_tOptiondata.fBgmVol = fVol;
        ChangeBGMVolText();
     }
 
@@ -144,6 +126,8 @@ public class UI_SoundOptionBoard : MonoBehaviour
             Option_Manager.Instance.m_tOptiondata.fMasterVol = Option_Manager.Instance.Get_DefaultData.fMasterVol;
             Option_Manager.Instance.m_tOptiondata.fBgmVol = Option_Manager.Instance.Get_DefaultData.fBgmVol;
             Option_Manager.Instance.m_tOptiondata.fSfxVol = Option_Manager.Instance.Get_DefaultData.fSfxVol;
+
+            
         }
         BoardInit();
     }

@@ -15,6 +15,8 @@ public class Resource_Manager : MonoBehaviour
         m_iMaxLoadCount = 0;
         m_dictPrefabs = new Dictionary<string, Dictionary<string, DataStruct.tagPrefab>>();
         m_dictTest = new Dictionary<string, Dictionary<int, int>>();
+        m_listScripts = new List<List<string>>();
+
         m_bCheckLoadResource = false;
         m_fCheckLoadTime = 0;
         m_iLoadCount = 0;
@@ -25,6 +27,9 @@ public class Resource_Manager : MonoBehaviour
     public GameObject[] m_arrPrefabs;
     public Dictionary<string, Dictionary<string, DataStruct.tagPrefab>> m_dictPrefabs;
     public Dictionary<string, Dictionary<int, int>> m_dictTest;
+    //public Dictionary<string, List<string>> m_dictScripts;
+    public List<List<string>> m_listScripts;
+
     public List<string> m_listKey;
 
     [SerializeField] public int m_iMaxLoadCount;
@@ -75,9 +80,9 @@ public class Resource_Manager : MonoBehaviour
 
     private void OnDestroy()
     {
-       // m_dictPrefabs.Clear();
-       // m_dictTest.Clear();
-
+        // m_dictPrefabs.Clear();
+        // m_dictTest.Clear();
+        
         Resources.UnloadUnusedAssets();
         
         //cInstance = null;
@@ -129,6 +134,11 @@ public class Resource_Manager : MonoBehaviour
     {
         //StartCoroutine(LoadFileData());
 
+        LoadScriptsFildData("KorLockScripts");
+        LoadScriptsFildData("KorUnLockScripts");
+        LoadScriptsFildData("EngLockScripts");
+        LoadScriptsFildData("EngUnLockScripts");
+
         LoadFileData();
 
         StartCoroutine(LoadPrefabs("Object"));
@@ -143,7 +153,8 @@ public class Resource_Manager : MonoBehaviour
 
     public void SaveData()
     {
-        StartCoroutine(SaveFileData());
+        //StartCoroutine(SaveFileData());
+        SaveFileData();
     }
 
     IEnumerator LoadPrefabs(string strPathName)
@@ -173,8 +184,8 @@ public class Resource_Manager : MonoBehaviour
         m_listKey.Add(strPathName);
         m_iLoadCount+=iLoadCount;
 
-        Debug.Log("dictPrefabs     /   " + m_dictPrefabs.Count);
-        Debug.Log("dictPrefabs   /  " + strPathName + " / " + m_dictPrefabs[strPathName].Count);
+        //Debug.Log("dictPrefabs     /   " + m_dictPrefabs.Count);
+        //Debug.Log("dictPrefabs   /  " + strPathName + " / " + m_dictPrefabs[strPathName].Count);
 
         yield return null;
     }
@@ -202,7 +213,115 @@ public class Resource_Manager : MonoBehaviour
         //yield return null;
     }
 
-    IEnumerator SaveFileData()
+    private void Load_AndroidFileData(string _strFileName)
+    {
+        string strPath = Application.persistentDataPath + "/" +_strFileName;
+        if(File.Exists(strPath))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fs = File.Open(strPath,FileMode.Open);
+            DataStruct.tagGameData tData = GFunc.Function.InitGameData();
+            try
+            {
+                tData = (DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
+                if (System.Runtime.InteropServices.Marshal.SizeOf(tData)
+                    != System.Runtime.InteropServices.Marshal.SizeOf(Game_Manager.Instance.Get_DefaultGameData))
+                {
+                    tData = Game_Manager.Instance.Get_DefaultGameData;
+                }
+            }
+            catch (System.Runtime.Serialization.SerializationException e)
+            {
+                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
+                tData = Game_Manager.Instance.Get_DefaultGameData;
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+                Save_AndroidFileData(_strFileName);
+            }
+            print(tData.bArrUnlockAbility[0]);
+            Game_Manager.Instance.m_tGameData = tData;
+
+            GFunc.Function.Print_Log("Load Complete.");
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Err_File is Not Found.");
+            Game_Manager.Instance.m_tGameData = Game_Manager.Instance.Get_DefaultGameData;
+            Save_AndroidFileData(_strFileName);
+        }
+    }
+    private void Load_EditorFileData(string _strFileName)
+    {
+        string strPath = Application.persistentDataPath + "/" + _strFileName;
+        GFunc.Function.Print_Log(strPath);
+        if (File.Exists(strPath))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fs = File.Open(strPath, FileMode.Open);
+            DataStruct.tagGameData tData = GFunc.Function.InitGameData();
+            try
+            {
+              
+                tData =(DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
+                if(System.Runtime.InteropServices.Marshal.SizeOf(tData) != System.Runtime.InteropServices.Marshal.SizeOf(Game_Manager.Instance.Get_DefaultGameData))
+                {
+                    tData = Game_Manager.Instance.Get_DefaultGameData;
+                }
+     
+            }
+            catch(System.Runtime.Serialization.SerializationException e)
+            {
+                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
+                tData = Game_Manager.Instance.Get_DefaultGameData;
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+                Save_EditorFileData(_strFileName);
+            }
+
+            Game_Manager.Instance.m_tGameData = tData;
+        
+            GFunc.Function.Print_Log("Load Complete.");
+        }
+        else
+        {
+            GFunc.Function.Print_Log("Err_File is Not Found.");
+            Game_Manager.Instance.m_tGameData = Game_Manager.Instance.Get_DefaultGameData;
+            Save_EditorFileData(_strFileName);
+        }
+
+    }
+    private void Load_WinFileData(string _strFileName)
+    {
+
+    }
+
+    private void LoadScriptsFildData(string _strFileName)
+    { 
+        TextAsset textAsset = Resources.Load<TextAsset>("TextScripts/" + _strFileName);
+        StringReader stringReader = new StringReader(textAsset.text);
+        if (stringReader == null)
+            return;
+
+        List<string> listScripts = new List<string>();
+        string strRL =null;
+
+        while((strRL=stringReader.ReadLine()) != null)
+        {
+            strRL = strRL.Replace("_", System.Environment.NewLine);
+            listScripts.Add(strRL);
+        }  
+
+        m_listScripts.Add(listScripts);
+   
+    }
+
+    void /*IEnumerator*/ SaveFileData()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -217,41 +336,9 @@ public class Resource_Manager : MonoBehaviour
         {
             Save_WinFileData("wave.dat");
         }
-        yield return null;
+        //yield return null;
     }
 
-    private void Load_AndroidFileData(string _strFileName)
-    {
-        string strPath = Application.persistentDataPath + "/" +_strFileName;
-        if(File.Exists(strPath))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = File.Open(strPath,FileMode.Open);
-            DataStruct.tagGameData tData;
-            try
-            {
-                tData = (DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
-            }
-            catch (System.Runtime.Serialization.SerializationException e)
-            {
-                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
-                tData = new DataStruct.tagGameData();
-                throw;
-            }
-            finally
-            {
-                fs.Close();
-                Save_EditorFileData(_strFileName);
-            }
-            Game_Manager.Instance.m_tGameData = tData;
-
-            GFunc.Function.Print_Log("Load Complete.");
-        }
-        else
-        {
-            GFunc.Function.Print_Log("Err_File is Not Found.");
-        }
-    }
     private void Save_AndroidFileData(string _strFileName)
     {
         string strPath = Application.persistentDataPath + "/" + _strFileName;
@@ -259,51 +346,14 @@ public class Resource_Manager : MonoBehaviour
 
         FileStream fs = File.Create(strPath);
 
-        DataStruct.tagGameData tData= new DataStruct.tagGameData();
-
-        tData.iBestWave = Game_Manager.Instance.m_tGameData.iBestWave;
-        tData.iUnLockLevel = Game_Manager.Instance.m_tGameData.iUnLockLevel;
+        DataStruct.tagGameData tData= GFunc.Function.InitGameData();
+        tData = Game_Manager.Instance.m_tGameData;
+        //tData.iBestWave = Game_Manager.Instance.m_tGameData.iBestWave;
+        //tData.iUnLockLevel = Game_Manager.Instance.m_tGameData.iUnLockLevel;
 
         bf.Serialize(fs, tData);
         fs.Close();
     }
-
-    private void Load_EditorFileData(string _strFileName)
-    {
-         string strPath = Application.persistentDataPath + "/" + _strFileName;
-        if (File.Exists(strPath))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = File.Open(strPath, FileMode.Open);
-            DataStruct.tagGameData tData;
-            try
-            {
-                tData=(DataStruct.tagGameData)(bf.Deserialize(fs)); // 여기서문제 발생
-            }
-            catch(System.Runtime.Serialization.SerializationException e)
-            {
-                GFunc.Function.Print_Log("catch \n " + "Err : " + e.Message);
-                tData = new DataStruct.tagGameData();
-                throw;
-            }
-            finally
-            {
-                fs.Close();
-                Save_EditorFileData(_strFileName);
-            }
-
-            Game_Manager.Instance.m_tGameData = tData;
-
-
-            GFunc.Function.Print_Log("Load Complete.");
-        }
-        else
-        {
-            GFunc.Function.Print_Log("Err_File is Not Found.");
-        }
-
-    }
-
     private void Save_EditorFileData(string _strFileName)
     {
         GFunc.Function.Print_Log("Save.");
@@ -313,11 +363,9 @@ public class Resource_Manager : MonoBehaviour
 
         FileStream fs = File.Create(strPath);
 
-        DataStruct.tagGameData tData = new DataStruct.tagGameData();
+        DataStruct.tagGameData tData = GFunc.Function.InitGameData();
 
-        tData.iBestWave = Game_Manager.Instance.m_tGameData.iBestWave;
-        tData.iUnLockLevel = Game_Manager.Instance.m_tGameData.iUnLockLevel;
-
+        tData = Game_Manager.Instance.m_tGameData;
 
         try
         {
@@ -335,16 +383,12 @@ public class Resource_Manager : MonoBehaviour
 
 
     }
-
-    private void Load_WinFileData(string _strFileName)
-    {
-
-    }
-
     private void Save_WinFileData(string _strFileName)
     {
 
     }
+
+
 
     public GameObject InstanceObj(string _strCategory, string _strTagName, Vector3 _vCreatePos)
     {
@@ -357,4 +401,5 @@ public class Resource_Manager : MonoBehaviour
         }
         return null;
     }
+
 }

@@ -404,7 +404,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 3.9249e-41, y: -6.6329727, z: 9.77e-43, w: 8.3e-44}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -589,22 +589,22 @@ PrefabInstance:
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.0000000093385575
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 1.8486834e+31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 2.0022223e-19
+      value: 2.3510647e-38
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 1.8111337e+22
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2089074b61bddcc4d8163071319f2171, type: 3}
@@ -688,22 +688,22 @@ PrefabInstance:
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0.99102145
+      value: 2.561449
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 0.21061498
+      value: 9.77e-43
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0.4475
+      value: 1.4033e-41
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0.12706898
+      value: -0.022212386
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2089074b61bddcc4d8163071319f2171, type: 3}
@@ -2025,17 +2025,17 @@ PrefabInstance:
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: NaN
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 6.331e-42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 6e-44
+      value: 2.3510647e-38
       objectReference: {fileID: 0}
     - target: {fileID: 3948726752444411074, guid: 2089074b61bddcc4d8163071319f2171,
         type: 3}
@@ -2567,11 +2567,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: f42fba2ca1945e3478ce3245cd732758, type: 3}
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -2579,7 +2579,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &2002581009
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5887501098282684081}
   - component: {fileID: 8837801615193768457}
   - component: {fileID: 598630965584686506}
+  - component: {fileID: -2741877077120395856}
   - component: {fileID: 2681744102251199781}
   m_Layer: 0
   m_Name: TotalController
@@ -74,6 +75,7 @@ MonoBehaviour:
     iEpicCost: 0
     iUniqueCost: 0
     iTowerSynergy: 0
+    iArrAbility: 
   m_strLayerMaskName: 
   m_eNextControlState: 2
   m_eCurControlState: 2
@@ -96,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_bWaveStart: 0
   m_eLevel: 0
+  m_iMaxWave: 0
   m_iCurWave: 0
   m_strWaveName: 
   m_iCreateCount: 0
@@ -109,7 +112,6 @@ MonoBehaviour:
   m_Object_Manager: {fileID: 0}
   m_bCreateModeOnOff: 0
   m_bWaveOnOff: 0
-  m_bDayNight: 0
 --- !u!114 &5887501098282684081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +157,19 @@ MonoBehaviour:
   m_strPreSceneName: NoScene
   m_bCheckLoad: 0
   m_iMaxPoolSize: 0
+--- !u!114 &-2741877077120395856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789768317058688254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb0eae9e9057ad4f87b64aaac208fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bDayNight: 0
 --- !u!54 &2681744102251199781
 Rigidbody:
   m_ObjectHideFlags: 0

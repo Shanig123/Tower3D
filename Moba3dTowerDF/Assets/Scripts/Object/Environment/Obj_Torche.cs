@@ -48,6 +48,7 @@ public class Obj_Torche : MonoBehaviour
     private void UpdateInit()
     {
         CheckDayNight();
+        CheckShadowOption();
 
         if (!m_bOnOff) // false¿œ∂ß ≥∑¿”.
         {
@@ -65,6 +66,24 @@ public class Obj_Torche : MonoBehaviour
     }
     private void CheckDayNight()
     {
-        m_bOnOff = GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>().Get_DayNight ?  false: true;
+        m_bOnOff = GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageCreateController>().Get_DayNight ?  false: true;
+    }
+
+    private void CheckShadowOption()
+    {
+        int iShadow = Option_Manager.Instance.m_tOptiondata.iShadow;
+
+        if (iShadow < 0)
+        {
+            m_Light.shadows = LightShadows.None;
+        }
+        else if (iShadow > 0)
+        {
+            m_Light.shadows = LightShadows.Soft;
+        }
+        else
+        {
+            m_Light.shadows = LightShadows.Hard;
+        }
     }
 }
