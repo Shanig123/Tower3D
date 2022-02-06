@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_AbilityBoard : MonoBehaviour
+public class UI_ArchiveBoard : MonoBehaviour
 {
     public List<UnityEngine.UI.Text> m_listText;
     public List<GameObject> m_listItem;
@@ -43,15 +43,15 @@ public class UI_AbilityBoard : MonoBehaviour
             {
                 int iIndex = i * m_iWidth + j;
                 Vector3 pos = new Vector3();
-                pos.x = -220 + (100 * j);
+                pos.x = -220 + (75 * j);
                 pos.y = 240 - (75 * i);
-                m_listItem[iIndex].GetComponent<RectTransform>().localScale =new Vector3(1.25f, 1.25f, 1.25f);
+                m_listItem[iIndex].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                 m_listItem[iIndex].GetComponent<RectTransform>().localPosition = pos;
             }
         }
-      //  ChangeBanner();
-      //  ChangeScript();
-      //  ChangeSprite();
+        //  ChangeBanner();
+        //  ChangeScript();
+        //  ChangeSprite();
     }
     private void OnEnable()
     {
@@ -71,90 +71,51 @@ public class UI_AbilityBoard : MonoBehaviour
     {
         if (Game_Manager.Instance)
         {
-            string tf = "";
-            if (GameObject.Find("Log_File"))
-            {
-                UnityEngine.UI.Text tLog =
-               GameObject.Find("Log_File").
-               GetComponent<UnityEngine.UI.Text>();
-                tLog.text = "Instance GameManger";
-            }
             for (int i = 0; i < m_listItem.Count; ++i)
             {
-                if (GameObject.Find("Log_File"))
-                {
-                    UnityEngine.UI.Text tLog =
-                   GameObject.Find("Log_File").
-                   GetComponent<UnityEngine.UI.Text>();
-                    tLog.text = "for"+i;
-                }
                 if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[i])
                 {
-                    tf += "1";
-                    if (GameObject.Find("Log_File"))
-                    {
-                        UnityEngine.UI.Text tLog =
-                       GameObject.Find("Log_File").
-                       GetComponent<UnityEngine.UI.Text>();
-                        tLog.text = "for" + i +"_true";
-                    }
-                    if (i == Game_Manager.Instance.m_tStageInfo.iStartAbility)
-                        m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[2];
-                    else
-                        m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[1];
+                    m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[1];
                 }
                 else
                 {
-                    tf += "0";
-                    if (GameObject.Find("Log_File"))
-                    {
-                        UnityEngine.UI.Text tLog =
-                       GameObject.Find("Log_File").
-                       GetComponent<UnityEngine.UI.Text>();
-                        tLog.text = "for" + i + "_false";
-                    }
+
+
                     m_listItem[i].GetComponent<UnityEngine.UI.Image>().sprite = m_sprites[0];
                 }
-            }
-
-            if (GameObject.Find("Log_File"))
-            {
-                UnityEngine.UI.Text tLog =
-               GameObject.Find("Log_File").
-               GetComponent<UnityEngine.UI.Text>();
-                tLog.text = tf;
             }
         }
 
     }
     private void ChangeBanner()
     {
-        GameObject objBanner = gameObject.transform.Find("AbilityBanner").gameObject;
+        GameObject objBanner = gameObject.transform.Find("ArchiveBanner").gameObject;
 
         if (Option_Manager.Instance)
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objBanner.GetComponent<UnityEngine.UI.Text>().text = "특 성 선 택"; 
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "아 카 이 브";
             }
             else
             {
-                objBanner.GetComponent<UnityEngine.UI.Text>().text = "ABILITY";
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "ARCHIVE";
             }
         }
     }
     private void ChangeScript(int _iAbilityNumber)
-    {     
-        GameObject objScript = gameObject.transform.Find("AbilityScriptTxt").gameObject;
+    {
+        GameObject objScript = gameObject.transform.Find("ArchiveScriptTxt").gameObject;
         if (Option_Manager.Instance)
         {
-            if(Option_Manager.Instance.m_tOptiondata.bKor)
+            if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
                 if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[_iAbilityNumber])
                 {
-                    string scripts = Resource_Manager.Instance.Get_Scripts[0][_iAbilityNumber];
-                    objScript.GetComponent<UnityEngine.UI.Text>().text =
-                        scripts;
+                   // string scripts = Resource_Manager.Instance.Get_Scripts[0][_iAbilityNumber];
+
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "해금됨";
+
                 }
                 else
                 {
@@ -167,9 +128,8 @@ public class UI_AbilityBoard : MonoBehaviour
             {
                 if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[_iAbilityNumber])
                 {
-                    string scripts = Resource_Manager.Instance.Get_Scripts[2][_iAbilityNumber];
-                    objScript.GetComponent<UnityEngine.UI.Text>().text =
-                        scripts;
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "Unlocked";
+
                 }
                 else
                 {
@@ -183,22 +143,17 @@ public class UI_AbilityBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ClickItem(UnityEngine.UI.Button _objButton)
     {
         UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
 
-        if(uI_AbilityMainMenu)
+        if (uI_AbilityMainMenu)
         {
-            if(Game_Manager.Instance)
+            if (Game_Manager.Instance)
             {
-                if(Game_Manager.Instance.m_tGameData.bArrUnlockAbility[uI_AbilityMainMenu.m_iKey])
-                {
-                    Game_Manager.Instance.m_tStageInfo.iStartAbility = uI_AbilityMainMenu.m_iKey;
-                }
-                
                 ChangeSprite();
                 ChangeScript(uI_AbilityMainMenu.m_iKey);
             }

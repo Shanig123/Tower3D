@@ -10,9 +10,9 @@ public class Game_Manager : MonoBehaviour
     {
         m_tStageInfo.iStartAbility = 0;
         m_tGameData = GFunc.Function.InitGameData();
+
         m_tDefaultGameData = GFunc.Function.InitGameData();
         m_tDefaultGameData.bArrUnlockAbility[0] = true;
-        m_tDefaultGameData.bArrUnlockAbility[1] = true;
     }
     #region Value
     private static Game_Manager m_cInstance = null;
@@ -60,10 +60,8 @@ public class Game_Manager : MonoBehaviour
         {
             m_cInstance = this;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            //if (m_tGameData.bArrUnlockAbility[0] == false)
-            //    m_tGameData.bArrUnlockAbility[0] = true;
-            //if (m_tGameData.bArrUnlockAbility[1] == false)
-            //    m_tGameData.bArrUnlockAbility[1] = true;
+            if (m_tGameData.bArrUnlockAbility[0] == false)
+                m_tGameData.bArrUnlockAbility[0] = true;
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -88,6 +86,22 @@ public class Game_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void CheckScene()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenuScene")
+        {
+            Debug.Log("SceneChange");
+            Resource_Manager.Instance.SaveData();
+            //메인메뉴 씬 진입 시 초기화 해야 할 값들을 지정해야함.
+
+        }
+        else
+        {
+         
+        }
+
     }
 
     public void AppQuit()

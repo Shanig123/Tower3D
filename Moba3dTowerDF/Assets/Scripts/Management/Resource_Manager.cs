@@ -28,7 +28,7 @@ public class Resource_Manager : MonoBehaviour
     public Dictionary<string, Dictionary<string, DataStruct.tagPrefab>> m_dictPrefabs;
     public Dictionary<string, Dictionary<int, int>> m_dictTest;
     //public Dictionary<string, List<string>> m_dictScripts;
-    public List<List<string>> m_listScripts;
+    private List<List<string>> m_listScripts;
 
     public List<string> m_listKey;
 
@@ -58,6 +58,8 @@ public class Resource_Manager : MonoBehaviour
             return m_bCheckLoadResource;
         }
     }
+
+    public List<List<string>> Get_Scripts { get{ return m_listScripts; } }
     #endregion
     #region Awake
     void Awake()
@@ -134,10 +136,10 @@ public class Resource_Manager : MonoBehaviour
     {
         //StartCoroutine(LoadFileData());
 
-        LoadScriptsFildData("KorLockScripts");
         LoadScriptsFildData("KorUnLockScripts");
-        LoadScriptsFildData("EngLockScripts");
+        LoadScriptsFildData("KorLockScripts");
         LoadScriptsFildData("EngUnLockScripts");
+        LoadScriptsFildData("EngLockScripts");
 
         LoadFileData();
 

@@ -7,7 +7,7 @@ public class MainMenuController : MonoBehaviour
 {
     #region Value
     public enum eMenuState { Main, StageSelect, Option, Exit, End };
-    enum eMenuInFoState { DifficultySelect, AbilitySelect, NoEmty, GeneralOption, SoundOption, Emty2, Main, End }
+    enum eMenuInFoState { DifficultySelect, AbilitySelect, Archive, GeneralOption, SoundOption, Emty2, Main, End }
 
     [SerializeField] eMenuState m_eCurMenuState = eMenuState.End;
     [SerializeField] eMenuState m_eNextMenuState = eMenuState.End;
@@ -16,8 +16,8 @@ public class MainMenuController : MonoBehaviour
 
     bool m_bUpdateInit = false;
 
-    string[] m_strKor = { "게 임 시 작", "옵 션", "종 료", "특 성", "난 이 도", "", "일 반", "사 운 드", " " };
-    string[] m_strEng = { "GameStart", "Option", "Quit", "Ability", "Difficulty", "", "General", "Sound", " " };
+    string[] m_strKor = { "게 임 시 작", "옵 션", "종 료", "특 성", "난 이 도", "아카이브", "일 반", "사 운 드", " " };
+    string[] m_strEng = { "GameStart", "Option", "Quit", "Ability", "Difficulty", "Archive", "General", "Sound", " " };
 
     [SerializeField] List<GameObject> m_objUIList;
     [SerializeField] List<GameObject> m_objBoardUIList;
@@ -110,6 +110,10 @@ public class MainMenuController : MonoBehaviour
         {
             // Game_Manager.Instance.AppQuit();
             m_eNextMenuState = eMenuState.Exit;
+        }
+        else if (m_eCurMenuState == eMenuState.StageSelect) // 게임시작화면에서 특성 선택 눌렀을 때
+        {
+            m_eNextMenuInfoState = eMenuInFoState.Archive;
         }
         else if (m_eCurMenuState == eMenuState.Exit) //엑시트 (메인화면에서) 엑시트 눌렀을 때
         {
@@ -276,16 +280,22 @@ public class MainMenuController : MonoBehaviour
                 case eMenuInFoState.AbilitySelect:
                     m_objBoardUIList[0].SetActive(true);
                     m_objBoardUIList[1].SetActive(false);
+                    m_objBoardUIList[4].SetActive(false);
                     break;
                 case eMenuInFoState.DifficultySelect:
                     m_objBoardUIList[0].SetActive(false);
                     m_objBoardUIList[1].SetActive(true);
+                    m_objBoardUIList[4].SetActive(false);
                     break;
-                case eMenuInFoState.NoEmty:
-                    if (m_eCurMenuInfoState == eMenuInFoState.AbilitySelect)
-                        m_eNextMenuInfoState = eMenuInFoState.AbilitySelect;
-                    else if (m_eCurMenuInfoState == eMenuInFoState.DifficultySelect)
-                        m_eNextMenuInfoState = eMenuInFoState.DifficultySelect;
+                case eMenuInFoState.Archive:
+                    //if (m_eCurMenuInfoState == eMenuInFoState.AbilitySelect)
+                    //    m_eNextMenuInfoState = eMenuInFoState.AbilitySelect;
+                    //else if (m_eCurMenuInfoState == eMenuInFoState.DifficultySelect)
+                    //    m_eNextMenuInfoState = eMenuInFoState.DifficultySelect;
+
+                    m_objBoardUIList[0].SetActive(false);
+                    m_objBoardUIList[1].SetActive(false);
+                    m_objBoardUIList[4].SetActive(true);
                     break;
                 case eMenuInFoState.GeneralOption:
                     m_objBoardUIList[2].SetActive(true);

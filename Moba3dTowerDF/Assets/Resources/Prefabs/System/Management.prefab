@@ -57,6 +57,12 @@ MonoBehaviour:
     iTotalKillCount: 0
     iUnLockLevel: 0
     bArrUnlockAbility: 000000000000000000000000000000000000000000
+  m_tDefaultGameData:
+    iWave: 0
+    iBestWave: 0
+    iTotalKillCount: 0
+    iUnLockLevel: 0
+    bArrUnlockAbility: 010000000000000000000000000000000000000000
   m_tStageInfo:
     eDifficulty: 0
     iStartAbility: 0

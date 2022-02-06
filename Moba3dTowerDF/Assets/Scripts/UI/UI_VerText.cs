@@ -15,4 +15,5 @@ public class UI_VerText : MonoBehaviour
     {
         
     }
+
 }

@@ -1,3 +1,21 @@
-Ability1 _Life+5 _
-Ability2 _Tier1 atk+10% _
-Ability3 _Locked _
+Start Ability1__ No Ability_
+Start Ability2__ Clear the game 1_
+Start Ability3__ Clear the game 1_
+Start Ability4__ To be added_
+Start Ability5__ To be added_
+Ability6__ To be added_
+Ability7__ To be added_
+Ability8__ To be added_
+Ability9__ To be added_
+Ability10__ To be added_
+Ability11__ To be added_
+Ability12__ To be added_
+Ability13__ To be added_
+Ability14__ To be added_
+Ability15__ To be added_
+Ability16__ To be added_
+Ability17__ To be added_
+Ability18__ To be added_
+Ability19__ To be added_
+Ability20__ To be added_
+Ability21__ To be added_
