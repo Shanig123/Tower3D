@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerAI : BaseObj
+public abstract class TowerAI : BaseObj
 {
-    TowerAI()
-        : base() { }
+    //TowerAI()
+    //    : base() { }
 
     #region Value
 
-    [SerializeField] private DataStruct.tagTowerStatus m_tagStatus;
+    [SerializeField] protected DataStruct.tagTowerStatus m_tagStatus;
 
-    [SerializeField] private GameObject m_objTargetMob;
-    [SerializeField] private int m_iTargetID;
+    [SerializeField] protected GameObject m_objTargetMob;
+    [SerializeField] protected int m_iTargetID;
 
-    [SerializeField] private DataEnum.eState m_eNextState = DataEnum.eState.End;
-    [SerializeField] private DataEnum.eState m_eCurState = DataEnum.eState.End;
+    [SerializeField] protected DataEnum.eState m_eNextState = DataEnum.eState.End;
+    [SerializeField] protected DataEnum.eState m_eCurState = DataEnum.eState.End;
 
 
-    [SerializeField] private Vector3 m_vCurModifyPos;
-    [SerializeField] private Vector3 m_vNextModifyPos;
+    [SerializeField] protected Vector3 m_vCurModifyPos;
+    [SerializeField] protected Vector3 m_vNextModifyPos;
 
     public DataStruct.tagEffectInfo m_tEffectInfo;
 
@@ -79,16 +79,10 @@ public class TowerAI : BaseObj
     #endregion
 
     // Start is called before the first frame update
-    protected override void Start()
-    {
-        base.Start();
-        //  m_tagStatus.strTowerName = gameObject.name;
-        //EditorUtility
-    }
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (!m_bFirstInit)
             UpdateInit();
@@ -100,7 +94,7 @@ public class TowerAI : BaseObj
         DoController();
     }
 
-    private void UpdateInit()
+    protected virtual void UpdateInit()
     {
         Rename_Clone();
         UpdateInit_Effect();
@@ -119,7 +113,7 @@ public class TowerAI : BaseObj
         m_bFirstInit = true;
     }
 
-    private void EffectFunc()
+    protected virtual void EffectFunc()
     {
         Base_Effect effect = GetComponentInChildren<Base_Effect>();
         if (effect != null)
@@ -168,7 +162,7 @@ public class TowerAI : BaseObj
         }
     }
 
-    private void UpdateInit_Effect()
+    protected virtual void UpdateInit_Effect()
     {
         Base_Effect effect = GetComponentInChildren<Base_Effect>();
         if (effect != null)
@@ -215,7 +209,7 @@ public class TowerAI : BaseObj
 
     private void RenderFunc()
     {
-        if(m_bSelect)
+        if (m_bSelect)
         {
             Shader rimlight = GameObject.FindWithTag("TotalController").GetComponent<ShaderController>().Get_Shader("Rimlight_Shader");
             //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
@@ -226,15 +220,16 @@ public class TowerAI : BaseObj
 
             }
             //rimlight.
-            GetComponentInChildren<SkinnedMeshRenderer>().material.shader = rimlight;
-            //float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
-            GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 1.0f);
-
-            GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 1, 0));
+            Renderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            if (renderer == null)
+                renderer = GetComponentInChildren<MeshRenderer>();
+            renderer.material.shader = rimlight;
+            renderer.material.SetFloat("_Pow", 1.0f);
+            renderer.material.SetColor("_RimCol", new Color(0, 1, 0));
         }
         else
         {
-            Shader rimlight =GameObject.FindWithTag("TotalController"). GetComponent<ShaderController>().Get_Shader("Default_Shader");
+            Shader rimlight = GameObject.FindWithTag("TotalController").GetComponent<ShaderController>().Get_Shader("Default_Shader");
             //Shader rimlight = Shader.Find("Custom/Rimlight_Shader");
             if (rimlight == null)
             {
@@ -243,14 +238,17 @@ public class TowerAI : BaseObj
 
             }
             //rimlight.
-            GetComponentInChildren<SkinnedMeshRenderer>().material.shader = rimlight;
+            Renderer renderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            if (renderer == null)
+                renderer = GetComponentInChildren<MeshRenderer>();
+            renderer.material.shader = rimlight;
             ////float fPow = m_objPickTower.GetComponentInChildren<Renderer>().material.GetFloat("_Pow");
             //GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Pow", 8.0f);
             ////GetComponentInChildren<SkinnedMeshRenderer>().material.SetFloat("_Holo", 0);
             //if (Get_TowerRank == DataEnum.eRankID.Normal)
             //    GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
         }
-      
+
     }
 
     private void Rename_Clone()
@@ -293,7 +291,7 @@ public class TowerAI : BaseObj
                     break;
                 default:
                     {
-                  
+
                     }
                     break;
             }
@@ -348,29 +346,17 @@ public class TowerAI : BaseObj
 
     #endregion
 
-    private void DoNoActiveState()
-    {
-       
-    }
-    private void DoReadyState()
+    protected virtual void DoReadyState()
     {
         CheckInStageBoard();
         InStageBoard();
         ReadyToActive();
     }
-    private void DoActiveState()
-    {
-        CheckTarget();
-    }
-    private void DoDeadState()
-    {
+    protected abstract void DoNoActiveState();
+    protected abstract void DoActiveState();
+    protected abstract void DoDeadState();
+    protected abstract void CheckDead();
 
-    }
-
-    private void CheckDead()
-    {
-
-    }
 
     #region ReadyState_Func
 
@@ -463,7 +449,7 @@ public class TowerAI : BaseObj
 
     #region ActiveState_Func
 
-    private void CheckTarget()
+    protected void CheckTarget()
     {
         if (m_objTargetMob == null)
         {

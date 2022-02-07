@@ -1796,7 +1796,7 @@ GameObject:
   - component: {fileID: 82361486870045612}
   - component: {fileID: 114306267886315038}
   - component: {fileID: -1030773599717995949}
-  - component: {fileID: -3517043208327934508}
+  - component: {fileID: 45828247737914910}
   m_Layer: 6
   m_Name: Tower_02
   m_TagString: Untagged
@@ -1968,7 +1968,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.6, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3517043208327934508
+--- !u!114 &45828247737914910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1977,7 +1977,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1904107386653458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd171a2408d9754fafa186656183283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
@@ -1985,14 +1985,14 @@ MonoBehaviour:
   m_bSelect: 0
   m_bFirstInit: 0
   m_fReadyTimer: 0
-  m_fReadyTimerMax: 1
+  m_fReadyTimerMax: 0
   m_Transform: {fileID: 0}
   m_Ani: {fileID: 0}
   m_strPrefabName: 
   m_tagStatus:
     iHp: 0
     iMaxHp: 0
-    iAtk: 3
+    iAtk: 0
     iLvl: 0
     iTowerId: 0
     iStatus: 0
@@ -2006,10 +2006,10 @@ MonoBehaviour:
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
   m_tEffectInfo:
-    colorEffect: {r: 0, g: 0, b: 0, a: 0}
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
     vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
     fSpeed: 1
-    iSpeed: 1
 --- !u!1 &1926030801303212
 GameObject:
   m_ObjectHideFlags: 0

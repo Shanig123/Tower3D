@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 748904517973857097}
   - component: {fileID: 748904517966412963}
-  - component: {fileID: -861674395054519595}
   - component: {fileID: -2020438293551342721}
+  - component: {fileID: 6134704672605621081}
   m_Layer: 6
   m_Name: Tower_10
   m_TagString: Untagged
@@ -55,48 +55,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-861674395054519595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 748904517973823337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bCheckDead: 1
-  m_bObjActiveOnOff: 0
-  m_bSelect: 0
-  m_bFirstInit: 0
-  m_fReadyTimer: 0
-  m_fReadyTimerMax: 1
-  m_Transform: {fileID: 0}
-  m_Ani: {fileID: 0}
-  m_strPrefabName: 
-  m_tagStatus:
-    iHp: 0
-    iMaxHp: 0
-    iAtk: 2
-    iLvl: 0
-    iTowerId: 0
-    iStatus: 0
-    fRange: 2
-    fAtkCoolTime: 0
-    fMaxAtkCoolTime: 0.5
-  m_objTargetMob: {fileID: 0}
-  m_iTargetID: 0
-  m_eNextState: 4
-  m_eCurState: 4
-  m_vCurModifyPos: {x: 0, y: 0, z: 0}
-  m_vNextModifyPos: {x: 0, y: 0, z: 0}
-  m_tEffectInfo:
-    colorEffect: {r: 0, g: 0, b: 0, a: 0}
-    vScale: {x: 1, y: 1, z: 1}
-    fParticleScale: 1
-    fSpeed: 1
 --- !u!65 &-2020438293551342721
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,6 +68,48 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6134704672605621081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748904517973823337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd171a2408d9754fafa186656183283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bSelect: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_strPrefabName: 
+  m_tagStatus:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iTowerId: 0
+    iStatus: 0
+    fRange: 0
+    fAtkCoolTime: 0
+    fMaxAtkCoolTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCurModifyPos: {x: 0, y: 0, z: 0}
+  m_vNextModifyPos: {x: 0, y: 0, z: 0}
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
 --- !u!1 &4544149985350937729
 GameObject:
   m_ObjectHideFlags: 0

@@ -139,7 +139,6 @@ public class ConstructionController : MonoBehaviour
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
 
-        print(BoxOnObjCount());
         if (BoxOnObjCount() < GConst.BaseValue.iAwaitBoxMax)
         {
             if (iPlayerGold >= GConst.BaseValue.iTowerGold)

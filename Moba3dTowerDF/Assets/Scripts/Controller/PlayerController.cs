@@ -231,8 +231,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (false == m_bFirstInit)
-        //    UpdateInit();
+        if (false == m_bFirstInit)
+            UpdateInit();
         CheckInputMouse();
         ChangeController();
       

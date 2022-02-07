@@ -6629,8 +6629,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4386165881112484}
   - component: {fileID: 95173752487164604}
-  - component: {fileID: -8184236495823144748}
   - component: {fileID: 302714954583389848}
+  - component: {fileID: 4238650591341399629}
   m_Layer: 0
   m_Name: Tower_13
   m_TagString: Untagged
@@ -6674,7 +6674,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-8184236495823144748
+--- !u!65 &302714954583389848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509054931390068}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4, z: 0.4}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4238650591341399629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6683,7 +6696,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1509054931390068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd171a2408d9754fafa186656183283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
@@ -6716,19 +6729,6 @@ MonoBehaviour:
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1
---- !u!65 &302714954583389848
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509054931390068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4, z: 0.4}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1509285658086026
 GameObject:
   m_ObjectHideFlags: 0

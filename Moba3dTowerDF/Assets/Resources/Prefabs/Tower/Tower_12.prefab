@@ -666,8 +666,8 @@ GameObject:
   - component: {fileID: 95051155700534472}
   - component: {fileID: 82094888682965628}
   - component: {fileID: 114719622113862768}
-  - component: {fileID: -719439702366747386}
   - component: {fileID: 5888825405396495680}
+  - component: {fileID: 7020051302079820427}
   m_Layer: 0
   m_Name: Tower_12
   m_TagString: Untagged
@@ -825,7 +825,20 @@ MonoBehaviour:
   attacking: {fileID: 8300000, guid: dabbc3d60b9254fc483ca68d4dcedc0f, type: 3}
   death: {fileID: 0}
   sleeping: {fileID: 0}
---- !u!114 &-719439702366747386
+--- !u!65 &5888825405396495680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356782923155146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
+  m_Center: {x: 0, y: -0.1, z: 0}
+--- !u!114 &7020051302079820427
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -834,7 +847,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1356782923155146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd171a2408d9754fafa186656183283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
@@ -867,19 +880,6 @@ MonoBehaviour:
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1
---- !u!65 &5888825405396495680
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356782923155146}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9, z: 0.9}
-  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!1 &1364331591694158
 GameObject:
   m_ObjectHideFlags: 0
