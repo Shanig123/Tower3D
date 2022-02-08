@@ -250,10 +250,21 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateInit()
     {
+#if UNITY_EDITOR
+        CreateAllTower();
+#endif
+
+        m_bFirstInit = true;
+    }
+    private void CreateAllTower()
+    {
         int k = 0;
-        for (int i =0; i<5; ++i)
+        for (int i = 0; i < 5; ++i)
         {
-            for(int j=0; j<8;++j)
+            int jmax = 8;
+            if (i == 3)
+                jmax = 10;
+            for (int j = 0; j < jmax; ++j)
             {
                 if (i == 4 && j > 1)
                     break;
@@ -301,9 +312,9 @@ public class PlayerController : MonoBehaviour
                 else
                 { print("No Cotains"); }
             }
-          
+
         }
-        m_bFirstInit = true;
+
     }
 
     private void DebugText()
@@ -649,7 +660,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Picking_Tile()
+    private void Picking_Tile() // 두번째 클릭시
     {
 
         GFunc.Function.Print_simpleLog("picking Tile");
@@ -709,6 +720,9 @@ public class PlayerController : MonoBehaviour
     {
         if (TileUpto_RayPicking("Tower",new Vector3(0,1,0))) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
         {
+            if (CheckScroll())
+                return true;
+
             //타워 업글 -> 스텟 상승
             if (m_objPicking.GetComponent<TowerAI>().m_strPrefabName ==
                 m_objPickTower.GetComponent<TowerAI>().m_strPrefabName)
@@ -735,6 +749,26 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    private bool CheckScroll()
+    {
+        if (
+               (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.Scrl) ||
+               (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
+                )
+        {
+            print("ScrollTower");
+            return true;
+        }
+        if (
+        (m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.Scrl) ||
+        (m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
+         )
+        {
+            print("ScrollTower");
+            return true;
+        }
+        return false;
+    }
     private void CheckTowerRank(bool _bSort)
     {
         //
@@ -804,6 +838,7 @@ public class PlayerController : MonoBehaviour
 
     private void TowerStatUp(bool _bSort)
     {
+
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;

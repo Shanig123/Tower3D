@@ -273,7 +273,7 @@ public class ConstructionController : MonoBehaviour
         if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
         {
             string strObjKey = ObjKeyTostrTowerID(_iTowerId);
-            GFunc.Function.Print_Log("X: " + _vCreatePos.x + "\n" + "X: " + _vCreatePos.y + "\n" + "X: " + _vCreatePos.z + "\n");
+            GFunc.Function.Print_Log(strObjKey+"\nX: " + _vCreatePos.x + "\n" + "X: " + _vCreatePos.y + "\n" + "X: " + _vCreatePos.z + "\n");
             GameObject objInstance = Object_Manager.Instance.InstanceObject(_vCreatePos, "Tower", "Tower", strObjKey);
 
             objInstance.GetComponent<TowerAI>().Set_TowerID = (ObjKeyTointTowerID(_iTowerId));

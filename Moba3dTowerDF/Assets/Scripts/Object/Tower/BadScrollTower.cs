@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrollTower : TowerAI
+public class BadScrollTower : TowerAI
 {
-    ScrollTower()
-          : base() { }
+    BadScrollTower()
+      : base() { }
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        m_tagStatus.eType = DataEnum.eTowerType.Scrl;
         base.Start();
         //  m_tagStatus.strTowerName = gameObject.name;
         //EditorUtility
@@ -38,32 +37,51 @@ public class ScrollTower : TowerAI
             Vector3 vPos = effect.transform.position;
             vPos.y += 0.5f;
             effect.transform.position = vPos;
-            Color color = new Color(129 / 255f, 20 / 255f,1);
+            Color color = new Color(129 / 255f, 20 / 255f, 1);
             effect.m_tEffectInfo.colorEffect = color;
             effect.m_tEffectInfo.fSpeed = 1.5f;
-           
+
             effect.Copy_ClassInfoToParticleSys();
         }
+    }
+    protected override void EffectFunc()
+    {
+        Base_Effect effect = GetComponentInChildren<Base_Effect>();
+        if (effect != null)
+        {
+
+            var rot = effect.transform.rotation;
+            //var vAngle = rot.eulerAngles;
+            //vAngle.y += (Time.deltaTime * 90f);
+            //if (vAngle.y > 360)
+            //    vAngle.y = 0;
+            //vAngle.x = -vAngle.y;
+            //rot.eulerAngles = vAngle;
+            //effect.transform.rotation = rot;
+
+
+        }
+
     }
 
     protected override void CheckDead()
     {
-       
+
     }
 
     protected override void DoActiveState()
     {
-       
+
     }
 
     protected override void DoDeadState()
     {
-       
+
     }
 
     protected override void DoNoActiveState()
     {
-        
+
     }
     private void Scroll_RotateY()
     {
@@ -71,8 +89,7 @@ public class ScrollTower : TowerAI
         var Angle = rot.eulerAngles;
         Angle.y += Time.deltaTime * 45f;
         rot.eulerAngles = Angle;
-        gameObject.transform.Find("scroll").gameObject.transform.rotation = rot ;
+        gameObject.transform.Find("scroll").gameObject.transform.rotation = rot;
 
     }
-
 }

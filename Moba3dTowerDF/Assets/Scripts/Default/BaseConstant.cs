@@ -9,7 +9,7 @@ namespace GConst
         public const int iTowerGold = 10;
         public const int iHorizontal = 11;
         public const int iMaxRank_Lvl_Count = 5;
-        public const int iMaxRank_ID_Count = 8;
+        public const int iMaxRank_ID_Count = 10;
 
         public const int iAwaitBoxMax = 6;
 

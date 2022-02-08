@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5282333036079379074}
   - component: {fileID: 6278894991072331463}
   m_Layer: 0
-  m_Name: CursedAbility
+  m_Name: Tower_38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

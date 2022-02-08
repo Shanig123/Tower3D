@@ -9,7 +9,7 @@ namespace DataEnum
 {
     public enum eState
     { NoActive, Ready, Active, Dead, End };
-
+    public enum eTowerType { Atk, Buff, Scrl, End }
     public enum eRankID
     {
         Normal      = 1,
@@ -67,6 +67,8 @@ namespace DataStruct
     public class tagTowerStatus : tagStatus
     {
         //DataEnum.eRankID
+       
+        public DataEnum.eTowerType eType;
         public int iTowerId;
         public int iStatus;
 

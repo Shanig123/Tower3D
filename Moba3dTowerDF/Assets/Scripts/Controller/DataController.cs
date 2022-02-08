@@ -75,6 +75,16 @@ public class DataController : MonoBehaviour
         
     }
 
+    public int TierRandomNumberFromSeed()
+    {
+        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomIntCallCount;
+        ++m_iRandomIntCallCount;
+        ++m_iRandomTotalCallCount;
+
+        return 0;
+    }
+
+
     public int ExtractRandomNumberFromSeed(int _iMin, int _iMax)
     {
         int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomIntCallCount;

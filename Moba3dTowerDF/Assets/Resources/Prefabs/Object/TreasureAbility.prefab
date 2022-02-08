@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5019328673598806773}
   - component: {fileID: 1548129961385397167}
-  - component: {fileID: 8584571188626393413}
+  - component: {fileID: 5826587751785509037}
   m_Layer: 0
   m_Name: TreasureAbility
   m_TagString: Untagged
@@ -47,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8584571188626393413
+--- !u!114 &5826587751785509037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2674540453316195632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96a1d3a0a5ca814cb597ba35a26b4cc, type: 3}
+  m_Script: {fileID: 11500000, guid: cfb926a4ca04228459ec2a12bbbeb91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
@@ -219,6 +219,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 23485423342289738, guid: 7b0afebe1598f48dc9a6bc6813db09de,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 942614b83d357dd4ea3d13fce3064d14, type: 2}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
