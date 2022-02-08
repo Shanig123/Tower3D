@@ -369,15 +369,33 @@ public class ConstructionController : MonoBehaviour
     {
         if (BoxOnObjCount() > 0)
         {
+            foreach (GameObject iter in Object_Manager.Instance.m_dictClone_Object["Box"])
+            {
+                //타일의 레이어 체크 및 레이어 위 오브젝트 있는지 체크 필요
+                if (null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj))
+                {
+                    Vector3 vector3Orin = iter.transform.position;
+                    vector3Orin.y -= 1f;
+                    RaycastHit hit;
+                    Ray ray = new Ray(vector3Orin,
+                       new Vector3(0, 1, 0));
+                    if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
+                    {
+                        iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj = null;
+                    }
+
+                }
+            }
             //제대로 동작되지 않음.
             List<GameObject> listobj_Boxes= Object_Manager.Instance.m_dictClone_Object["Box"];
-
+            
             int i = 0;
             foreach (GameObject iter in listobj_Boxes)
             {
                 //타일의 레이어 체크 및 레이어 위 오브젝트 있는지 체크 필요
-
-                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
+             
+                if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock")&&
+                    (null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj)))
                 {
                     while (i < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
                     {
