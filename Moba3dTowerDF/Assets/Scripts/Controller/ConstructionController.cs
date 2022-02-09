@@ -403,7 +403,7 @@ public class ConstructionController : MonoBehaviour
 
                         if (i < GConst.BaseValue.iHorizontal * 8) //i가 77미만일경우
                             iIndex += GConst.BaseValue.iHorizontal * 3;
-                        else // i가 
+                        else 
                             iIndex =i - GConst.BaseValue.iHorizontal * 8;
 
                         if (Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
@@ -441,7 +441,6 @@ public class ConstructionController : MonoBehaviour
 
             return true;
         }
-
         return false;
     }
 

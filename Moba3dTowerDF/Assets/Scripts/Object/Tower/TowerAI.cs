@@ -509,7 +509,11 @@ public abstract class TowerAI : BaseObj
                 return;
 
             }
-            m_Transform.LookAt(m_objTargetMob.transform);
+            var tran = m_objTargetMob.transform;
+            var pos = tran.position;
+            pos.y= this.transform.position.y;
+            tran.position = pos;
+            m_Transform.LookAt(tran);
             Vector3 vecTargetToLength = m_objTargetMob.transform.position - m_Transform.position;
             float fLength = vecTargetToLength.magnitude;
 

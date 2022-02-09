@@ -208,8 +208,14 @@ public class StageController : MonoBehaviour
             //몬스터 생성
     
             Vector3 vPos = m_Object_Manager.m_dictClone_Object["CreateZone"][0].GetComponent<Transform>().position;
-          
-            GameObject TempGameObject = m_Object_Manager.InstanceObject(vPos, m_strWaveName, "Wave_Monster", "TestMob00", m_iCreateCount);
+
+            string strWaveName = "Wave_";
+            if (m_iCurWave < 10)
+                strWaveName += ("0" + m_iCurWave);
+            else
+                strWaveName += m_iCurWave;
+            GameObject TempGameObject = 
+                m_Object_Manager.InstanceObject(vPos, m_strWaveName, "Wave_Monster", strWaveName, m_iCreateCount);
             MobAI Ai = TempGameObject.GetComponent<MobAI>();
 
             Ai.SetState = DataEnum.eState.Ready;

@@ -7,7 +7,7 @@ public class MobAI : BaseObj
     MobAI()
         :base()
     {
-
+       
     }
 
 
@@ -20,9 +20,10 @@ public class MobAI : BaseObj
     [SerializeField] private PlayerController m_playerController;
 
     [SerializeField] private Vector3[] m_arrWaypoints;
-    [SerializeField] private int m_iTargetWaypoint = 0;
+    [SerializeField] private int m_iCurTargetWaypoint = 0;
+    [SerializeField] private int m_iNextTargetWaypoint = 0;
 
-  
+
     [SerializeField] private DataEnum.eState m_eNextMobState = DataEnum.eState.End;
     [SerializeField] private DataEnum.eState m_eCurMobState = DataEnum.eState.End;
 
@@ -80,8 +81,22 @@ public class MobAI : BaseObj
         {
             m_playerController = GameObject.FindWithTag("TotalController").GetComponent<PlayerController>();
         }
+        DefaultStat();
 
         m_bFirstInit = true;
+    }
+
+    private void DefaultStat()
+    {
+        if (m_tagStatus.fMoveSpeed == 0)
+            m_tagStatus.fMoveSpeed = 3f;
+        if (m_tagStatus.iHp == 0)
+        {
+            StageController stageController= GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>();
+            m_tagStatus.iHp = 5 + (stageController.Get_Wave * 2);
+            m_tagStatus.iMaxHp = m_tagStatus.iHp;
+
+        }
     }
     private void CheckMobState()
     {
@@ -104,7 +119,9 @@ public class MobAI : BaseObj
                     break;
                 case DataEnum.eState.Active:
                     {
-
+                        var pos = this.transform.position;
+                        pos.y = m_arrWaypoints[m_iCurTargetWaypoint].y;
+                        this.transform.position = pos;
                     }
                     break;
                 case DataEnum.eState.Dead:
@@ -158,7 +175,7 @@ public class MobAI : BaseObj
 
     private void DoNoActiveState()
     {
-        m_iTargetWaypoint = 0;
+        m_iNextTargetWaypoint = 0;
 
         StageController temp = GameObject.FindWithTag("TotalController").GetComponent<StageController>();
         temp.Min_MobCount();
@@ -173,7 +190,10 @@ public class MobAI : BaseObj
         {
             m_fReadyTimer = 0;
             m_eNextMobState = DataEnum.eState.Active;
-            m_iTargetWaypoint = 1;
+            m_iNextTargetWaypoint = 1;
+            m_iCurTargetWaypoint = 1;
+
+  
         }
     }
     private void DoActiveState()
@@ -206,29 +226,39 @@ public class MobAI : BaseObj
         gameObject.GetComponent<Collider>().enabled = false;
         m_playerController.Add_KillCount();
         m_eNextMobState = DataEnum.eState.Dead;
+       
         m_Ani.SetBool("isDead1", true);
     }
 
     private void CheckTarget()
     {
-        Vector3 vecTargetToLength = m_arrWaypoints[m_iTargetWaypoint] - m_Transform.position;
+        Vector3 vTargetPos = m_arrWaypoints[m_iCurTargetWaypoint];
+        vTargetPos.y = this.transform.position.y;
+        Vector3 vecTargetToLength = vTargetPos - this.transform.position;
         float fLength = vecTargetToLength.magnitude;
 
-        if (fLength < 0.03)
+        if (fLength < 0.1)
         {
-            if (m_arrWaypoints[m_iTargetWaypoint] == m_arrWaypoints[m_arrWaypoints.Length-1] && fLength < 1.0)
+            if (m_arrWaypoints[m_iCurTargetWaypoint] == m_arrWaypoints[m_arrWaypoints.Length-1] && fLength < 1.0)
             {
                 m_eNextMobState = DataEnum.eState.NoActive;
             }
             else
             {
-              ++m_iTargetWaypoint;
+              ++m_iNextTargetWaypoint;
             }
         }
         else
         {
-            m_Transform.LookAt(m_arrWaypoints[m_iTargetWaypoint]);
-            DoMove();
+            if(m_iCurTargetWaypoint == m_iNextTargetWaypoint)
+            {
+                m_Transform.LookAt(vTargetPos);
+                DoMove();
+            }       
+        }
+        if (m_iNextTargetWaypoint != m_iCurTargetWaypoint)
+        {
+            m_iCurTargetWaypoint = m_iNextTargetWaypoint;
         }
     }
 
