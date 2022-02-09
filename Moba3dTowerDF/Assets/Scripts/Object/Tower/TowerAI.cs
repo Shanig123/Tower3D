@@ -530,6 +530,8 @@ public abstract class TowerAI : BaseObj
 
     private void CreateBullet()
     {
+        if (m_objTargetMob == null)
+            return;
        
         // Debug.Log("Attack");
         DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
@@ -547,7 +549,8 @@ public abstract class TowerAI : BaseObj
         vDir.Normalize();
         Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
-        retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
+        if(retObj)
+            retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
         //공격
         //공격 중 타겟팅이 벗어나면 해제
         //  m_objTargetMob
