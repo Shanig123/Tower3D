@@ -64,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 748904517973823337}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebb126f412b5b8c498c9e780c7b6bd89, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd171a2408d9754fafa186656183283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
@@ -72,26 +72,32 @@ MonoBehaviour:
   m_bSelect: 0
   m_bFirstInit: 0
   m_fReadyTimer: 0
-  m_fReadyTimerMax: 1
+  m_fReadyTimerMax: 0
   m_Transform: {fileID: 0}
   m_Ani: {fileID: 0}
   m_strPrefabName: 
   m_tagStatus:
     iHp: 0
     iMaxHp: 0
-    iAtk: 2
+    iAtk: 0
     iLvl: 0
+    eType: 0
     iTowerId: 0
     iStatus: 0
-    fRange: 2
+    fRange: 0
     fAtkCoolTime: 0
-    fMaxAtkCoolTime: 0.5
+    fMaxAtkCoolTime: 0
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
 --- !u!65 &-2020438293551342721
 BoxCollider:
   m_ObjectHideFlags: 0

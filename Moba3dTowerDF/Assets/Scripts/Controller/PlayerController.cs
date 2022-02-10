@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 m_vPickTowerPos;
     [SerializeField] private GameObject m_objPicking;
 
-    [SerializeField] private UpgradeController m_upgradeController;
+  //  [SerializeField] private UpgradeController m_upgradeController;
 
     #endregion
 
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Caching.ClearCache())
             print("CLEAR CACHE");
-        m_upgradeController = new UpgradeController();
+        //m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         StageSettingInfo();
         m_tPlayerData.iGold = 10000;
