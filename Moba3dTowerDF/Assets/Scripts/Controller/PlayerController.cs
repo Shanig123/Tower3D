@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour 
 {
   
     /*
@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_objPickTower;
     [SerializeField] private Vector3 m_vPickTowerPos;
     [SerializeField] private GameObject m_objPicking;
-
-  //  [SerializeField] private UpgradeController m_upgradeController;
+   
+    public bool m_bFirstInit = false;
 
     #endregion
 
@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour
 
     #endregion
     #region PropertyFunc
+
+    public /*int[]*/System.Array Get_AbilityArr { get { return m_tPlayerData.iArrAbility; } }
+
     public void Add_KillCount() { ++m_iIncomeKillCount; ++m_iTotalKillCount; }
     public int Get_SpecialCost(DataEnum.eRankID _eRankID)
     {
@@ -134,6 +137,14 @@ public class PlayerController : MonoBehaviour
             m_tPlayerData.iGold = 0;
         }
     }
+    public void Add_Life(int _iAddLifeVal)
+    {
+        m_tPlayerData.iLife += _iAddLifeVal;
+        if (m_tPlayerData.iLife < 0)
+        {
+            m_tPlayerData.iLife = 0;
+        }
+    }
     public int Add_SpecialCost(DataEnum.eRankID _eRankID, int _iAddCost = 1)
     {
         if (_eRankID == DataEnum.eRankID.Normal)
@@ -184,7 +195,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     #endregion
-  public  bool m_bFirstInit =  false;
+
+    void Awake()
+    {
+        //m_abilityController = new AbilityController();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -192,41 +208,10 @@ public class PlayerController : MonoBehaviour
             print("CLEAR CACHE");
         //m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
-        StageSettingInfo();
+      
         m_tPlayerData.iGold = 10000;
         //m_tPlayerData.iGold = 20;
     }
-    void StageSettingInfo()
-    {
-        if(Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Easy)
-        {
-            m_tPlayerData.iLife = 30;
-            m_tPlayerData.iGold = 30;
-        }
-        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Normal)
-        {
-            m_tPlayerData.iLife = 20;
-            m_tPlayerData.iGold = 20;
-        }
-        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Hard)
-        {
-
-            m_tPlayerData.iLife = 20;
-            m_tPlayerData.iGold = 20;
-        }
-        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Infinite)
-        {
-            m_tPlayerData.iLife = 15;
-            m_tPlayerData.iGold = 20;
-        }
-        else
-        {
-            m_tPlayerData.iLife = 30;
-            m_tPlayerData.iGold = 30;
-        }
-        
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -239,7 +224,8 @@ public class PlayerController : MonoBehaviour
         DoController(false);
 
         DebugText();
-
+        // m_abilityController.Set_Arr = m_tPlayerData.iArrAbility;
+        SyncAbilityInfo();
     }
 
     //void  UpdateInit()
@@ -256,6 +242,45 @@ public class PlayerController : MonoBehaviour
 
         m_bFirstInit = true;
     }
+
+    private void SyncAbilityInfo()
+    {
+        AbilityController abilityController = GetComponent<AbilityController>();
+        List<int> abilityList = abilityController.Get_AbilityList;
+        if (m_tPlayerData.iArrAbility.Length != abilityList.Count)
+        {
+            //사이즈 크기가 플레이어정보가 더 적을 때 를 비교하여 배열정보를 복사후 재정의 하는 과정이 필요함.
+            if(m_tPlayerData.iArrAbility.Length < abilityList.Count)
+            {
+                int[] iarrTemp = new int[abilityList.Count];
+                int iSize = m_tPlayerData.iArrAbility.Length;
+
+                System.Array.Copy(m_tPlayerData.iArrAbility, iarrTemp, iSize);
+                System.Array.Clear(m_tPlayerData.iArrAbility, 0, iSize);
+                m_tPlayerData.iArrAbility = new int[abilityList.Count];
+                System.Array.Copy(iarrTemp, m_tPlayerData.iArrAbility, iSize);
+
+                //m_tPlayerData.iArrAbility = new System.Array()
+                for (int i = iSize-1; i < abilityList.Count; ++i)
+                {
+                    m_tPlayerData.iArrAbility[i] = abilityList[i];
+                }
+            }
+            else
+            {
+                System.Array.Clear(m_tPlayerData.iArrAbility, 0, m_tPlayerData.iArrAbility.Length);
+                m_tPlayerData.iArrAbility = new int[abilityList.Count];
+                //m_tPlayerData.iArrAbility = new System.Array()
+                for (int i = 0; i < abilityList.Count; ++i)
+                {
+                    m_tPlayerData.iArrAbility[i] = abilityList[i];
+                }
+            }
+           
+           
+        }
+    }
+
     private void CreateAllTower()
     {
         int k = 0;

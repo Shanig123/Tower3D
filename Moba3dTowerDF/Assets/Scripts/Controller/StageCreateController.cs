@@ -49,4 +49,59 @@ public class StageCreateController : MonoBehaviour
     {
         
     }
+
+    private void InitInfo()
+    {
+        Init_PlayerInfo();
+        Init_AbilityInfo();
+    }
+
+    void Init_PlayerInfo()
+    {
+      //  PlayerController playerController = GetComponent<PlayerController>();
+        if (GetComponent<PlayerController>() == null)
+            return;
+       
+
+        if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Easy)
+        {
+            GetComponent<PlayerController>().Add_Life(30);
+            GetComponent<PlayerController>().Add_Gold(30);
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Normal)
+        {
+            GetComponent<PlayerController>().Add_Life(20);
+            GetComponent<PlayerController>().Add_Gold(20);
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Hard)
+        {
+            GetComponent<PlayerController>().Add_Life(20);
+            GetComponent<PlayerController>().Add_Gold(20);
+
+        }
+        else if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Infinite)
+        {
+            GetComponent<PlayerController>().Add_Life(15);
+            GetComponent<PlayerController>().Add_Gold(20);
+        }
+        else
+        {
+            GetComponent<PlayerController>().Add_Life(30);
+            GetComponent<PlayerController>().Add_Gold(30);
+        }
+    }
+
+    void Init_AbilityInfo()
+    {
+        int istart = Game_Manager.Instance.m_tStageInfo.iStartAbility;
+        Game_Manager.Instance.m_tStageInfo.iStartAbility = 0;
+        if (istart > 0)
+        {
+            //AbilityController abilityController = GetComponent<AbilityController>();
+            //if (abilityController != null)
+            //{
+            //    abilityController.
+            //}
+        }
+    }
 }
