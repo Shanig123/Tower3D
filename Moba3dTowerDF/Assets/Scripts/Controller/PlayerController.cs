@@ -65,6 +65,13 @@ public class PlayerController : MonoBehaviour
             return m_tPlayerData.iGold;
         }
     }
+    public int Get_Life
+    {
+        get
+        {
+            return m_tPlayerData.iLife;
+        }
+    }
     public int Set_Gold
     {
         set
