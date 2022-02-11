@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8789768317058688255}
   - component: {fileID: 7183326039966109160}
   - component: {fileID: 3824306337273938959}
+  - component: {fileID: 7298085100844012233}
   - component: {fileID: 7056397494146912628}
   - component: {fileID: 5887501098282684081}
   - component: {fileID: 8837801615193768457}
@@ -82,8 +83,21 @@ MonoBehaviour:
   m_objPickTower: {fileID: 0}
   m_vPickTowerPos: {x: 0, y: 0, z: 0}
   m_objPicking: {fileID: 0}
-  m_upgradeController: {fileID: 0}
   m_bFirstInit: 0
+--- !u!114 &7298085100844012233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8789768317058688254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad17a558a5c6a4e8d9a973e7df0f6ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listAbility: 
+  m_playerController: {fileID: 0}
 --- !u!114 &7056397494146912628
 MonoBehaviour:
   m_ObjectHideFlags: 0

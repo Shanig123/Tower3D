@@ -42,6 +42,7 @@ public class StageCreateController : MonoBehaviour
             m_bDayNight = rd.Next(0, 2) > 0 ? true : false;
         }
 
+        InitInfo();
     }
 
     // Update is called once per frame
@@ -61,7 +62,6 @@ public class StageCreateController : MonoBehaviour
       //  PlayerController playerController = GetComponent<PlayerController>();
         if (GetComponent<PlayerController>() == null)
             return;
-       
 
         if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Easy)
         {
@@ -97,11 +97,10 @@ public class StageCreateController : MonoBehaviour
         Game_Manager.Instance.m_tStageInfo.iStartAbility = 0;
         if (istart > 0)
         {
-            //AbilityController abilityController = GetComponent<AbilityController>();
-            //if (abilityController != null)
-            //{
-            //    abilityController.
-            //}
+            if (GetComponent<AbilityController>() != null)
+            {
+                GetComponent<AbilityController>().Add_Ability = istart;
+            }
         }
     }
 }

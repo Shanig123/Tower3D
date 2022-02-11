@@ -133,6 +133,7 @@ namespace DataStruct
         public int iEpicCost;
         public int iUniqueCost;
         public int iTowerSynergy;
+        //public  System.Array iArrAbility;
         public int[] iArrAbility;
     }
 
@@ -142,7 +143,7 @@ namespace DataStruct
         public DataEnum.eDifficulty eDifficulty;
         public int iStartAbility;
 
-        public bool bKor; //1 : kor 0 : eng
+       // public bool bKor; //1 : kor 0 : eng
     }
 
     [System.Serializable]

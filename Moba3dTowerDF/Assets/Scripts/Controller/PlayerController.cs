@@ -261,9 +261,10 @@ public class PlayerController : MonoBehaviour
                 System.Array.Copy(iarrTemp, m_tPlayerData.iArrAbility, iSize);
 
                 //m_tPlayerData.iArrAbility = new System.Array()
-                for (int i = iSize-1; i < abilityList.Count; ++i)
+                for (int i = iSize; i < abilityList.Count; ++i)
                 {
-                    m_tPlayerData.iArrAbility[i] = abilityList[i];
+                    if(m_tPlayerData.iArrAbility[i] == 0)
+                        m_tPlayerData.iArrAbility[i] = abilityList[i];
                 }
             }
             else

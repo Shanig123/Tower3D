@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AbilityController : MonoBehaviour
 {
+    AbilityController()
+        : base(){ m_listAbility = new List<int>(); }
     [SerializeField] private List<int> m_listAbility;
     [SerializeField] PlayerController m_playerController;
     #region Property
