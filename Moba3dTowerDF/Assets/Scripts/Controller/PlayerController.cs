@@ -44,7 +44,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_objPickTower;
     [SerializeField] private Vector3 m_vPickTowerPos;
     [SerializeField] private GameObject m_objPicking;
-   
+    [SerializeField] private GameObject m_UI_useScroll;
+    [SerializeField] private GameObject m_UI_sellTower;
     public bool m_bFirstInit = false;
 
     #endregion
@@ -217,6 +218,8 @@ public class PlayerController : MonoBehaviour
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
       
         m_tPlayerData.iGold = 10000;
+        m_UI_useScroll = GameObject.Find("Button_UseScroll");
+        m_UI_sellTower = GameObject.Find("Button_SellAnimal");
         //m_tPlayerData.iGold = 20;
     }
 
@@ -382,6 +385,12 @@ public class PlayerController : MonoBehaviour
                         m_iCheckPickingTower = OTHER;
                         m_iPick_AwaitBoxNumber = -1;
                         m_strLayerMaskName = "Tower";
+                      
+                        if (m_UI_useScroll != null)
+                            m_UI_useScroll.SetActive(false);
+
+                        if (m_UI_sellTower != null)
+                            m_UI_sellTower.SetActive(false);
                     }
                     break;
 
@@ -463,7 +472,12 @@ public class PlayerController : MonoBehaviour
         m_iCheckPickingTower = OTHER;
         m_iPick_AwaitBoxNumber = -1;
         m_strLayerMaskName = "Tower";
+       
+        if (m_UI_useScroll != null)
+            m_UI_useScroll.SetActive(false);
 
+        if (m_UI_sellTower != null)
+            m_UI_sellTower.SetActive(false);
         ChangeController();
     }
 
@@ -553,9 +567,12 @@ public class PlayerController : MonoBehaviour
         Check_TowerInBoard();
         Picking_Tower_ChangeRenderer(true);
         Check_Exception_TowerInBoard();
-
+        CheckScroll();
+        if (m_UI_sellTower != null)
+            m_UI_sellTower.SetActive(true);
         m_objPickTower.GetComponent<BaseObj>().m_bSelect = true;
         m_objPicking = null;
+       
     }
 
     private void Picked_Tower()
@@ -749,6 +766,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+
     private bool Tile_Check_InTower(bool _bSort)
     {
         if (TileUpto_RayPicking("Tower",new Vector3(0,1,0))) // 한번더 레이피킹을 하여 해당 타일에 오브젝트가 있는 지 확인.
@@ -790,6 +809,11 @@ public class PlayerController : MonoBehaviour
                 )
         {
             print("ScrollTower");
+          
+            if(m_UI_useScroll != null)
+            {
+                m_UI_useScroll.SetActive(true);
+            }
             return true;
         }
         if (
@@ -798,6 +822,11 @@ public class PlayerController : MonoBehaviour
          )
         {
             print("ScrollTower");
+            
+            if (m_UI_useScroll != null)
+            {
+                m_UI_useScroll.SetActive(true);
+            }
             return true;
         }
         return false;
@@ -898,6 +927,26 @@ public class PlayerController : MonoBehaviour
                 
                 return false;
             }
+            if (OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
+            {
+                GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+            }
+            Destroy(m_objPickTower);
+            m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
+            return true;
+        }
+
+        GFunc.Function.Print_simpleLog("Pick is null and State is Not Tile");
+        return false;
+    }
+
+    public bool Use_Scroll()
+    {
+
+        if (m_eCurControlState == DataEnum.ePickingMode.Tile
+              && m_objPickTower != null)
+        {
+           
             if (OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
             {
                 GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
