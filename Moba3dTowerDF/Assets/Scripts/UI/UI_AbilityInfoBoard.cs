@@ -88,11 +88,9 @@ public class UI_AbilityInfoBoard : MonoBehaviour
 
         }
         int InitScale = 75;
-        float CurScale = 400 /(float) m_iWidth;
-        //if (InitScale != CurScale)
-            fScale = CurScale / (float)InitScale;
-        //300/4 75--1
-        //300 6 ?
+        float CurScale = 400 /(float) m_iWidth;       
+        fScale = CurScale / (float)InitScale;
+ 
         for (int i = 0; i < m_ButtonList.Count; ++i)
         {
             //버튼생성
@@ -165,14 +163,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
 
                 objCreate.GetComponent<UI_AbilityMainMenu>().m_iKey = templist[i];
                 objCreate.GetComponent<UnityEngine.UI.Image>().sprite = m_AbilityImages[templist[i]];
-                
-                //Vector3 pos = new Vector3();
-
-                //pos.x = -150 + (100 * k);
-                //pos.y = 350 - (75 * j);
-
-                //objCreate.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-                //objCreate.GetComponent<RectTransform>().localPosition = pos;
+               
                 m_ButtonList.Add(objCreate);
             }
         }
