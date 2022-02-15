@@ -116,4 +116,9 @@ public class Game_Manager : MonoBehaviour
 #endif
 
     }
+
+    public void Game_Pause(bool _bPause)
+    {
+
+    }
 }
