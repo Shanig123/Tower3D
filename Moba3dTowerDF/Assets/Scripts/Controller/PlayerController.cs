@@ -660,16 +660,19 @@ public class PlayerController : MonoBehaviour
     private void Check_AwaitBoxNumber()
     {
         Vector3 vPickPos = m_objPickTower.transform.position;
-
+        print("CheckAwaitBoxNumber");
         vPickPos.y += 1.0f;
   
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       
 
         int iLayerMask = 1 << LayerMask.NameToLayer("Box");
-      
-        if (Physics.Raycast(m_objPickTower.transform.position, -m_objPickTower.transform.up , out hit, 5.0f, iLayerMask))
+
+        Ray ray = new Ray(vPickPos, new Vector3(0,-1,0));
+
+        if (Physics.Raycast(ray , out hit, 5.0f, iLayerMask))
         {
+    
             if (hit.collider.gameObject)
             {
                 string strBoxName = hit.collider.gameObject.name;
@@ -808,8 +811,6 @@ public class PlayerController : MonoBehaviour
                (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
                 )
         {
-            print("ScrollTower");
-          
             if(m_UI_useScroll != null)
             {
                 m_UI_useScroll.SetActive(true);
@@ -820,9 +821,7 @@ public class PlayerController : MonoBehaviour
         (m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.Scrl) ||
         (m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
          )
-        {
-            print("ScrollTower");
-            
+        {     
             if (m_UI_useScroll != null)
             {
                 m_UI_useScroll.SetActive(true);

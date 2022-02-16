@@ -343,14 +343,8 @@ public class ConstructionController : MonoBehaviour
 
     public void Sort_AwaitList(int _iIndex)
     {
-        //if(BoxOnObjCount() <= _iIndex)
-        //{
-        //    print("InputErr");
-        //    return;
-        //}
-        if(_iIndex < 0)
+        if (_iIndex < 0)
         {
-
             for (int i = 0; i < 6; ++i)
             {
                 RaycastHit hit;
@@ -359,9 +353,11 @@ public class ConstructionController : MonoBehaviour
             }
         }
         else
-            Object_Manager.Instance.m_dictClone_Object["Box"][_iIndex].GetComponent<Obj_AwaitListBox>().m_OnTowerObj = null;
+        {
+            if (Object_Manager.Instance.m_dictClone_Object["Box"][_iIndex].GetComponent<Obj_AwaitListBox>().m_OnTowerObj != null)
+                Object_Manager.Instance.m_dictClone_Object["Box"][_iIndex].GetComponent<Obj_AwaitListBox>().m_OnTowerObj = null;
 
-
+        }
 
     }
 
