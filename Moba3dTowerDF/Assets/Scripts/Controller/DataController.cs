@@ -84,6 +84,13 @@ public class DataController : MonoBehaviour
         return 0;
     }
 
+    public int Get_RandomAbility()
+    {
+        int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomIntCallCount;
+        ++m_iRandomIntCallCount;
+
+        return 0;
+    }
 
     public int ExtractRandomNumberFromSeed(int _iMin, int _iMax)
     {

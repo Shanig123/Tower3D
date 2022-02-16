@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2451762078396286781}
   - component: {fileID: -678173119434084527}
   - component: {fileID: 7423541711322088317}
-  - component: {fileID: 3140017555719974582}
   - component: {fileID: 827955550560556739}
   m_Layer: 0
   m_Name: Management
@@ -66,7 +65,6 @@ MonoBehaviour:
   m_tStageInfo:
     eDifficulty: 0
     iStartAbility: 0
-    bKor: 0
 --- !u!114 &2451762078396286780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,22 +144,6 @@ MonoBehaviour:
   m_iLoadCount: 0
   m_bCheckLoadResource: 0
   m_fCheckLoadTime: 0
---- !u!114 &3140017555719974582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2451762078396286777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c56f6cb413fa14597d5bb32d4d45bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muteSound: 0
-  objectPoolLength: 20
-  soundDistance: 7
-  logSounds: 0
 --- !u!114 &827955550560556739
 MonoBehaviour:
   m_ObjectHideFlags: 0

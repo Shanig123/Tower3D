@@ -119,6 +119,13 @@ public class Game_Manager : MonoBehaviour
 
     public void Game_Pause(bool _bPause)
     {
-
+        if (_bPause)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 }

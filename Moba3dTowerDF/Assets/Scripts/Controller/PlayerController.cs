@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_objPicking;
     [SerializeField] private GameObject m_UI_useScroll;
     [SerializeField] private GameObject m_UI_sellTower;
+    [SerializeField] private GameObject m_UI_AutoInBoard;
     public bool m_bFirstInit = false;
 
     #endregion
@@ -220,6 +221,8 @@ public class PlayerController : MonoBehaviour
         m_tPlayerData.iGold = 10000;
         m_UI_useScroll = GameObject.Find("Button_UseScroll");
         m_UI_sellTower = GameObject.Find("Button_SellAnimal");
+        m_UI_AutoInBoard = GameObject.Find("Button_AutoInBoard");
+        m_UI_AutoInBoard.SetActive(false);
         //m_tPlayerData.iGold = 20;
     }
 
@@ -228,13 +231,16 @@ public class PlayerController : MonoBehaviour
     {
         if (false == m_bFirstInit)
             UpdateInit();
+        Check_Dimmed_AutoInBoardButton();
         CheckInputMouse();
-        ChangeController();
-      
-        DoController(false);
 
         DebugText();
-        // m_abilityController.Set_Arr = m_tPlayerData.iArrAbility;
+    }
+
+    private void FixedUpdate()
+    {
+        ChangeController();
+        DoController(false);
         SyncAbilityInfo();
     }
 
@@ -446,6 +452,8 @@ public class PlayerController : MonoBehaviour
         {
            if( Controller_Manager.Instance.LButtonUp())
             {
+                
+
                 if (!GetComponent<StageController>().Get_WaveOnOff)
                     RayPicking();
                 else
@@ -455,7 +463,7 @@ public class PlayerController : MonoBehaviour
             }
            else if(Controller_Manager.Instance.LButtonDown())
            {
-           
+               
            }
         }
     }
@@ -958,7 +966,7 @@ public class PlayerController : MonoBehaviour
         GFunc.Function.Print_simpleLog("Pick is null and State is Not Tile");
         return false;
     }
-    bool Calculate_SellingTower()
+    private bool Calculate_SellingTower()
     {
         DataStruct.tagTowerStatus towerinfo = m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo;
         DataEnum.eRankID eRank = m_objPickTower.GetComponent<TowerAI>().Get_TowerRank;
@@ -1013,4 +1021,20 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+
+    private void Check_Dimmed_AutoInBoardButton()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            if(Object_Manager.Instance.m_dictClone_Object.ContainsKey("Box"))
+            {
+                if (Object_Manager.Instance.m_dictClone_Object["Box"][i].GetComponent<Obj_AwaitListBox>().m_OnTowerObj != null)
+                {
+                    m_UI_AutoInBoard.SetActive(true);
+                    return;
+                }
+            }            
+        }
+        m_UI_AutoInBoard.SetActive(false);
+    }
 }
