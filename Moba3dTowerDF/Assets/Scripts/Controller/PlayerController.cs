@@ -450,6 +450,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (Time.timeScale < 1) //일시정지 시 피킹 되지 않도록 리턴
+                return;
+
            if( Controller_Manager.Instance.LButtonUp())
             {
                 
