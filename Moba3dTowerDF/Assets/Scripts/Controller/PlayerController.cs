@@ -44,9 +44,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject m_objPickTower;
     [SerializeField] private Vector3 m_vPickTowerPos;
     [SerializeField] private GameObject m_objPicking;
-    [SerializeField] private GameObject m_UI_useScroll;
-    [SerializeField] private GameObject m_UI_sellTower;
+    [SerializeField] private GameObject m_UI_UseScroll;
+    [SerializeField] private GameObject m_UI_SellTower;
     [SerializeField] private GameObject m_UI_AutoInBoard;
+    [SerializeField] private GameObject m_UI_ObjectinfoBoard;
+
     public bool m_bFirstInit = false;
 
     #endregion
@@ -219,8 +221,8 @@ public class PlayerController : MonoBehaviour
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
       
         m_tPlayerData.iGold = 10000;
-        m_UI_useScroll = GameObject.Find("Button_UseScroll");
-        m_UI_sellTower = GameObject.Find("Button_SellAnimal");
+        m_UI_UseScroll = GameObject.Find("Button_UseScroll");
+        m_UI_SellTower = GameObject.Find("Button_SellAnimal");
         m_UI_AutoInBoard = GameObject.Find("Button_AutoInBoard");
         m_UI_AutoInBoard.SetActive(false);
         //m_tPlayerData.iGold = 20;
@@ -392,11 +394,11 @@ public class PlayerController : MonoBehaviour
                         m_iPick_AwaitBoxNumber = -1;
                         m_strLayerMaskName = "Tower";
                       
-                        if (m_UI_useScroll != null)
-                            m_UI_useScroll.SetActive(false);
+                        if (m_UI_UseScroll != null)
+                            m_UI_UseScroll.SetActive(false);
 
-                        if (m_UI_sellTower != null)
-                            m_UI_sellTower.SetActive(false);
+                        if (m_UI_SellTower != null)
+                            m_UI_SellTower.SetActive(false);
                     }
                     break;
 
@@ -484,11 +486,11 @@ public class PlayerController : MonoBehaviour
         m_iPick_AwaitBoxNumber = -1;
         m_strLayerMaskName = "Tower";
        
-        if (m_UI_useScroll != null)
-            m_UI_useScroll.SetActive(false);
+        if (m_UI_UseScroll != null)
+            m_UI_UseScroll.SetActive(false);
 
-        if (m_UI_sellTower != null)
-            m_UI_sellTower.SetActive(false);
+        if (m_UI_UseScroll != null)
+            m_UI_UseScroll.SetActive(false);
         ChangeController();
     }
 
@@ -579,8 +581,8 @@ public class PlayerController : MonoBehaviour
         Picking_Tower_ChangeRenderer(true);
         Check_Exception_TowerInBoard();
         CheckScroll();
-        if (m_UI_sellTower != null)
-            m_UI_sellTower.SetActive(true);
+        if (m_UI_SellTower != null)
+            m_UI_SellTower.SetActive(true);
         m_objPickTower.GetComponent<BaseObj>().m_bSelect = true;
         m_objPicking = null;
        
@@ -822,9 +824,9 @@ public class PlayerController : MonoBehaviour
                (m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
                 )
         {
-            if(m_UI_useScroll != null)
+            if(m_UI_UseScroll != null)
             {
-                m_UI_useScroll.SetActive(true);
+                m_UI_UseScroll.SetActive(true);
             }
             return true;
         }
@@ -833,9 +835,9 @@ public class PlayerController : MonoBehaviour
         (m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.eType == DataEnum.eTowerType.End)
          )
         {     
-            if (m_UI_useScroll != null)
+            if (m_UI_UseScroll != null)
             {
-                m_UI_useScroll.SetActive(true);
+                m_UI_UseScroll.SetActive(true);
             }
             return true;
         }
@@ -1040,4 +1042,4 @@ public class PlayerController : MonoBehaviour
         }
         m_UI_AutoInBoard.SetActive(false);
     }
-}
+} 
