@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_bCheckDead: 1
   m_bObjActiveOnOff: 0
+  m_bSelect: 0
   m_bFirstInit: 0
   m_fReadyTimer: 0
   m_fReadyTimerMax: 0

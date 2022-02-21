@@ -5018,6 +5018,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrailRender: {fileID: 2516484276812487439}
+  m_TrailRenderMaterial: {fileID: 2100000, guid: 0a00b0cd0bebb8c4e9c32d054f80f946,
+    type: 2}
   m_TrailParticle: {fileID: 5392636759939111180}
   m_GlowParticle: {fileID: 4560611193898588717}
   m_DustParticle: {fileID: 5573061730054173566}
