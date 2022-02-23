@@ -42,18 +42,18 @@ public class UI_GameOptionBoard : MonoBehaviour
     {
         if(_bKor)
         {
-            m_ButtonsList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = "Ç×»ó ¹ã";
-            m_ButtonsList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = "·£´ı";
-            m_ButtonsList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = "Ç×»ó ³·";
-            m_ButtonsList[3].GetComponentInChildren<UnityEngine.UI.Text>().text = "³·À½";
-            m_ButtonsList[4].GetComponentInChildren<UnityEngine.UI.Text>().text = "Áß°£";
-            m_ButtonsList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "³ôÀ½";
-            m_ButtonsList[6].GetComponentInChildren<UnityEngine.UI.Text>().text = "±âº»°ª";
+            m_ButtonsList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = "í•­ìƒ ë°¤";
+            m_ButtonsList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = "ëœë¤";
+            m_ButtonsList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = "í•­ìƒ ë‚®";
+            m_ButtonsList[3].GetComponentInChildren<UnityEngine.UI.Text>().text = "ë‚®ìŒ";
+            m_ButtonsList[4].GetComponentInChildren<UnityEngine.UI.Text>().text = "ì¤‘ê°„";
+            m_ButtonsList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "ë†’ìŒ";
+            m_ButtonsList[6].GetComponentInChildren<UnityEngine.UI.Text>().text = "ê¸°ë³¸ê°’";
 
-            m_TextsList[0].text = "°ÔÀÓ ¿É¼Ç";
-            m_TextsList[1].text = "¾ğ¾î";
-            m_TextsList[2].text = "È¯°æ";
-            m_TextsList[3].text = "±×¸²ÀÚ Ç°Áú";
+            m_TextsList[0].text = "ê²Œì„ ì˜µì…˜";
+            m_TextsList[1].text = "ì–¸ì–´";
+            m_TextsList[2].text = "í™˜ê²½";
+            m_TextsList[3].text = "ê·¸ë¦¼ì í’ˆì§ˆ";
         }
         else
         {

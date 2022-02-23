@@ -23,9 +23,9 @@ public class Tex_Gradient : MonoBehaviour
             {
                 for (int y = 0; y < _Height; y++)
                 {
-                    int xCoord = Mathf.RoundToInt(x * (float)gradientTex.width / _Width); //ÅØ½ºÃ³ °ª°ú Å©±â °ª¿¡ ¸ÂÃç ÁÂÇ¥ ÀúÀå
+                    int xCoord = Mathf.RoundToInt(x * (float)gradientTex.width / _Width); //í…ìŠ¤ì²˜ ê°’ê³¼ í¬ê¸° ê°’ì— ë§žì¶° ì¢Œí‘œ ì €ìž¥
                     int yCoord = Mathf.RoundToInt(y * (float)gradientTex.height / _Height);
-                    float fGray = (1.0f - (gradientTex.GetPixel(xCoord, yCoord).grayscale * m_fWeight)) ; //ÅØ½ºÃ³¿¡¼­ »ö»óÀ» °¡Á®¿Í ±×·¹ÀÌ ½ºÄÉÀÏ·Î ¹è¿­¿¡ ÀúÀå
+                    float fGray = (1.0f - (gradientTex.GetPixel(xCoord, yCoord).grayscale * m_fWeight)) ; //í…ìŠ¤ì²˜ì—ì„œ ìƒ‰ìƒì„ ê°€ì ¸ì™€ ê·¸ë ˆì´ ìŠ¤ì¼€ì¼ë¡œ ë°°ì—´ì— ì €ìž¥
 
                     gradientMap[x, y] = fGray;
                     m_arrfPixel[x * _Width + y] = fGray;
@@ -39,9 +39,9 @@ public class Tex_Gradient : MonoBehaviour
             {
                 for (int y = 0; y < _Height; y++)
                 {
-                    int xCoord = Mathf.RoundToInt(x * (float)gradientTex.width / _Width); //ÅØ½ºÃ³ °ª°ú Å©±â °ª¿¡ ¸ÂÃç ÁÂÇ¥ ÀúÀå
+                    int xCoord = Mathf.RoundToInt(x * (float)gradientTex.width / _Width); //í…ìŠ¤ì²˜ ê°’ê³¼ í¬ê¸° ê°’ì— ë§žì¶° ì¢Œí‘œ ì €ìž¥
                     int yCoord = Mathf.RoundToInt(y * (float)gradientTex.height / _Height);
-                    float fGray = gradientTex.GetPixel(xCoord, yCoord).grayscale * m_fWeight;//ÅØ½ºÃ³¿¡¼­ »ö»óÀ» °¡Á®¿Í ±×·¹ÀÌ ½ºÄÉÀÏ·Î ¹è¿­¿¡ ÀúÀå
+                    float fGray = gradientTex.GetPixel(xCoord, yCoord).grayscale * m_fWeight;//í…ìŠ¤ì²˜ì—ì„œ ìƒ‰ìƒì„ ê°€ì ¸ì™€ ê·¸ë ˆì´ ìŠ¤ì¼€ì¼ë¡œ ë°°ì—´ì— ì €ìž¥
 
                     gradientMap[x, y] = fGray;
                     m_arrfPixel[x * _Width + y] = fGray;

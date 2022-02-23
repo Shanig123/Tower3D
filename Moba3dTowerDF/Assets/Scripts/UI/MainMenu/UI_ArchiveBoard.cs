@@ -95,7 +95,7 @@ public class UI_ArchiveBoard : MonoBehaviour
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objBanner.GetComponent<UnityEngine.UI.Text>().text = "æ∆ ƒ´ ¿Ã ∫Í";
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "ÏïÑ Ïπ¥ Ïù¥ Î∏å";
             }
             else
             {
@@ -114,7 +114,7 @@ public class UI_ArchiveBoard : MonoBehaviour
                 {
                    // string scripts = Resource_Manager.Instance.Get_Scripts[0][_iAbilityNumber];
 
-                    objScript.GetComponent<UnityEngine.UI.Text>().text = "«ÿ±›µ ";
+                    objScript.GetComponent<UnityEngine.UI.Text>().text = "Ìï¥Í∏àÎê®";
 
                 }
                 else

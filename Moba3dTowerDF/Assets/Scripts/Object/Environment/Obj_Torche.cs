@@ -50,7 +50,7 @@ public class Obj_Torche : MonoBehaviour
         CheckDayNight();
         CheckShadowOption();
 
-        if (!m_bOnOff) // falseÀÏ¶§ ³·ÀÓ.
+        if (!m_bOnOff) // falseì¼ë•Œ ë‚®ì„.
         {
             //m_Light.isActiveAndEnabled = false;
             gameObject.SetActive(false);

@@ -68,7 +68,7 @@ public class Game_Manager : MonoBehaviour
         else
         {
             /*
-             * ¾À ÀÌµ¿ ÈÄ ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ µÇ¾î ÀÖ´Ù¸é ÆÄ±«ÇÑ´Ù.
+             * ì”¬ ì´ë™ í›„ ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ë˜ì–´ ìˆë‹¤ë©´ íŒŒê´´í•œë‹¤.
              */
             Destroy(this.gameObject);
         }
@@ -94,7 +94,7 @@ public class Game_Manager : MonoBehaviour
         {
             Debug.Log("SceneChange");
             Resource_Manager.Instance.SaveData();
-            //¸ŞÀÎ¸Ş´º ¾À ÁøÀÔ ½Ã ÃÊ±âÈ­ ÇØ¾ß ÇÒ °ªµéÀ» ÁöÁ¤ÇØ¾ßÇÔ.
+            //ë©”ì¸ë©”ë‰´ ì”¬ ì§„ì… ì‹œ ì´ˆê¸°í™” í•´ì•¼ í•  ê°’ë“¤ì„ ì§€ì •í•´ì•¼í•¨.
 
         }
         else

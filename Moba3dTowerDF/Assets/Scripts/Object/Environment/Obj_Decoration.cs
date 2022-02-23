@@ -35,15 +35,15 @@ public class Obj_Decoration : MonoBehaviour
     private Color CalcColor(float noiseValue, float gradientValue, bool useColorMap)
     {
         float value = noiseValue + gradientValue;
-        value = Mathf.InverseLerp(0, 2, value); //³ëÀÌÁî ¸Ê°ú ±×¶óµğ¾ğÆ® ¸ÊÀ» ´õÇÑ °ªÀ» 0~1»çÀÌÀÇ °ªÀ¸·Î º¯È¯
-        Color color = Color.Lerp(Color.black, Color.white, value); //º¯È¯µÈ °ª¿¡ ÇØ´çÇÏ´Â »ö»óÀ» ±×·¹ÀÌ½ºÄÉÀÏ·Î ÀúÀå
+        value = Mathf.InverseLerp(0, 2, value); //ë…¸ì´ì¦ˆ ë§µê³¼ ê·¸ë¼ë””ì–¸íŠ¸ ë§µì„ ë”í•œ ê°’ì„ 0~1ì‚¬ì´ì˜ ê°’ìœ¼ë¡œ ë³€í™˜
+        Color color = Color.Lerp(Color.black, Color.white, value); //ë³€í™˜ëœ ê°’ì— í•´ë‹¹í•˜ëŠ” ìƒ‰ìƒì„ ê·¸ë ˆì´ìŠ¤ì¼€ì¼ë¡œ ì €ì¥
         if (useColorMap)
         {
             for (int i = 0; i < fillPercents.Length; i++)
             {
                 if (color.grayscale < fillPercents[i])
                 {
-                    color = fillColors[i]; //¹Ì¸® ¼³Á¤ÇÑ »ö»ó ¹üÀ§¿¡ µû¶ó »ö»ó º¯È¯
+                    color = fillColors[i]; //ë¯¸ë¦¬ ì„¤ì •í•œ ìƒ‰ìƒ ë²”ìœ„ì— ë”°ë¼ ìƒ‰ìƒ ë³€í™˜
                     break;
                 }
             }

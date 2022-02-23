@@ -144,14 +144,14 @@ public class StageController : MonoBehaviour
         
         if(m_bCreateModeOnOff)
         {
-            //¿şÀÌºê ½ÃÀÛ ÈÄ »ı¼ºµÉ ¶§
+            //ì›¨ì´ë¸Œ ì‹œì‘ í›„ ìƒì„±ë  ë•Œ
             //StartCoroutine(WaveCtrl());
 
             WaveCtrl();
         }
         else
         {
-            //¿şÀÌºê ¸÷ »ı¼º ¿Ï·áÀÏ ¶§
+            //ì›¨ì´ë¸Œ ëª¹ ìƒì„± ì™„ë£Œì¼ ë•Œ
 
             //if(m_iCurWave >0 )
             //{
@@ -205,7 +205,7 @@ public class StageController : MonoBehaviour
         {
             m_fCreateCoolTime = 0;
 
-            //¸ó½ºÅÍ »ı¼º
+            //ëª¬ìŠ¤í„° ìƒì„±
     
             Vector3 vPos = m_Object_Manager.m_dictClone_Object["CreateZone"][0].GetComponent<Transform>().position;
 

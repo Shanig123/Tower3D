@@ -18,11 +18,11 @@ public class TopBannerAd : MonoBehaviour
     private void RequestBanner()
     {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111"; //�׽�Ʈ id
-        //ca-app-pub-5521461896884251~1080890646 //��id
-        //ca-app-pub-3940256099942544/6300978111 //�׽�Ʈ id
+        string adUnitId = "ca-app-pub-3940256099942544/6300978111"; //테스트 id
+        //ca-app-pub-5521461896884251~1080890646 //실id
+        //ca-app-pub-3940256099942544/6300978111 //테스트 id
 #elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-3940256099942544/2934735716"; //�׽�Ʈ id
+            string adUnitId = "ca-app-pub-3940256099942544/2934735716"; //테스트 id
 #else
             string adUnitId = "unexpected_platform";
 #endif

@@ -401,7 +401,7 @@ public abstract class TowerAI : BaseObj
 
     private void InStageBoard() 
     {
-        //Å¸¿ö°¡ °ÔÀÓ º¸µå ¾ÈÀ¸·Î µé¾î¿ÔÀ» ¶§
+        //íƒ€ì›Œê°€ ê²Œì„ ë³´ë“œ ì•ˆìœ¼ë¡œ ë“¤ì–´ì™”ì„ ë•Œ
 
         if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
             == GConst.BaseValue.iStatFlag_CheckInStage)
@@ -555,8 +555,8 @@ public abstract class TowerAI : BaseObj
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
         if(retObj)
             retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
-        //°ø°İ
-        //°ø°İ Áß Å¸°ÙÆÃÀÌ ¹ş¾î³ª¸é ÇØÁ¦
+        //ê³µê²©
+        //ê³µê²© ì¤‘ íƒ€ê²ŸíŒ…ì´ ë²—ì–´ë‚˜ë©´ í•´ì œ
         //  m_objTargetMob
     }
 

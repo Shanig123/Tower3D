@@ -33,7 +33,7 @@ public class Seller : MonoBehaviour
     }
     public void SellTower2()
     {
-        //Å¬¸¯½Ã ·¹ÀÌÇÇÅ· ÈÄ ui ÀÌº¥Æ® Ã³¸®·Î ÀÌº¥Æ® Ã³¸® ¼ø¼­¿¡ ´ëÇÑ ¿ì¼±Àû ÀÛ¾÷ÀÌ ÇÊ¿äÇÔ.
+        //í´ë¦­ì‹œ ë ˆì´í”¼í‚¹ í›„ ui ì´ë²¤íŠ¸ ì²˜ë¦¬ë¡œ ì´ë²¤íŠ¸ ì²˜ë¦¬ ìˆœì„œì— ëŒ€í•œ ìš°ì„ ì  ì‘ì—…ì´ í•„ìš”í•¨.
         if (!m_stageController.Get_WaveOnOff)
         {
             bool bCheckSell =  m_playerController.Sell_Tower();

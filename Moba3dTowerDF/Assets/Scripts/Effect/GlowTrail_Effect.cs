@@ -52,8 +52,8 @@ public class GlowTrail_Effect : MonoBehaviour
 
     private void Copy_Info_inParticlesys()
     {
-        //effect°¡ ¾ø´Ù¸é true ÀÖÀ¸¸é false 
-        //false¶ó¸é effectColor°ª »ç¿ë true¶ó¸é µğÅ×ÀÏ ÄÃ·¯°ªÀ» »ç¿ëÇÑ´Ù.
+        //effectê°€ ì—†ë‹¤ë©´ true ìˆìœ¼ë©´ false 
+        //falseë¼ë©´ effectColorê°’ ì‚¬ìš© trueë¼ë©´ ë””í…Œì¼ ì»¬ëŸ¬ê°’ì„ ì‚¬ìš©í•œë‹¤.
         bool bCheckDetailColor = false;
         if (m_EffectColor.r == 0 &&
             m_EffectColor.g == 0 &&

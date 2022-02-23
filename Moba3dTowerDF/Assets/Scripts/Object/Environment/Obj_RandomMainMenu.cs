@@ -24,7 +24,7 @@ public class Obj_RandomMainMenu : MonoBehaviour
             System.Random rd = new System.Random(iSeed);
 
             int iTear = rd.Next(2, 4);
-            int iRandomID =0;// Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+            int iRandomID =0;// íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
             if (iTear == 3)
             {
                 iRandomID = rd.Next(0, 4);
@@ -36,7 +36,7 @@ public class Obj_RandomMainMenu : MonoBehaviour
             else
                 iRandomID = rd.Next(0, 7);
             int _iTowerId = (1 << iTear)
-                   | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//³ë¸»Å¸¿öÅ¸ÀÔ°ú Å°°ª È¥ÇÕ
+                   | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//ë…¸ë§íƒ€ì›Œíƒ€ìž…ê³¼ í‚¤ê°’ í˜¼í•©
 
             for (int i = 0; i < GConst.BaseValue.iMaxRank_Lvl_Count; ++i)
             {

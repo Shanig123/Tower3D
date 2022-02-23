@@ -114,8 +114,8 @@ namespace DataStruct
     [System.Serializable]
     public struct tagOptionData
     {
-        public int iDayNight; //-1 Ç×»ó ¹ã, 0 ·£´ı, 1 Ç×»ó ³·
-        public int iShadow; // ÀúÇ°Áú ÁßÇ°Áú °íÇ°Áú
+        public int iDayNight; //-1 í•­ìƒ ë°¤, 0 ëœë¤, 1 í•­ìƒ ë‚®
+        public int iShadow; // ì €í’ˆì§ˆ ì¤‘í’ˆì§ˆ ê³ í’ˆì§ˆ
         public float fMasterVol; // 0-1
         public float fSfxVol;
         public float fBgmVol;

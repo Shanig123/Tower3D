@@ -18,7 +18,7 @@ public class Obj_DirLight : MonoBehaviour
     {
         if(!m_bUpdateInit)
         {
-            if(!GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageCreateController>().Get_DayNight) //π„¿Ã∂Û∏È
+            if(!GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageCreateController>().Get_DayNight) //Î∞§Ïù¥ÎùºÎ©¥
             {
                 Quaternion rot = transform.rotation;
                 rot.x = 0;

@@ -42,7 +42,7 @@ public class ConstructionController : MonoBehaviour
 
     }
 
-    //ÀÌ ÇÔ¼ö°¡ È£ÃâµÇ´Â °ÍÀº ÇÃ·¹ÀÌ¾î°¡ ¹öÆ°À» ´­·¶À» ¶§ µ¿ÀÛÇÔ.
+    //ì´ í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ëŠ” ê²ƒì€ í”Œë ˆì´ì–´ê°€ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ ë™ì‘í•¨.
     public bool CallTower(DataEnum.eRankID _eRankID)
     {
         int iFlag = (int)DataEnum.eRankID.Normal | (int)DataEnum.eRankID.Magic | (int)DataEnum.eRankID.Rare | (int)DataEnum.eRankID.Epic | (int)DataEnum.eRankID.Unique;
@@ -92,12 +92,12 @@ public class ConstructionController : MonoBehaviour
 
             if (BoxOnObjCount() < GConst.BaseValue.iAwaitBoxMax)
             {
-                int iRandomID = _iTowerNum; // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+                int iRandomID = _iTowerNum; // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
 
                 int iRankID = (int)_eRankID
-                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//³ë¸»Å¸¿öÅ¸ÀÔ°ú Å°°ª È¥ÇÕ
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//ë…¸ë§íƒ€ì›Œíƒ€ì…ê³¼ í‚¤ê°’ í˜¼í•©
 
-                InstanceTower(iRankID); //ÀÎ½ºÅÏ½º Å¸¿ö
+                InstanceTower(iRankID); //ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ
                 return true;
             }
             GFunc.Function.Print_Log("list is full.");
@@ -117,12 +117,12 @@ public class ConstructionController : MonoBehaviour
         {
             GameObject obj = GameObject.FindWithTag("TotalController");
             int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
-            int iRandomID = _iTowerNum; // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+            int iRandomID = _iTowerNum; // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
 
             int iRankID = (int)_eRankID
-                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//³ë¸»Å¸¿öÅ¸ÀÔ°ú Å°°ª È¥ÇÕ
+                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//ë…¸ë§íƒ€ì›Œíƒ€ì…ê³¼ í‚¤ê°’ í˜¼í•©
 
-            InstanceTower(iRankID, _vPos); //ÀÎ½ºÅÏ½º Å¸¿ö
+            InstanceTower(iRankID, _vPos); //ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ
             return true;
            
         }
@@ -133,8 +133,8 @@ public class ConstructionController : MonoBehaviour
         return false;
     }
 
-    //ÀÌ ÇÔ¼ö°¡ È£ÃâµÇ¸é Å¸¿ö°¡ »ı¼ºµÊ.
-    private bool Construction_Tower(DataEnum.eRankID _eRankID) //»ı¼º ¼º°ø½Ã Âü ½ÇÆĞ½Ã °ÅÁş¹İÈ¯
+    //ì´ í•¨ìˆ˜ê°€ í˜¸ì¶œë˜ë©´ íƒ€ì›Œê°€ ìƒì„±ë¨.
+    private bool Construction_Tower(DataEnum.eRankID _eRankID) //ìƒì„± ì„±ê³µì‹œ ì°¸ ì‹¤íŒ¨ì‹œ ê±°ì§“ë°˜í™˜
     {
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
@@ -143,25 +143,25 @@ public class ConstructionController : MonoBehaviour
         {
             if (iPlayerGold >= GConst.BaseValue.iTowerGold)
             {
-                if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //ÀÏ¹İÅ¸¿ö ¼ÒÈ¯
+                if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //ì¼ë°˜íƒ€ì›Œ ì†Œí™˜
                 {
-                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+                    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
 
                     int iRankID = (int)DataEnum.eRankID.Normal
-                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//³ë¸»Å¸¿öÅ¸ÀÔ°ú Å°°ª È¥ÇÕ
+                        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//ë…¸ë§íƒ€ì›Œíƒ€ì…ê³¼ í‚¤ê°’ í˜¼í•©
 
-                    InstanceTower(iRankID); //ÀÎ½ºÅÏ½º Å¸¿ö
+                    InstanceTower(iRankID); //ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ
                     return true;
                 }
-                else  //Æ¯¼ö Å¸¿ö ¼ÒÈ¯
+                else  //íŠ¹ìˆ˜ íƒ€ì›Œ ì†Œí™˜
                 {
-                    if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//Æ¯¼ö ÄÚ½ºÆ® °ªÀÌ ÀÖÀ» ¶§
+                    if (obj.GetComponent<PlayerController>().Get_SpecialCost(_eRankID) > 0)//íŠ¹ìˆ˜ ì½”ìŠ¤íŠ¸ ê°’ì´ ìˆì„ ë•Œ
                     {
-                        int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+                        int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
                         int iRankID = (int)_eRankID
-                            | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ÀÎÇ²Å¸¿öÅ¸ÀÔ°ú Å¸¿ö Å°°ª È¥ÇÕ
+                            | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ì¸í’‹íƒ€ì›Œíƒ€ì…ê³¼ íƒ€ì›Œ í‚¤ê°’ í˜¼í•©
 
-                        InstanceTower(iRankID);//ÀÎ½ºÅÏ½º Å¸¿ö      
+                        InstanceTower(iRankID);//ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ      
                         return true;
                     }
                 }
@@ -174,7 +174,7 @@ public class ConstructionController : MonoBehaviour
         return false;
     }
 
-    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos) //»ı¼º ¼º°ø½Ã Âü ½ÇÆĞ½Ã °ÅÁş¹İÈ¯
+    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos) //ìƒì„± ì„±ê³µì‹œ ì°¸ ì‹¤íŒ¨ì‹œ ê±°ì§“ë°˜í™˜
     {
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
@@ -182,11 +182,11 @@ public class ConstructionController : MonoBehaviour
         if (iPlayerGold >= GConst.BaseValue.iTowerGold)
         {
 
-            int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+            int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(0, 8); // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
             int iRankID = (int)_eRankID
-                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ÀÎÇ²Å¸¿öÅ¸ÀÔ°ú Å¸¿ö Å°°ª È¥ÇÕ
+                | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ì¸í’‹íƒ€ì›Œíƒ€ì…ê³¼ íƒ€ì›Œ í‚¤ê°’ í˜¼í•©
 
-            InstanceTower(iRankID, _vCreatePos);//ÀÎ½ºÅÏ½º Å¸¿ö      
+            InstanceTower(iRankID, _vCreatePos);//ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ      
             return true;
 
         }
@@ -198,30 +198,30 @@ public class ConstructionController : MonoBehaviour
         return false;
     }
 
-    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos,int _iRandomMin, int _iRandomMax) //»ı¼º ¼º°ø½Ã Âü ½ÇÆĞ½Ã °ÅÁş¹İÈ¯
+    private bool Construction_Tower(DataEnum.eRankID _eRankID, Vector3 _vCreatePos,int _iRandomMin, int _iRandomMax) //ìƒì„± ì„±ê³µì‹œ ì°¸ ì‹¤íŒ¨ì‹œ ê±°ì§“ë°˜í™˜
     {
         GameObject obj = GameObject.FindWithTag("TotalController");
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
 
         if (iPlayerGold >= GConst.BaseValue.iTowerGold)
         {
-            //if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //ÀÏ¹İÅ¸¿ö ¼ÒÈ¯
+            //if ((_eRankID & DataEnum.eRankID.Normal) == DataEnum.eRankID.Normal)       //ì¼ë°˜íƒ€ì›Œ ì†Œí™˜
             //{
-            //    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+            //    int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
 
             //    int iRankID = (int)DataEnum.eRankID.Normal
-            //        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//³ë¸»Å¸¿öÅ¸ÀÔ°ú Å°°ª È¥ÇÕ
+            //        | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count));//ë…¸ë§íƒ€ì›Œíƒ€ì…ê³¼ í‚¤ê°’ í˜¼í•©
 
-            //    InstanceTower(iRankID,_vCreatePos); //ÀÎ½ºÅÏ½º Å¸¿ö
+            //    InstanceTower(iRankID,_vCreatePos); //ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ
             //    return true;
             //}
-            //else  //Æ¯¼ö Å¸¿ö ¼ÒÈ¯
+            //else  //íŠ¹ìˆ˜ íƒ€ì›Œ ì†Œí™˜
             //{
-                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // Å¸¿ö Å°°ª 0-8¹ø ÃßÃâ
+                int iRandomID = obj.GetComponent<DataController>().ExtractRandomNumberFromSeed(_iRandomMin, _iRandomMax); // íƒ€ì›Œ í‚¤ê°’ 0-8ë²ˆ ì¶”ì¶œ
                 int iRankID = (int)_eRankID
-                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ÀÎÇ²Å¸¿öÅ¸ÀÔ°ú Å¸¿ö Å°°ª È¥ÇÕ
+                    | (1 << (iRandomID + GConst.BaseValue.iMaxRank_Lvl_Count)); //ì¸í’‹íƒ€ì›Œíƒ€ì…ê³¼ íƒ€ì›Œ í‚¤ê°’ í˜¼í•©
 
-                InstanceTower(iRankID, _vCreatePos);//ÀÎ½ºÅÏ½º Å¸¿ö      
+                InstanceTower(iRankID, _vCreatePos);//ì¸ìŠ¤í„´ìŠ¤ íƒ€ì›Œ      
                 return true;
             //}
         }
@@ -235,7 +235,7 @@ public class ConstructionController : MonoBehaviour
 
     private void InstanceTower(int _iTowerId)
     {
-        //Å¸¿ö ÀÎ½ºÅÏ½º
+        //íƒ€ì›Œ ì¸ìŠ¤í„´ìŠ¤
         GameObject objBox = null;
 
         int iOnBoxCount = 0;
@@ -285,13 +285,13 @@ public class ConstructionController : MonoBehaviour
         int iPlayerGold = obj.GetComponent<PlayerController>().Get_Gold;
         if (_eRankID == DataEnum.eRankID.Normal)
         {
-            //°ñµå °è»ê
+            //ê³¨ë“œ ê³„ì‚°
             iPlayerGold -= GConst.BaseValue.iTowerGold;
             obj.GetComponent<PlayerController>().Set_Gold = iPlayerGold;
         }
         else
         {
-            //°ñµå °è»ê
+            //ê³¨ë“œ ê³„ì‚°
             iPlayerGold -= GConst.BaseValue.iTowerGold;
             obj.GetComponent<PlayerController>().Set_Gold = iPlayerGold;
             obj.GetComponent<PlayerController>().Add_SpecialCost(_eRankID, -1);
@@ -366,7 +366,7 @@ public class ConstructionController : MonoBehaviour
         {
             foreach (GameObject iter in Object_Manager.Instance.m_dictClone_Object["Box"])
             {
-                //Å¸ÀÏÀÇ ·¹ÀÌ¾î Ã¼Å© ¹× ·¹ÀÌ¾î À§ ¿ÀºêÁ§Æ® ÀÖ´ÂÁö Ã¼Å© ÇÊ¿ä
+                //íƒ€ì¼ì˜ ë ˆì´ì–´ ì²´í¬ ë° ë ˆì´ì–´ ìœ„ ì˜¤ë¸Œì íŠ¸ ìˆëŠ”ì§€ ì²´í¬ í•„ìš”
                 if (null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj))
                 {
                     Vector3 vector3Orin = iter.transform.position;
@@ -381,13 +381,13 @@ public class ConstructionController : MonoBehaviour
 
                 }
             }
-            //Á¦´ë·Î µ¿ÀÛµÇÁö ¾ÊÀ½.
+            //ì œëŒ€ë¡œ ë™ì‘ë˜ì§€ ì•ŠìŒ.
             List<GameObject> listobj_Boxes= Object_Manager.Instance.m_dictClone_Object["Box"];
             
             int i = 0;
             foreach (GameObject iter in listobj_Boxes)
             {
-                //Å¸ÀÏÀÇ ·¹ÀÌ¾î Ã¼Å© ¹× ·¹ÀÌ¾î À§ ¿ÀºêÁ§Æ® ÀÖ´ÂÁö Ã¼Å© ÇÊ¿ä
+                //íƒ€ì¼ì˜ ë ˆì´ì–´ ì²´í¬ ë° ë ˆì´ì–´ ìœ„ ì˜¤ë¸Œì íŠ¸ ìˆëŠ”ì§€ ì²´í¬ í•„ìš”
              
                 if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock")&&
                     (null != (iter.GetComponent<Obj_AwaitListBox>().m_OnTowerObj)))
@@ -396,7 +396,7 @@ public class ConstructionController : MonoBehaviour
                     {
                         int iIndex = i;
 
-                        if (i < GConst.BaseValue.iHorizontal * 8) //i°¡ 77¹Ì¸¸ÀÏ°æ¿ì
+                        if (i < GConst.BaseValue.iHorizontal * 8) //iê°€ 77ë¯¸ë§Œì¼ê²½ìš°
                             iIndex += GConst.BaseValue.iHorizontal * 3;
                         else 
                             iIndex =i - GConst.BaseValue.iHorizontal * 8;
@@ -404,7 +404,7 @@ public class ConstructionController : MonoBehaviour
                         if (Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
                             == LayerMask.NameToLayer("Tile"))
                         {
-                            //Å¸ÀÏÀ§¿¡ ¿ÀºêÁ§Æ®°¡ ÀÖ´Â Áö ÆÇ´ÜÀÌ ÇÊ¿äÇÔ.
+                            //íƒ€ì¼ìœ„ì— ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ” ì§€ íŒë‹¨ì´ í•„ìš”í•¨.
                             RaycastHit hit;
 
                             Vector3 vector3Orin = Object_Manager.Instance.

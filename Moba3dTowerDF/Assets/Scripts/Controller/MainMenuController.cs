@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour
 
     bool m_bUpdateInit = false;
 
-    string[] m_strKor = { "°Ô ÀÓ ½Ã ÀÛ", "¿É ¼Ç", "Á¾ ·á", "Æ¯ ¼º", "³­ ÀÌ µµ", "¾ÆÄ«ÀÌºê", "ÀÏ ¹İ", "»ç ¿î µå", " " };
+    string[] m_strKor = { "ê²Œ ì„ ì‹œ ì‘", "ì˜µ ì…˜", "ì¢… ë£Œ", "íŠ¹ ì„±", "ë‚œ ì´ ë„", "ì•„ì¹´ì´ë¸Œ", "ì¼ ë°˜", "ì‚¬ ìš´ ë“œ", " " };
     string[] m_strEng = { "GameStart", "Option", "Quit", "Ability", "Difficulty", "Archive", "General", "Sound", " " };
 
     [SerializeField] List<GameObject> m_objUIList;
@@ -66,19 +66,19 @@ public class MainMenuController : MonoBehaviour
     #region UiClick
     public void ClickTopButton()
     {
-        if (m_eCurMenuState == eMenuState.Main) // ¸ŞÀÎÈ­¸é¿¡¼­ °ÔÀÓ½ÃÀÛ ¹öÆ° ´­·¶À» ¶§
+        if (m_eCurMenuState == eMenuState.Main) // ë©”ì¸í™”ë©´ì—ì„œ ê²Œì„ì‹œì‘ ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuState = eMenuState.StageSelect;
         }
-        else if (m_eCurMenuState == eMenuState.Option) // ¿É¼ÇÈ­¸é¿¡¼­ Á¦³×·² ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.Option) // ì˜µì…˜í™”ë©´ì—ì„œ ì œë„¤ëŸ´ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuInfoState = eMenuInFoState.GeneralOption;
         }
-        else if (m_eCurMenuState == eMenuState.Exit) //¿¢½ÃÆ® (¸ŞÀÎÈ­¸é¿¡¼­) ¿¢½ÃÆ® ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.Exit) //ì—‘ì‹œíŠ¸ (ë©”ì¸í™”ë©´ì—ì„œ) ì—‘ì‹œíŠ¸ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuState = eMenuState.StageSelect;
         }
-        else if (m_eCurMenuState == eMenuState.StageSelect) // °ÔÀÓ½ÃÀÛÈ­¸é¿¡¼­ Æ¯¼º ¼±ÅÃ ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.StageSelect) // ê²Œì„ì‹œì‘í™”ë©´ì—ì„œ íŠ¹ì„± ì„ íƒ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuInfoState = eMenuInFoState.AbilitySelect;
         }
@@ -86,19 +86,19 @@ public class MainMenuController : MonoBehaviour
     }
     public void ClickMidButton()
     {
-        if (m_eCurMenuState == eMenuState.Main) // ¸ŞÀÎÈ­¸é¿¡¼­ ¿É¼Ç ¹öÆ° ´­·¶À» ¶§
+        if (m_eCurMenuState == eMenuState.Main) // ë©”ì¸í™”ë©´ì—ì„œ ì˜µì…˜ ë²„íŠ¼ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuState = eMenuState.Option;
         }
-        else if (m_eCurMenuState == eMenuState.StageSelect)// °ÔÀÓ½ÃÀÛÈ­¸é¿¡¼­ ³­ÀÌµµ ¼±ÅÃ ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.StageSelect)// ê²Œì„ì‹œì‘í™”ë©´ì—ì„œ ë‚œì´ë„ ì„ íƒ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuInfoState = eMenuInFoState.DifficultySelect;
         }
-        else if (m_eCurMenuState == eMenuState.Exit) //¿¢½ÃÆ® (¸ŞÀÎÈ­¸é¿¡¼­) ¿¢½ÃÆ® ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.Exit) //ì—‘ì‹œíŠ¸ (ë©”ì¸í™”ë©´ì—ì„œ) ì—‘ì‹œíŠ¸ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuState = eMenuState.Option;
         }
-        else if (m_eCurMenuState == eMenuState.Option) // ¿É¼ÇÈ­¸é¿¡¼­ »ç¿îµå ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.Option) // ì˜µì…˜í™”ë©´ì—ì„œ ì‚¬ìš´ë“œ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuInfoState = eMenuInFoState.SoundOption;
         }
@@ -106,16 +106,16 @@ public class MainMenuController : MonoBehaviour
     }
     public void ClickBottomButton()
     {
-        if (m_eCurMenuState == eMenuState.Main)// ¸ŞÀÎÈ­¸é¿¡¼­ ¿¢½ÃÆ® ´­·¶À» ¶§
+        if (m_eCurMenuState == eMenuState.Main)// ë©”ì¸í™”ë©´ì—ì„œ ì—‘ì‹œíŠ¸ ëˆŒë €ì„ ë•Œ
         {
             // Game_Manager.Instance.AppQuit();
             m_eNextMenuState = eMenuState.Exit;
         }
-        else if (m_eCurMenuState == eMenuState.StageSelect) // °ÔÀÓ½ÃÀÛÈ­¸é¿¡¼­ Æ¯¼º ¼±ÅÃ ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.StageSelect) // ê²Œì„ì‹œì‘í™”ë©´ì—ì„œ íŠ¹ì„± ì„ íƒ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuInfoState = eMenuInFoState.Archive;
         }
-        else if (m_eCurMenuState == eMenuState.Exit) //¿¢½ÃÆ® (¸ŞÀÎÈ­¸é¿¡¼­) ¿¢½ÃÆ® ´­·¶À» ¶§
+        else if (m_eCurMenuState == eMenuState.Exit) //ì—‘ì‹œíŠ¸ (ë©”ì¸í™”ë©´ì—ì„œ) ì—‘ì‹œíŠ¸ ëˆŒë €ì„ ë•Œ
         {
             m_eNextMenuState = eMenuState.Main;
         }
@@ -172,7 +172,7 @@ public class MainMenuController : MonoBehaviour
                 m_objUIList[0].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[6];
                 m_objUIList[1].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[7];
                 m_objUIList[2].GetComponentInChildren<UnityEngine.UI.Text>().text = m_strKor[8];
-                m_objUIList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "º¸»ó±¤°í";
+                m_objUIList[5].GetComponentInChildren<UnityEngine.UI.Text>().text = "ë³´ìƒê´‘ê³ ";
 
             }
             else

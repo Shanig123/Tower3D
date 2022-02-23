@@ -53,7 +53,7 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         else
         {
             /*
-             * ¾À ÀÌµ¿ ÈÄ ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ µÇ¾î ÀÖ´Ù¸é ÆÄ±«ÇÑ´Ù.
+             * ì”¬ ì´ë™ í›„ ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ë˜ì–´ ìˆë‹¤ë©´ íŒŒê´´í•œë‹¤.
              */
             Destroy(this.gameObject);
         }

@@ -60,7 +60,7 @@ public class Option_Manager : MonoBehaviour
         else
         {
             /*
-             * ¾À ÀÌµ¿ ÈÄ ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ µÇ¾î ÀÖ´Ù¸é ÆÄ±«ÇÑ´Ù.
+             * ì”¬ ì´ë™ í›„ ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ë˜ì–´ ìˆë‹¤ë©´ íŒŒê´´í•œë‹¤.
              */
             Destroy(this.gameObject);
         }
@@ -100,7 +100,7 @@ public class Option_Manager : MonoBehaviour
             DataStruct.tagOptionData tData;
             try
             {
-                tData = (DataStruct.tagOptionData)(bf.Deserialize(fs)); // ¿©±â¼­¹®Á¦ ¹ß»ı
+                tData = (DataStruct.tagOptionData)(bf.Deserialize(fs)); // ì—¬ê¸°ì„œë¬¸ì œ ë°œìƒ
             }
             catch (System.Runtime.Serialization.SerializationException e)
             {
@@ -133,7 +133,7 @@ public class Option_Manager : MonoBehaviour
             DataStruct.tagOptionData tData;
             try
             {
-                tData = (DataStruct.tagOptionData)(bf.Deserialize(fs)); // ¿©±â¼­¹®Á¦ ¹ß»ı
+                tData = (DataStruct.tagOptionData)(bf.Deserialize(fs)); // ì—¬ê¸°ì„œë¬¸ì œ ë°œìƒ
             }
             catch (System.Runtime.Serialization.SerializationException e)
             {

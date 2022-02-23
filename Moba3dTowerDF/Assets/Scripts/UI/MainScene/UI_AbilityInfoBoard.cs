@@ -51,7 +51,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                m_textScript.text = "Æ¯¼º ¾øÀ½";
+                m_textScript.text = "íŠ¹ì„± ì—†ìŒ";
             }
             else
             {
@@ -63,7 +63,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
 
         if (Option_Manager.Instance.m_tOptiondata.bKor)
         {
-            m_textScript.text = "¸ğ½Ã²¤ÀÌ";
+            m_textScript.text = "ëª¨ì‹œê¹½ì´";
         }
         else
         {
@@ -93,7 +93,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
  
         for (int i = 0; i < m_ButtonList.Count; ++i)
         {
-            //¹öÆ°»ı¼º
+            //ë²„íŠ¼ìƒì„±
             RectTransform rectTransform = m_AbilityButton.GetComponent<RectTransform>();
 
             int j = i / m_iWidth;
@@ -149,7 +149,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
         {
             for(int i=m_listUIAbility.Count;i<templist.Count;++i)
             {
-                //¹öÆ°»ı¼º
+                //ë²„íŠ¼ìƒì„±
                 RectTransform rectTransform = m_AbilityButton.GetComponent<RectTransform>();
 
                 int j = i/m_iWidth;

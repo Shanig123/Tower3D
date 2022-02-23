@@ -73,7 +73,7 @@ public class Resource_Manager : MonoBehaviour
         else
         {
             /*
-             * ¾À ÀÌµ¿ ÈÄ ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ µÇ¾î ÀÖ´Ù¸é ÆÄ±«ÇÑ´Ù.
+             * ì”¬ ì´ë™ í›„ ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ë˜ì–´ ìˆë‹¤ë©´ íŒŒê´´í•œë‹¤.
              */
             Destroy(this.gameObject);
         }
@@ -225,7 +225,7 @@ public class Resource_Manager : MonoBehaviour
             DataStruct.tagGameData tData = GFunc.Function.InitGameData();
             try
             {
-                tData = (DataStruct.tagGameData)(bf.Deserialize(fs)); // ¿©±â¼­¹®Á¦ ¹ß»ı
+                tData = (DataStruct.tagGameData)(bf.Deserialize(fs)); // ì—¬ê¸°ì„œë¬¸ì œ ë°œìƒ
                 if (System.Runtime.InteropServices.Marshal.SizeOf(tData)
                     != System.Runtime.InteropServices.Marshal.SizeOf(Game_Manager.Instance.Get_DefaultGameData))
                 {
@@ -267,7 +267,7 @@ public class Resource_Manager : MonoBehaviour
             try
             {
               
-                tData =(DataStruct.tagGameData)(bf.Deserialize(fs)); // ¿©±â¼­¹®Á¦ ¹ß»ı
+                tData =(DataStruct.tagGameData)(bf.Deserialize(fs)); // ì—¬ê¸°ì„œë¬¸ì œ ë°œìƒ
                 if(System.Runtime.InteropServices.Marshal.SizeOf(tData) != System.Runtime.InteropServices.Marshal.SizeOf(Game_Manager.Instance.Get_DefaultGameData))
                 {
                     tData = Game_Manager.Instance.Get_DefaultGameData;

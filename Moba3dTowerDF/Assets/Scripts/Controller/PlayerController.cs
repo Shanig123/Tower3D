@@ -6,19 +6,19 @@ public class PlayerController : MonoBehaviour
 {
   
     /*
-     * Ã³À½ ÇÇÅ·ÇÑ Å¸¿ö°¡ º¸µå ¹ÛÀÌ¶ó¸é -> º¸µå¾ÈÀ¸·Î ¹èÄ¡ÇÏ´Â ±â´ÉÀÌ¿©¾ßÇÔ.
-     * ¤¤ º¸µå ¹ÛÀÌ¶ó¸é Å¸¿ö°¡ º¸µå¹ÛÀÎÁö ¾ÈÀÎÁö Ã¼Å©ÇØ¾ßÇÒ ¼ö ÀÖÀ½.
-     * ¤¤ Âª°Ô ´­·¶À» ½Ã¿¡¸¸ ÀÛµ¿.
-     * ¤¤ ÇÑ¹øÀÌ¶óµµ ¿ÀºêÁ§Æ®°¡ Å¸¿ö ¾ÈÀ¸·Î µé¾î¿Ô´Ù¸é ¹İµå½Ã ¹èÄ¡ÇØ¾ßÇÔ.
-     * ¤¤ ¾ÈÀ¸·Î ¹èÄ¡µÇ¾ú´Ù¸é °Ç¼³ÄÁÆ®·Ñ·¯¿¡¼­ ÇØ´ç ¿ÀºêÁ§Æ®¸¦ ¸®½ºÆ® ³»¿¡¼­ Á¦°Å ÇÊ¿äÇÔ.
+     * ì²˜ìŒ í”¼í‚¹í•œ íƒ€ì›Œê°€ ë³´ë“œ ë°–ì´ë¼ë©´ -> ë³´ë“œì•ˆìœ¼ë¡œ ë°°ì¹˜í•˜ëŠ” ê¸°ëŠ¥ì´ì—¬ì•¼í•¨.
+     * ã„´ ë³´ë“œ ë°–ì´ë¼ë©´ íƒ€ì›Œê°€ ë³´ë“œë°–ì¸ì§€ ì•ˆì¸ì§€ ì²´í¬í•´ì•¼í•  ìˆ˜ ìˆìŒ.
+     * ã„´ ì§§ê²Œ ëˆŒë €ì„ ì‹œì—ë§Œ ì‘ë™.
+     * ã„´ í•œë²ˆì´ë¼ë„ ì˜¤ë¸Œì íŠ¸ê°€ íƒ€ì›Œ ì•ˆìœ¼ë¡œ ë“¤ì–´ì™”ë‹¤ë©´ ë°˜ë“œì‹œ ë°°ì¹˜í•´ì•¼í•¨.
+     * ã„´ ì•ˆìœ¼ë¡œ ë°°ì¹˜ë˜ì—ˆë‹¤ë©´ ê±´ì„¤ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¦¬ìŠ¤íŠ¸ ë‚´ì—ì„œ ì œê±° í•„ìš”í•¨.
      * 
      * 
-     * Ã³À½ ÇÇÅ·Ç× Å¸¿ö°¡ º¸µå ¾ÈÀÌ¶ó¸é -> º¸µå ¾È¿¡¼­ ÀÌµ¿ÇÏ°Å³ª Å¸¿ö¸¦ ¼­·Î ÇÕÄ¡´Â ±â´ÉÀÌ¿©¾ßÇÔ.
-     * ¤¤ ±×·¸´Ù¸é ÀÌµ¿Áß¿¡ ¼ÕÀ» ¶¿ ½Ã¿¡ Å¸¿ö°¡ ÇÇÅ·ÀÌ µÈ´Ù¸é ÇÕÄ¡´Â ±â´ÉÀ¸·Î ÇÏ´Â °ÍÀÌ ÇÕ´çÇÔ.
-     * ¤¤ ÇÕÄ¥ ¶§ ¿¹¿ÜÃ³¸®°¡ ÇÊ¿äÇÔ. Ã¹ ÇÇÅ·½Ã À§Ä¡¸¦ °¡Á®¿Ã ÇÊ¿ä°¡ ÀÖÀ½.
-     * ¤¤ Å¸¿ö ¾ÈÀ» ¼±ÅÃ½Ã ±æ°Ô ´©¸£´Â ±â´ÉÀÌ ÇÊ¿äÇÔ.
+     * ì²˜ìŒ í”¼í‚¹í•­ íƒ€ì›Œê°€ ë³´ë“œ ì•ˆì´ë¼ë©´ -> ë³´ë“œ ì•ˆì—ì„œ ì´ë™í•˜ê±°ë‚˜ íƒ€ì›Œë¥¼ ì„œë¡œ í•©ì¹˜ëŠ” ê¸°ëŠ¥ì´ì—¬ì•¼í•¨.
+     * ã„´ ê·¸ë ‡ë‹¤ë©´ ì´ë™ì¤‘ì— ì†ì„ ë—„ ì‹œì— íƒ€ì›Œê°€ í”¼í‚¹ì´ ëœë‹¤ë©´ í•©ì¹˜ëŠ” ê¸°ëŠ¥ìœ¼ë¡œ í•˜ëŠ” ê²ƒì´ í•©ë‹¹í•¨.
+     * ã„´ í•©ì¹  ë•Œ ì˜ˆì™¸ì²˜ë¦¬ê°€ í•„ìš”í•¨. ì²« í”¼í‚¹ì‹œ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¬ í•„ìš”ê°€ ìˆìŒ.
+     * ã„´ íƒ€ì›Œ ì•ˆì„ ì„ íƒì‹œ ê¸¸ê²Œ ëˆ„ë¥´ëŠ” ê¸°ëŠ¥ì´ í•„ìš”í•¨.
      * 
-     * ui °ü·Ã ¹× ¿ÜºÎ ÁöÇüµéÀ» ÅÍÄ¡ÇßÀ» ¶§ ¸®¼ÂÇÏ´Â ±â´É ÇÊ¿äÇÔ.
+     * ui ê´€ë ¨ ë° ì™¸ë¶€ ì§€í˜•ë“¤ì„ í„°ì¹˜í–ˆì„ ë•Œ ë¦¬ì…‹í•˜ëŠ” ê¸°ëŠ¥ í•„ìš”í•¨.
      * 
      * */
 
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
         List<int> abilityList = abilityController.Get_AbilityList;
         if (m_tPlayerData.iArrAbility.Length != abilityList.Count)
         {
-            //»çÀÌÁî Å©±â°¡ ÇÃ·¹ÀÌ¾îÁ¤º¸°¡ ´õ ÀûÀ» ¶§ ¸¦ ºñ±³ÇÏ¿© ¹è¿­Á¤º¸¸¦ º¹»çÈÄ ÀçÁ¤ÀÇ ÇÏ´Â °úÁ¤ÀÌ ÇÊ¿äÇÔ.
+            //ì‚¬ì´ì¦ˆ í¬ê¸°ê°€ í”Œë ˆì´ì–´ì •ë³´ê°€ ë” ì ì„ ë•Œ ë¥¼ ë¹„êµí•˜ì—¬ ë°°ì—´ì •ë³´ë¥¼ ë³µì‚¬í›„ ì¬ì •ì˜ í•˜ëŠ” ê³¼ì •ì´ í•„ìš”í•¨.
             if(m_tPlayerData.iArrAbility.Length < abilityList.Count)
             {
                 int[] iarrTemp = new int[abilityList.Count];
@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
                         if (Object_Manager.Instance.m_dictClone_Object["AlphaBlock"][iIndex].layer
                             == LayerMask.NameToLayer("Tile"))
                         {
-                            //Å¸ÀÏÀ§¿¡ ¿ÀºêÁ§Æ®°¡ ÀÖ´Â Áö ÆÇ´ÜÀÌ ÇÊ¿äÇÔ.
+                            //íƒ€ì¼ìœ„ì— ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ” ì§€ íŒë‹¨ì´ í•„ìš”í•¨.
                             RaycastHit hit;
 
                             Vector3 vector3Orin = Object_Manager.Instance.
@@ -452,7 +452,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Time.timeScale < 1) //ÀÏ½ÃÁ¤Áö ½Ã ÇÇÅ· µÇÁö ¾Êµµ·Ï ¸®ÅÏ
+            if (Time.timeScale < 1) //ì¼ì‹œì •ì§€ ì‹œ í”¼í‚¹ ë˜ì§€ ì•Šë„ë¡ ë¦¬í„´
                 return;
 
            if( Controller_Manager.Instance.LButtonUp())
@@ -726,7 +726,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Picking_Tile() // µÎ¹øÂ° Å¬¸¯½Ã
+    private void Picking_Tile() // ë‘ë²ˆì§¸ í´ë¦­ì‹œ
     {
 
         GFunc.Function.Print_simpleLog("picking Tile");
@@ -742,13 +742,13 @@ public class PlayerController : MonoBehaviour
 
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
-        else if(OUTBOARD == m_iCheckPickingTower) //º¸µå ¹Û¿¡ ÀÖ´Â °ÍÀ» ¾ÈÀ¸·Î ¿Å±â´Â °æ¿ì
+        else if(OUTBOARD == m_iCheckPickingTower) //ë³´ë“œ ë°–ì— ìˆëŠ” ê²ƒì„ ì•ˆìœ¼ë¡œ ì˜®ê¸°ëŠ” ê²½ìš°
         {
             bool bCheck = Tile_Check_InTower(true);
-            if (bCheck) // ÇÑ¹ø´õ ·¹ÀÌÇÇÅ·À» ÇÏ¿© ÇØ´ç Å¸ÀÏ¿¡ ¿ÀºêÁ§Æ®°¡ ÀÖ´Â Áö È®ÀÎ.
+            if (bCheck) // í•œë²ˆë” ë ˆì´í”¼í‚¹ì„ í•˜ì—¬ í•´ë‹¹ íƒ€ì¼ì— ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ” ì§€ í™•ì¸.
             {
                
-                return; // ¿ÀºêÁ§Æ®°¡ ÀÖ´Ù¸é ¹Ù·Î ¸®ÅÏÇÔ.
+                return; // ì˜¤ë¸Œì íŠ¸ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ë¦¬í„´í•¨.
             }
             
 
@@ -786,16 +786,16 @@ public class PlayerController : MonoBehaviour
 
     private bool Tile_Check_InTower(bool _bSort)
     {
-        if (TileUpto_RayPicking("Tower",new Vector3(0,1,0))) // ÇÑ¹ø´õ ·¹ÀÌÇÇÅ·À» ÇÏ¿© ÇØ´ç Å¸ÀÏ¿¡ ¿ÀºêÁ§Æ®°¡ ÀÖ´Â Áö È®ÀÎ.
+        if (TileUpto_RayPicking("Tower",new Vector3(0,1,0))) // í•œë²ˆë” ë ˆì´í”¼í‚¹ì„ í•˜ì—¬ í•´ë‹¹ íƒ€ì¼ì— ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ” ì§€ í™•ì¸.
         {
             if (CheckScroll())
                 return true;
 
-            //Å¸¿ö ¾÷±Û -> ½ºÅİ »ó½Â
+            //íƒ€ì›Œ ì—…ê¸€ -> ìŠ¤í…Ÿ ìƒìŠ¹
             if (m_objPicking.GetComponent<TowerAI>().m_strPrefabName ==
                 m_objPickTower.GetComponent<TowerAI>().m_strPrefabName)
             {
-                //Å¬·Ğ¸íµµ Ã¼Å©ÇØ¾ßÇÔ.
+                //í´ë¡ ëª…ë„ ì²´í¬í•´ì•¼í•¨.
                 if(m_objPicking.name == m_objPickTower.name)
                 {
                     GFunc.Function.Print_simpleLog("sameObject");
@@ -803,16 +803,16 @@ public class PlayerController : MonoBehaviour
                     return false;
                 }
                 TowerStatUp(_bSort);
-                //Å¸¿ö°¡ °°Àº Å¸¿ö¶ó¸é Å¸¿ö ¾÷±Û
+                //íƒ€ì›Œê°€ ê°™ì€ íƒ€ì›Œë¼ë©´ íƒ€ì›Œ ì—…ê¸€
             }
-            else //´Ù¸£´Ù¸é Æ¼¾î Ã¼Å© ÈÄ °°Àº Æ¼¾î¶ó¸é Æ¼¾î¸¦ ¾÷±Û
+            else //ë‹¤ë¥´ë‹¤ë©´ í‹°ì–´ ì²´í¬ í›„ ê°™ì€ í‹°ì–´ë¼ë©´ í‹°ì–´ë¥¼ ì—…ê¸€
             {
                 
                 CheckTowerRank(_bSort);
             }
 
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
-            return true; // ¿ÀºêÁ§Æ®°¡ ÀÖ´Ù¸é ¹Ù·Î ¸®ÅÏÇÔ.
+            return true; // ì˜¤ë¸Œì íŠ¸ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ë¦¬í„´í•¨.
         }      
         return false;
     }
@@ -851,7 +851,7 @@ public class PlayerController : MonoBehaviour
         int iPickingTowerRank = (int)((m_objPicking.GetComponent<TowerAI>().Get_TowerInfo.iTowerId + 10) *0.1f);
         int iPickedTowerRank = (int)((m_objPickTower.GetComponent<TowerAI>().Get_TowerInfo.iTowerId + 10) * 0.1f);
 
-        if (iPickedTowerRank != iPickingTowerRank)  //Å¸¿ö ·©Å©°¡ ´Ù¸£´Ù¸é Á¾·á
+        if (iPickedTowerRank != iPickingTowerRank)  //íƒ€ì›Œ ë­í¬ê°€ ë‹¤ë¥´ë‹¤ë©´ ì¢…ë£Œ
             return;
 
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
@@ -939,7 +939,7 @@ public class PlayerController : MonoBehaviour
                 
                 return false;
             }
-            if (OUTBOARD == m_iCheckPickingTower) //º¸µå ¹Û¿¡ ÀÖ´Â °ÍÀ» ¾ÈÀ¸·Î ¿Å±â´Â °æ¿ì
+            if (OUTBOARD == m_iCheckPickingTower) //ë³´ë“œ ë°–ì— ìˆëŠ” ê²ƒì„ ì•ˆìœ¼ë¡œ ì˜®ê¸°ëŠ” ê²½ìš°
             {
                 GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
@@ -959,7 +959,7 @@ public class PlayerController : MonoBehaviour
               && m_objPickTower != null)
         {
            
-            if (OUTBOARD == m_iCheckPickingTower) //º¸µå ¹Û¿¡ ÀÖ´Â °ÍÀ» ¾ÈÀ¸·Î ¿Å±â´Â °æ¿ì
+            if (OUTBOARD == m_iCheckPickingTower) //ë³´ë“œ ë°–ì— ìˆëŠ” ê²ƒì„ ì•ˆìœ¼ë¡œ ì˜®ê¸°ëŠ” ê²½ìš°
             {
                 GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
@@ -982,7 +982,7 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
-        //ÃßÈÄ ·©Å© º°·Î ´Ù¸¥ °ñµå¸¦ Áö±ŞÇÒ ½Ã ÇÊ¿äÇÔ.
+        //ì¶”í›„ ë­í¬ ë³„ë¡œ ë‹¤ë¥¸ ê³¨ë“œë¥¼ ì§€ê¸‰í•  ì‹œ í•„ìš”í•¨.
         //if (DataEnum.eRankID.Normal == eRank)
         //{
         //    m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
@@ -1013,7 +1013,7 @@ public class PlayerController : MonoBehaviour
             DataEnum.eRankID.Unique == eRank
             )
         {
-            //Æ¯Á¤ Å¸¿ö´Â ºñ½Î°Ô ÆÈ ¼ö ÀÖ´Â ±â¹ÍÀÌ ÇÊ¿äÇÔ.
+            //íŠ¹ì • íƒ€ì›ŒëŠ” ë¹„ì‹¸ê²Œ íŒ” ìˆ˜ ìˆëŠ” ê¸°ë¯¹ì´ í•„ìš”í•¨.
 
             m_tPlayerData.iGold += GConst.BaseValue.iTowerGold;
         }

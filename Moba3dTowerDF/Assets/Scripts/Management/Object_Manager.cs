@@ -58,7 +58,7 @@ public class Object_Manager : MonoBehaviour
         else
         {
             /*
-             * ¾À ÀÌµ¿ ÈÄ ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ µÇ¾î ÀÖ´Ù¸é ÆÄ±«ÇÑ´Ù.
+             * ì”¬ ì´ë™ í›„ ì´ë¯¸ ì¸ìŠ¤í„´ìŠ¤ê°€ ë˜ì–´ ìˆë‹¤ë©´ íŒŒê´´í•œë‹¤.
              */
             Destroy(this.gameObject);
         }
@@ -142,7 +142,7 @@ public class Object_Manager : MonoBehaviour
                 createObject.name = createObject.name + "_" + i;
                 gameObjects.Add(createObject);
 
-                //Å×½ºÆ® À§ÇØ »ö»ó ¼³Á¤
+                //í…ŒìŠ¤íŠ¸ ìœ„í•´ ìƒ‰ìƒ ì„¤ì •
                 float Color = ((float)i / 121.0f);
                 gameObjects[i].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(Color, 1, 1.0f - Color, 0));
 
@@ -249,7 +249,7 @@ public class Object_Manager : MonoBehaviour
 
         gameObjects.Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Default"]["TriggerCube"].objPrefabs, vPos, Quaternion.identity));
 
-        //Å×½ºÆ® À§ÇØ »ö»ó ¼³Á¤
+        //í…ŒìŠ¤íŠ¸ ìœ„í•´ ìƒ‰ìƒ ì„¤ì •
         gameObjects[0].GetComponent<Renderer>().material.SetVector("_Color", new Vector4(0, 1, 0, 0.5f));
 
         m_dictClone_Object.Add("CreateZone", gameObjects);
@@ -274,7 +274,7 @@ public class Object_Manager : MonoBehaviour
 
             gameObjects.Add(Instantiate(Resource_Manager.Instance.m_dictPrefabs["Board"]["WayPoint"].objPrefabs, vPos, Quaternion.identity));
 
-            //Å×½ºÆ® À§ÇØ »ö»ó ¼³Á¤
+            //í…ŒìŠ¤íŠ¸ ìœ„í•´ ìƒ‰ìƒ ì„¤ì •
             float Color = ((float)10 / 121.0f);
             gameObjects[0].GetComponentInChildren<Renderer>().material.SetVector("_Color", new Vector4(Color, 1, 1.0f - Color, 0));
 

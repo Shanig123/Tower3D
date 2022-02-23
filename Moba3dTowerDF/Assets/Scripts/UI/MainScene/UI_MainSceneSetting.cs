@@ -83,10 +83,10 @@ public class UI_MainSceneSetting : MonoBehaviour
     {
         if (_bKor)
         {
-            m_TextsList[0].text = "ÀÏ½ÃÁ¤Áö !";
-            m_TextsList[1].text = "¸¶½ºÅÍ º¼·ı";
-            m_TextsList[2].text = "SFX º¼·ı";
-            m_TextsList[3].text = "BGM º¼·ı";
+            m_TextsList[0].text = "ì¼ì‹œì •ì§€ !";
+            m_TextsList[1].text = "ë§ˆìŠ¤í„° ë³¼ë¥¨";
+            m_TextsList[2].text = "SFX ë³¼ë¥¨";
+            m_TextsList[3].text = "BGM ë³¼ë¥¨";
 
            
         }

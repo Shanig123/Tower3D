@@ -40,7 +40,7 @@ public class Tex_PerlinNoise : MonoBehaviour
         {
             for (int y = 0; y < 64; y++)
             {
-                //  float fGray = gradientTex.GetPixel(xCoord, yCoord).grayscale;//ÅØ½ºÃ³¿¡¼­ »ö»óÀ» °¡Á®¿Í ±×·¹ÀÌ ½ºÄÉÀÏ·Î ¹è¿­¿¡ ÀúÀå
+                //  float fGray = gradientTex.GetPixel(xCoord, yCoord).grayscale;//í…ìŠ¤ì²˜ì—ì„œ ìƒ‰ìƒì„ ê°€ì ¸ì™€ ê·¸ë ˆì´ ìŠ¤ì¼€ì¼ë¡œ ë°°ì—´ì— ì €ìž¥
                 Color color = new Color();
                 color = Color.Lerp(Color.black, Color.white, m_arrNoiseMap[x, y]);
                 noiseTex.SetPixel(x,y,color);
@@ -55,22 +55,22 @@ public class Tex_PerlinNoise : MonoBehaviour
         float[,] noiseMap = new float[width, height];
         m_arrfPixel = new float[width * height];
         scale = Mathf.Max(0.0001f, scale);
-        float maxNoiseHeight = float.MinValue; //ÃÖ´ë °ªÀ» ´ã±â À§ÇÑ º¯¼ö
-        float minNoiseHeight = float.MaxValue; //ÃÖ¼Ò °ªÀ» ´ã±â À§ÇÑ º¯¼ö
+        float maxNoiseHeight = float.MinValue; //ìµœëŒ€ ê°’ì„ ë‹´ê¸° ìœ„í•œ ë³€ìˆ˜
+        float minNoiseHeight = float.MaxValue; //ìµœì†Œ ê°’ì„ ë‹´ê¸° ìœ„í•œ ë³€ìˆ˜
         pix = new Color[width * height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                float amplitude = m_fAmplitude; //ÁøÆø. ³ëÀÌÁîÀÇ Æø°ú °ü·ÃµÈ °ª.
-                float frequency = m_fFrequency; //ÁÖÆÄ¼ö. ³ëÀÌÁîÀÇ °£°Ý°ú °ü·ÃµÈ °ª. ÁÖÆÄ¼ö°¡ Ä¿Áú¼ö·Ï ³ëÀÌÁî°¡ ¼¼¹ÐÇØÁü
+                float amplitude = m_fAmplitude; //ì§„í­. ë…¸ì´ì¦ˆì˜ í­ê³¼ ê´€ë ¨ëœ ê°’.
+                float frequency = m_fFrequency; //ì£¼íŒŒìˆ˜. ë…¸ì´ì¦ˆì˜ ê°„ê²©ê³¼ ê´€ë ¨ëœ ê°’. ì£¼íŒŒìˆ˜ê°€ ì»¤ì§ˆìˆ˜ë¡ ë…¸ì´ì¦ˆê°€ ì„¸ë°€í•´ì§
                 float noiseHeight = 0;
 
-                for (int i = 0; i < octaves; i++) //¿ÁÅ¸ºê°¡ Áõ°¡ÇÒ¼ö·Ï ³ôÀº ÁÖÆÄ¼ö¿Í ³·Àº ÁøÆøÀÇ ³ëÀÌÁî°¡ ÁßÃ¸µÊ.
+                for (int i = 0; i < octaves; i++) //ì˜¥íƒ€ë¸Œê°€ ì¦ê°€í• ìˆ˜ë¡ ë†’ì€ ì£¼íŒŒìˆ˜ì™€ ë‚®ì€ ì§„í­ì˜ ë…¸ì´ì¦ˆê°€ ì¤‘ì²©ë¨.
                 {
                     float xCoord = xOrg + x / scale * frequency;
                     float yCoord = yOrg + y / scale * frequency;
-                    float perlinValue = Mathf.PerlinNoise(xCoord, yCoord) * 2 - 1; //0~1 »çÀÌÀÇ °ªÀ» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö. 2¸¦ °öÇÏ°í 1À» »©¼­ -1~1 »çÀÌÀÇ °ªÀ¸·Î º¯È¯
+                    float perlinValue = Mathf.PerlinNoise(xCoord, yCoord) * 2 - 1; //0~1 ì‚¬ì´ì˜ ê°’ì„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜. 2ë¥¼ ê³±í•˜ê³  1ì„ ë¹¼ì„œ -1~1 ì‚¬ì´ì˜ ê°’ìœ¼ë¡œ ë³€í™˜
                     noiseHeight += perlinValue * amplitude;
                     amplitude *= persistance;
                     frequency *= lacunarity;
@@ -101,7 +101,7 @@ public class Tex_PerlinNoise : MonoBehaviour
         //        float fValue = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
 
         //        Debug.Log(fValue);
-        //        noiseMap[x, y] = fValue; //lerpÀÇ ¿ªÇÔ¼ö·Î ÃÖ¼Ú°ª°ú ÃÖ´ñ°ªÀÇ »çÀÕ°ªÀ» 3¹øÂ° ÀÎÀÚ·Î ³ÖÀ¸¸é 0~1»çÀÌÀÇ °ªÀ» ¹Ý
+        //        noiseMap[x, y] = fValue; //lerpì˜ ì—­í•¨ìˆ˜ë¡œ ìµœì†Ÿê°’ê³¼ ìµœëŒ“ê°’ì˜ ì‚¬ìž‡ê°’ì„ 3ë²ˆì§¸ ì¸ìžë¡œ ë„£ìœ¼ë©´ 0~1ì‚¬ì´ì˜ ê°’ì„ ë°˜
         //         m_arrfPixel[x * width + y] = fValue;
         //    }
         //}

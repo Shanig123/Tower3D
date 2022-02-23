@@ -98,7 +98,7 @@ public class UI_AbilityBoard : MonoBehaviour
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objBanner.GetComponent<UnityEngine.UI.Text>().text = "∆Ø º∫ º± ≈√"; 
+                objBanner.GetComponent<UnityEngine.UI.Text>().text = "Ìäπ ÏÑ± ÏÑ† ÌÉù"; 
             }
             else
             {

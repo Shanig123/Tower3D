@@ -60,11 +60,11 @@ public class UI_DifficultyBoard : MonoBehaviour
 
         if (Option_Manager.Instance.m_tOptiondata.bKor)
         {
-            objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "½¬¿ò";
+            objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "ì‰¬ì›€";
             objScript.GetComponent<UnityEngine.UI.Text>().text = 
-                "¿şÀÌºêÁ¦ÇÑ : 30 \n" +
-                "¸ñ¼û : 30 \n" +
-                "½ÃÀÛ±İ¾× : 30";
+                "ì›¨ì´ë¸Œì œí•œ : 30 \n" +
+                "ëª©ìˆ¨ : 30 \n" +
+                "ì‹œì‘ê¸ˆì•¡ : 30";
         }
         else
         {
@@ -87,11 +87,11 @@ public class UI_DifficultyBoard : MonoBehaviour
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "º¸Åë";
+                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "ë³´í†µ";
                 objScript.GetComponent<UnityEngine.UI.Text>().text =
-                    "¿şÀÌºêÁ¦ÇÑ : 30 \n" +
-                    "¸ñ¼û : 20 \n" +
-                    "½ÃÀÛ±İ¾× : 20";
+                    "ì›¨ì´ë¸Œì œí•œ : 30 \n" +
+                    "ëª©ìˆ¨ : 20 \n" +
+                    "ì‹œì‘ê¸ˆì•¡ : 20";
             }
             else
             {
@@ -115,12 +115,12 @@ public class UI_DifficultyBoard : MonoBehaviour
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "¾î·Á¿ò";
+                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "ì–´ë ¤ì›€";
                 objScript.GetComponent<UnityEngine.UI.Text>().text =
-                    "¿şÀÌºêÁ¦ÇÑ : 40 \n" +
-                    "¸ñ¼û : 20 \n" +
-                    "½ÃÀÛ±İ¾× : 20 \n\n" +
-                    "´õ °­ÇØÁø Àû \n";
+                    "ì›¨ì´ë¸Œì œí•œ : 40 \n" +
+                    "ëª©ìˆ¨ : 20 \n" +
+                    "ì‹œì‘ê¸ˆì•¡ : 20 \n\n" +
+                    "ë” ê°•í•´ì§„ ì  \n";
             }
             else
             {
@@ -148,11 +148,11 @@ public class UI_DifficultyBoard : MonoBehaviour
 
             if (Option_Manager.Instance.m_tOptiondata.bKor)
             {
-                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "¹«ÇÑ";
+                objDifficulty.GetComponent<UnityEngine.UI.Text>().text = "ë¬´í•œ";
                 objScript.GetComponent<UnityEngine.UI.Text>().text =
-                    "¿şÀÌºêÁ¦ÇÑ : ¾øÀ½ \n" +
-                    "¸ñ¼û : 15 \n" +
-                    "½ÃÀÛ±İ¾× : 20 \n";
+                    "ì›¨ì´ë¸Œì œí•œ : ì—†ìŒ \n" +
+                    "ëª©ìˆ¨ : 15 \n" +
+                    "ì‹œì‘ê¸ˆì•¡ : 20 \n";
             }
             else
             {

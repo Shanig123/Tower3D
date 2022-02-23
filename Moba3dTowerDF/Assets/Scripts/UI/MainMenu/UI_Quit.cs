@@ -21,7 +21,7 @@ public class UI_Quit : MonoBehaviour
         if(Option_Manager.Instance)
         {
             if (Option_Manager.Instance.m_tOptiondata.bKor)
-                m_QuitText.text = "Á¾·áÇÏ½Ã°Ú½À´Ï±î?";
+                m_QuitText.text = "ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?";
             else
                 m_QuitText.text = "Are you sure \n"+"quit the program?";
         }
