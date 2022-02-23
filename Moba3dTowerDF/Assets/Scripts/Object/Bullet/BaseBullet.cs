@@ -75,19 +75,19 @@ public abstract class BaseBullet : BaseObj
         CheckState();
         DoController();
     }
-    
+
     #region ControllerFunc
 
-    //  protected virtual void DoReadyState()
-    // {
-    //     CheckInStageBoard();
-    //     InStageBoard();
-    //     ReadyToActive();
-    // }
-    // protected abstract void DoNoActiveState();
-    // protected abstract void DoActiveState();
-    // protected abstract void DoDeadState();
-    // protected abstract void CheckDead();
+    protected virtual void DoReadyState()
+    {
+        //CheckInStageBoard();
+        //InStageBoard();
+        //ReadyToActive();
+    }
+    protected abstract void DoNoActiveState();
+    protected abstract void DoActiveState();
+    protected abstract void DoDeadState();
+    //protected abstract void CheckDead();
 
     private void CheckState()
     {
@@ -172,61 +172,10 @@ public abstract class BaseBullet : BaseObj
     }
 
     #endregion
-   private void DoNoActiveState()
-    {
-        if(!m_bObjActiveOnOff)
-        {
-            //ref GameObject temp = this.gameObject;
-            GameObject temp = this.gameObject;
-            m_tagStatus.objTarget = null;
-            ObjPool_Manager.Instance.ReturnPool(ref temp, this.m_tagStatus.strObjTagName); //? 
-            this.gameObject.SetActive(false);
-        }
-        else
-        {
-           
-            m_eNextState = DataEnum.eState.Ready;
-        }
-    }
-    private void DoReadyState()
-    {
-        Vector3 TargetPos =  m_objTargetMob.transform.position;
-        TargetPos.y = transform.position.y;
-        transform.LookAt(TargetPos);
 
-        m_eNextState = DataEnum.eState.Active;
-    }
-    private void DoActiveState()
-    {
-        m_tagStatus.fLifeTime += Time.deltaTime;
-       
-            
-        if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
-        {
-            m_tagStatus.fLifeTime = 0;
-            m_eNextState = DataEnum.eState.Dead;
-        }
-        else
-            DoMove();
-    }
-    private void DoMove()
+    protected void DoMove()
     {
         m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;
-       // m_Ani.SetBool("isRunning", true);
+        // m_Ani.SetBool("isRunning", true);
     }
-
-    private void DoDeadState()
-    {
-        //d����Ʈ ����
-
-        GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
-            Get_ObjPool(transform.position, "CornBust");
-
-        m_tagStatus.fMaxLifeTime = 0;
-        m_tagStatus.fLifeTime = 0;
-        m_objTargetMob = null;
-        m_eNextState = DataEnum.eState.NoActive;
-       
-    }
- 
 }
