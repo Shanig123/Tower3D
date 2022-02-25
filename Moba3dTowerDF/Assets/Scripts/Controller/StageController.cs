@@ -231,7 +231,16 @@ public class StageController : MonoBehaviour
             ++m_iCurMobCount;
           //  yield return null;
         }
-        if (m_iMaxCreateCount <= m_iCreateCount)
+        if((m_iCurWave%10) == 0)
+        {
+            if(m_iCreateCount >= 1)
+            {
+                m_iCreateCount = 0;
+                m_bCreateModeOnOff = false;
+            }
+           
+        }
+        else if (m_iMaxCreateCount <= m_iCreateCount)
         {
             m_iCreateCount = 0;
             m_bCreateModeOnOff = false;

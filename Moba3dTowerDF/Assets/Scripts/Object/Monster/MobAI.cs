@@ -266,5 +266,6 @@ public class MobAI : BaseObj
     {
         m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;
         m_Ani.SetBool("isRunning", true);
+        m_Ani.speed = m_tagStatus.fMoveSpeed * 0.5f;
     }
 }
