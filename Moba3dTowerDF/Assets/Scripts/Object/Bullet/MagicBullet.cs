@@ -9,13 +9,27 @@ public class MagicBullet : BaseBullet
     // Start is called before the first frame update 
     public Color m_colorEffect;
     public Color m_colorGlow;
-     protected override void Start()
+
+    public GameObject[] m_objTrailEffect;
+    public float fAngle;
+    protected override void Start()
     {
         base.Start();
         GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
-
+       
     }
-
+    private void OnEnable()
+    {
+        fAngle = Mathf.PI;
+        for (int i = 0; i < 2; ++i)
+        {
+            //x는 cosT
+            //y는 sinT
+            Vector3 vInitPos = new Vector3(Mathf.Cos(fAngle * (i + 1)), Mathf.Sin(fAngle * (i + 1)), 0);
+            vInitPos *= 0.3f;
+            m_objTrailEffect[i].transform.localPosition = vInitPos;
+        }
+    }
     // Update is called once per frame
     protected override void Update()
     {
@@ -50,6 +64,7 @@ public class MagicBullet : BaseBullet
     {
         m_tagStatus.fLifeTime += Time.deltaTime;
 
+        RotateTrail();
 
         if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
         {
@@ -72,6 +87,18 @@ public class MagicBullet : BaseBullet
         m_objTargetMob = null;
         m_eNextState = DataEnum.eState.NoActive;
 
+    }
+
+    private void RotateTrail()
+    {
+        for(int i=0; i<2;++i)
+        {
+            fAngle += m_tagStatus.fLifeTime*Mathf.Deg2Rad*15;
+            Vector3 vRotPos = new Vector3(Mathf.Cos(fAngle * (i+1)), Mathf.Sin(fAngle * (i + 1)), 0);
+            vRotPos *= 0.3f;
+            m_objTrailEffect[i].transform.localPosition = vRotPos;
+        }
+       // m_objTrailEffect[0]
     }
 }
 

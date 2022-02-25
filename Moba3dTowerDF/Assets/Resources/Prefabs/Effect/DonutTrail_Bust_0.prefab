@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3623272218719214617}
   - component: {fileID: -7689512782171899603}
   m_Layer: 6
-  m_Name: DonutTrail_Bust
+  m_Name: DonutTrail_Bust_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

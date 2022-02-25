@@ -28,6 +28,7 @@ public class UI_MainSceneSetting : MonoBehaviour
     private void OnEnable()
     {
         m_bActive = true;
+        AllChangeText(Option_Manager.Instance.m_tOptiondata.bKor);
         foreach(GameObject iter in m_listDimmed)
         {
             iter.SetActive(false);
@@ -88,7 +89,7 @@ public class UI_MainSceneSetting : MonoBehaviour
             m_TextsList[2].text = "SFX 볼륨";
             m_TextsList[3].text = "BGM 볼륨";
 
-           
+           //버튼 텍스트
         }
         else
         {
@@ -97,7 +98,7 @@ public class UI_MainSceneSetting : MonoBehaviour
             m_TextsList[2].text = "SFX Vol";
             m_TextsList[3].text = "BGM Vol";
 
-          
+            //버튼 텍스트
         }
     }
 

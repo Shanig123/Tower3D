@@ -28,6 +28,10 @@ public class GlowTrail_Effect : MonoBehaviour
     {
         
     }
+    private void OnDisable()
+    {
+        m_TrailRender.Clear();
+    }
 
     private void InitParticleColorInfo()
     {

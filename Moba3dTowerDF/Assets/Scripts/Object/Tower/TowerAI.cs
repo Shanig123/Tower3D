@@ -546,7 +546,7 @@ public abstract class TowerAI : BaseObj
             tagTemp.fMaxLifeTime = 1f;
 
         tagTemp.fLifeTime = 0;
-        tagTemp.strObjTagName = "Empty_Bullet";
+        tagTemp.strObjTagName = "Magic_Bullet";
         tagTemp.objTarget = m_objTargetMob;
         tagTemp.fMoveSpeed = 5.0f;
         Vector3 vDir = m_objTargetMob.transform.position - this.transform.position;

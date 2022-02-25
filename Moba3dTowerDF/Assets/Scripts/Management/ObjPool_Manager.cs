@@ -101,20 +101,21 @@ public class ObjPool_Manager : MonoBehaviour
     #region PoolDataLoad
     void MainGameDataLoad()
     {
-        StartCoroutine( BulletLoad());
+        StartCoroutine( BulletLoad("TestEffect_Bullet"));
+        StartCoroutine(BulletLoad("Magic_Bullet"));
     }
 
-    IEnumerator BulletLoad()
+    IEnumerator BulletLoad(string strKeyName)
     {
         Queue<GameObject> queueObjs = new Queue<GameObject>();
         for(int i=0; i< m_iMaxPoolSize; ++i)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Bullets"]["TestEffect_Bullet"].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Bullets"][strKeyName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
             createObject.name = createObject.name + "_" + i;
             queueObjs.Enqueue(createObject);
             yield return null;
         }
-        m_ObjBulletPool.Add("Empty_Bullet", queueObjs);
+        m_ObjBulletPool.Add(strKeyName, queueObjs);
         m_bCheckLoad = true;
         yield return null;
     }

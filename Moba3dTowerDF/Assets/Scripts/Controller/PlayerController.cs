@@ -503,7 +503,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-            Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust", hit.collider.gameObject.transform.position);
+            Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_0", hit.collider.gameObject.transform.position);
        
             if (hit.collider.gameObject)
             {
@@ -857,6 +857,7 @@ public class PlayerController : MonoBehaviour
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
         {
             GFunc.Function.Print_simpleLog("TowerRankUp");
+            Resource_Manager.Instance.InstanceObj("Effect", "CircleTrail_Bust", m_objPicking.transform.position);
             CreateRankUpTower(_bSort, iPickingTowerRank);
         }
         else
@@ -926,6 +927,9 @@ public class PlayerController : MonoBehaviour
         mainModule.simulationSpeed += 0.5f;
         if (_bSort)
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+
+        Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_1", m_objPicking.transform.position);
+
         Destroy(m_objPickTower);
     }
 
@@ -943,6 +947,9 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
+
+            Resource_Manager.Instance.InstanceObj("Effect", "Twist_Bust", m_objPickTower.transform.position);
+
             Destroy(m_objPickTower);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
             return true;
