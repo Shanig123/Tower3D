@@ -70,10 +70,22 @@ public class GlowTrail_Effect : MonoBehaviour
             {
                 //m_TrailRender.colorGradient *= m_DetailColor[0];
                 m_TrailRender.material.color = m_DetailColor[0];
+                Gradient gr = m_TrailRender.colorGradient;
+                GradientColorKey[] gr_colorkeys = gr.colorKeys;
+                gr_colorkeys[0] = new GradientColorKey(m_DetailColor[0], 0);
+                gr_colorkeys[1] = new GradientColorKey(m_DetailColor[0], 1);
+                gr.colorKeys = gr_colorkeys;
+                m_TrailRender.colorGradient = gr;
             }
             else
             {
                 m_TrailRender.material.color = m_EffectColor;
+                Gradient gr = m_TrailRender.colorGradient;
+                GradientColorKey[] gr_colorkeys = gr.colorKeys;
+                gr_colorkeys[0] = new GradientColorKey(m_EffectColor, 0);
+                gr_colorkeys[1] = new GradientColorKey(m_EffectColor, 1);
+                gr.colorKeys = gr_colorkeys;
+                m_TrailRender.colorGradient = gr;
             }
         }
         if(m_TrailParticle != null)

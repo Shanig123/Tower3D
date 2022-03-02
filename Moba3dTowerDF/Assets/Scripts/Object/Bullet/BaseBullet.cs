@@ -15,6 +15,8 @@ public abstract class BaseBullet : BaseObj
     [SerializeField] protected DataEnum.eState m_eCurState = DataEnum.eState.End;
 
     [SerializeField] protected Vector3 m_vCreatePos;
+
+    [SerializeField] protected string m_strDeadEffectName;
     #endregion
 
     #region Property

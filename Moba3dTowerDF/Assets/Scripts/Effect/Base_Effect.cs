@@ -6,11 +6,27 @@ public class Base_Effect : MonoBehaviour
 {
     public DataStruct.tagEffectInfo m_tEffectInfo = new DataStruct.tagEffectInfo();
     public  bool m_bIsOn = true;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
 
     }
+
+    protected virtual void FixedUpdate()
+    {
+        if(!m_tEffectInfo.bLoop)
+        {
+            m_tEffectInfo.fLifeTime += Time.fixedDeltaTime;
+            if (m_tEffectInfo.fLifeTime>m_tEffectInfo.fMaxLifeTime)
+            {
+                m_bIsOn = false;
+                m_tEffectInfo.fLifeTime = 0;
+                this.gameObject.SetActive(false);
+            }
+        }
+    }
+
     public void Copy_ClassInfoToParticleSys()
     {
         ParticleSystem ps = GetComponent<ParticleSystem>();

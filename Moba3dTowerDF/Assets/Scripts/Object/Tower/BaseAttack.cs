@@ -11,6 +11,10 @@ public class BaseAttack : TowerAI
     {
         m_tagStatus.eType = DataEnum.eTowerType.Atk;
         base.Start();
+        if(m_strBulletName == null)
+        {
+            m_strBulletName = "Magic_Bullet_0";
+        }
         //  m_tagStatus.strTowerName = gameObject.name;
         //EditorUtility
     }

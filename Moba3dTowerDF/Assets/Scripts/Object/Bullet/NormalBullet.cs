@@ -100,7 +100,7 @@ public class NormalBullet : BaseBullet
    
     protected override void DoDeadState()
     {
-        //d����Ʈ ����
+        //d이펙트 생성
 
         GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
             Get_ObjPool(transform.position, "CornBust");

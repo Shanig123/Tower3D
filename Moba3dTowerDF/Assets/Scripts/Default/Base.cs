@@ -154,6 +154,13 @@ namespace DataStruct
         public Vector3 vScale = new Vector3(1,1,1);
         public float fParticleScale = 1;
         public float fSpeed = 1;
+
+        public float fLifeTime = 0;
+        public float fMaxLifeTime = 0;
+
+        public bool bLoop = true;
+
+        
     }
 
     public struct tagPrefab

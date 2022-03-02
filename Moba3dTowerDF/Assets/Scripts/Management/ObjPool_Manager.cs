@@ -102,7 +102,7 @@ public class ObjPool_Manager : MonoBehaviour
     void MainGameDataLoad()
     {
         StartCoroutine( BulletLoad("TestEffect_Bullet"));
-        StartCoroutine(BulletLoad("Magic_Bullet"));
+        StartCoroutine(BulletLoad("Magic_Bullet_0"));
     }
 
     IEnumerator BulletLoad(string strKeyName)
@@ -146,6 +146,45 @@ public class ObjPool_Manager : MonoBehaviour
                 //return createObject;
             }
 
+        }
+        else
+        {
+            if(Resource_Manager.Instance.m_dictPrefabs["Bullets"].ContainsKey(_tagBulletStat.strObjTagName))
+            {
+                Queue<GameObject> queueObjs = new Queue<GameObject>();
+       
+                GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Bullets"][_tagBulletStat.strObjTagName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+                createObject.name = createObject.name + "_" + 0;
+                queueObjs.Enqueue(createObject);
+
+                m_ObjBulletPool.Add(_tagBulletStat.strObjTagName, queueObjs);
+
+
+                if (m_ObjBulletPool.ContainsKey(_tagBulletStat.strObjTagName))
+                {
+                    if (m_ObjBulletPool[_tagBulletStat.strObjTagName].Count > 0)
+                    {
+                        m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().transform.position = _vCreatePos;
+                        m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().SetActive(true);
+                        m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
+                        return m_ObjBulletPool[_tagBulletStat.strObjTagName].Dequeue();
+
+                    }
+                    else
+                    {
+                        //GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
+
+                        //createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
+                        //createObject.name = createObject.name + "_" + m_iMaxPoolSize;
+                        //++m_iMaxPoolSize;
+                        //createObject.SetActive(true);
+                        //return createObject;
+                    }
+
+                }
+
+            }
+          
         }
         return null;    
     }

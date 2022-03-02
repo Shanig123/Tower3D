@@ -11,6 +11,8 @@ public abstract class TowerAI : BaseObj
 
     [SerializeField] protected DataStruct.tagTowerStatus m_tagStatus;
 
+    public DataStruct.tagEffectInfo m_tEffectInfo;
+
     [SerializeField] protected GameObject m_objTargetMob;
     [SerializeField] protected int m_iTargetID;
 
@@ -21,8 +23,8 @@ public abstract class TowerAI : BaseObj
     [SerializeField] protected Vector3 m_vCurModifyPos;
     [SerializeField] protected Vector3 m_vNextModifyPos;
 
-    public DataStruct.tagEffectInfo m_tEffectInfo;
 
+    [SerializeField] protected string m_strBulletName;
     #endregion
 
     #region Property
@@ -528,7 +530,7 @@ public abstract class TowerAI : BaseObj
         if (m_tagStatus.fAtkCoolTime > m_tagStatus.fMaxAtkCoolTime)
         {
             m_tagStatus.fAtkCoolTime = 0;
-            CreateBullet();
+            CreateBullet(/*"Magic_Bullet_0"*/);
         }
     }
 
@@ -546,7 +548,7 @@ public abstract class TowerAI : BaseObj
             tagTemp.fMaxLifeTime = 1f;
 
         tagTemp.fLifeTime = 0;
-        tagTemp.strObjTagName = "Magic_Bullet";
+        tagTemp.strObjTagName = m_strBulletName;
         tagTemp.objTarget = m_objTargetMob;
         tagTemp.fMoveSpeed = 5.0f;
         Vector3 vDir = m_objTargetMob.transform.position - this.transform.position;
