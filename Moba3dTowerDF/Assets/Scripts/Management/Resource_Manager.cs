@@ -245,7 +245,7 @@ public class Resource_Manager : MonoBehaviour
                 fs.Close();
                 Save_AndroidFileData(_strFileName);
             }
-            print(tData.bArrUnlockAbility[0]);
+            //print(tData.bArrUnlockAbility[0]);
             Game_Manager.Instance.m_tGameData = tData;
 
             GFunc.Function.Print_Log("Load Complete.");

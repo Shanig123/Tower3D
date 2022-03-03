@@ -69,23 +69,40 @@ public class EffectPoolController : MonoBehaviour
 
     void MainGameDataLoad()
     {
-        StartCoroutine(EffectLoad());
+        StartCoroutine(EffectLoad("CornBust"));
+        StartCoroutine(EffectDeadLoad("MagicDead"));
     }
 
-    IEnumerator EffectLoad()
+    IEnumerator EffectLoad(string strName)
     {
         Queue<GameObject> queueObjs = new Queue<GameObject>();
         for (int i = 0; i < m_iMaxPoolSize; ++i)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect"]["CornBust"].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect"][strName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
             createObject.name = createObject.name + "_" + i;
             queueObjs.Enqueue(createObject);
             yield return null;
         }
-        m_ObjEffectPool.Add("CornBust", queueObjs);
+        m_ObjEffectPool.Add(strName, queueObjs);
         m_bCheckLoad = true;
         yield return null;
     }
+
+    IEnumerator EffectDeadLoad(string strName)
+    {
+        Queue<GameObject> queueObjs = new Queue<GameObject>();
+        for (int i = 0; i < m_iMaxPoolSize; ++i)
+        {
+            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect_Dead"][strName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            createObject.name = createObject.name + "_" + i;
+            queueObjs.Enqueue(createObject);
+            yield return null;
+        }
+        m_ObjEffectPool.Add(strName, queueObjs);
+        m_bCheckLoad = true;
+        yield return null;
+    }
+
     #endregion
 
 
@@ -93,7 +110,7 @@ public class EffectPoolController : MonoBehaviour
     {
         if (m_ObjEffectPool.ContainsKey(_strKeyName))
         {
-            print("GetEffect" + m_ObjEffectPool[_strKeyName].Count);
+            GFunc.Function.Print_Log("GetEffect" + m_ObjEffectPool[_strKeyName].Count);
             if (m_ObjEffectPool[_strKeyName].Count > 0)
             {
                 if(m_ObjEffectPool[_strKeyName].Peek())
@@ -101,15 +118,16 @@ public class EffectPoolController : MonoBehaviour
                     m_ObjEffectPool[_strKeyName].Peek().transform.position = _vCreatePos;
                     m_ObjEffectPool[_strKeyName].Peek().SetActive(true);
                     //  m_ObjEffectPool[_strKeyName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
-                    m_ObjEffectPool[_strKeyName].Peek().GetComponent<Bust_Effect>().m_bIsOn = true;
-                    m_ObjEffectPool[_strKeyName].Peek().GetComponent<ParticleSystem>().Play();
+                    m_ObjEffectPool[_strKeyName].Peek().GetComponent<Base_Effect>().m_bIsOn = true;
+                   // m_ObjEffectPool[_strKeyName].Peek().GetComponent<ParticleSystem>().Play();
 
                     return m_ObjEffectPool[_strKeyName].Dequeue();
                 }
                else
                 {
                     GameObject createObject = Resource_Manager.Instance.InstanceObj("Effect", _strKeyName, _vCreatePos);
-
+                    if(createObject == null)
+                        createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", _strKeyName, _vCreatePos);
 
                     createObject.name = createObject.name + "_" + m_iMaxPoolSize;
                     ++m_iMaxPoolSize;
@@ -121,7 +139,8 @@ public class EffectPoolController : MonoBehaviour
             else
             {
                 GameObject createObject = Resource_Manager.Instance.InstanceObj("Effect", _strKeyName, _vCreatePos);
-
+                if (createObject == null)
+                    createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", _strKeyName, _vCreatePos);
 
                 createObject.name = createObject.name + "_" + m_iMaxPoolSize;
                 ++m_iMaxPoolSize;
@@ -131,7 +150,7 @@ public class EffectPoolController : MonoBehaviour
 
         }
         else
-            print(_strKeyName + "NotFound");
+            GFunc.Function.Print_Log(_strKeyName + "NotFound");
         return null;
     }
 
@@ -143,6 +162,7 @@ public class EffectPoolController : MonoBehaviour
         if (m_ObjEffectPool.ContainsKey(_strTagName))
         {
             _objReturn.transform.position = m_vecInitPoolPosition;
+            
             m_ObjEffectPool[_strTagName].Enqueue(_objReturn);
         }
         else

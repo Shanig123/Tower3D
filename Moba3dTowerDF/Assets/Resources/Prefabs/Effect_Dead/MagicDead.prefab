@@ -44,6 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7190a94a8c2ff084fb08af926bd1a2ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
+    fLifeTime: 0
+    fMaxLifeTime: 0
+    bLoop: 1
+  m_bIsOn: 1
 --- !u!1001 &7326719106191023051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97,6 +106,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800006, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800008, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800010, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800012, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}
+      propertyPath: scalingMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19900000, guid: d7706cfdb18270946b264f7e7a0fb4c6, type: 3}

@@ -156,6 +156,7 @@ namespace DataStruct
         public float fSpeed = 1;
 
         public float fLifeTime = 0;
+        public float fTimerSpeed = 1f;
         public float fMaxLifeTime = 0;
 
         public bool bLoop = true;

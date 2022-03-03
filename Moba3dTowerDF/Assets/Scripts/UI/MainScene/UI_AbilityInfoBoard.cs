@@ -108,6 +108,7 @@ public class UI_AbilityInfoBoard : MonoBehaviour
             pos.y = 350 - (CurScale * j);
 
             objCreate.GetComponent<RectTransform>().localScale = new Vector3(fScale, fScale, fScale);
+            objCreate.GetComponent<RectTransform>().rotation= new Quaternion(0,0,0,0);
             objCreate.GetComponent<RectTransform>().localPosition = pos;
         }
 
@@ -131,13 +132,11 @@ public class UI_AbilityInfoBoard : MonoBehaviour
     public void OnClick_Ability(UnityEngine.UI.Button _objButton)
     {
         UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
-
         if (uI_AbilityMainMenu)
         {
             m_iSelectIndex = uI_AbilityMainMenu.m_iKey;
             PrintScript();
-        }
-            
+        }        
     }
 
 

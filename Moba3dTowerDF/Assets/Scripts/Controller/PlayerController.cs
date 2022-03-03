@@ -216,7 +216,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         if (Caching.ClearCache())
-            print("CLEAR CACHE");
+        {
+            GFunc.Function.Print_Log("CLEAR CACHE");
+        }
         //m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
       
@@ -330,7 +332,6 @@ public class PlayerController : MonoBehaviour
                             vector3Orin.y -= 0.5f;
                             Ray ray = new Ray(vector3Orin,
                                new Vector3(0, 1, 0));
-                            print(k);
                             if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
                             {
                                 vector3Orin.y += 1f;
@@ -339,11 +340,11 @@ public class PlayerController : MonoBehaviour
                                     j,
                                     vector3Orin))
                                 {
-                                    print("succese");
+                                    GFunc.Function.Print_Log("Create Tower");
                                 }
                                 else
                                 {
-                                    print("Create Fail");
+                                    GFunc.Function.Print_Log("Create Fail");
                                 }
                                 ++k;
                                 break;
@@ -353,8 +354,8 @@ public class PlayerController : MonoBehaviour
                     }
 
                 }
-                else
-                { print("No Cotains"); }
+                //else
+                //{ print("No Cotains"); }
             }
 
         }
@@ -673,7 +674,7 @@ public class PlayerController : MonoBehaviour
     private void Check_AwaitBoxNumber()
     {
         Vector3 vPickPos = m_objPickTower.transform.position;
-        print("CheckAwaitBoxNumber");
+
         vPickPos.y += 1.0f;
   
         RaycastHit hit;

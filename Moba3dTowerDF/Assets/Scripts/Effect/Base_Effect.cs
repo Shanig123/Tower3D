@@ -13,20 +13,24 @@ public class Base_Effect : MonoBehaviour
 
     }
 
-    protected virtual void FixedUpdate()
+    protected bool Do_Timer()
     {
-        if(!m_tEffectInfo.bLoop)
+        if (!m_tEffectInfo.bLoop)
         {
-            m_tEffectInfo.fLifeTime += Time.fixedDeltaTime;
-            if (m_tEffectInfo.fLifeTime>m_tEffectInfo.fMaxLifeTime)
+            m_tEffectInfo.fLifeTime += (Time.deltaTime* m_tEffectInfo.fTimerSpeed);
+            if (m_tEffectInfo.fLifeTime > m_tEffectInfo.fMaxLifeTime)
             {
                 m_bIsOn = false;
                 m_tEffectInfo.fLifeTime = 0;
-                this.gameObject.SetActive(false);
+               
+                return true;
             }
+            return false;
         }
+        else
+            return true;
+       
     }
-
     public void Copy_ClassInfoToParticleSys()
     {
         ParticleSystem ps = GetComponent<ParticleSystem>();

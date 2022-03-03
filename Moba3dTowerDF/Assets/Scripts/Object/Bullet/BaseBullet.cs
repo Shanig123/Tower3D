@@ -61,7 +61,7 @@ public abstract class BaseBullet : BaseObj
         //Shader defaultShader = Shader.Find("Custom/Default_Shader");
         if (RimShader == null)
         {
-            print("defaultShader null");
+            GFunc.Function.Print_Log("defaultShader null");
             return;
         }
         GetComponentInChildren<Renderer>().material.shader = RimShader;
@@ -174,7 +174,16 @@ public abstract class BaseBullet : BaseObj
     }
 
     #endregion
-
+    protected void OnTriggerEnter(Collider other)
+    {
+        if (!m_bCheckDead)
+        {
+            GameObject obj = other.gameObject;
+            obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
+            m_tagStatus.fLifeTime = 0;
+            m_eNextState = DataEnum.eState.Dead;
+        }
+    }
     protected void DoMove()
     {
         m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;

@@ -8,7 +8,6 @@ public class WaveStart : MonoBehaviour
     public ConstructionController m_constructionCtrl;
     public void OnClickStart()
     {
-        print("Click");
         if (m_stageCtrl.m_bWaveStart || m_stageCtrl.Get_WaveOnOff)
             return;
         m_stageCtrl.m_bWaveStart = true;

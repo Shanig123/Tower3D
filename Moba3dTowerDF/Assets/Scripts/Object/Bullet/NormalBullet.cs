@@ -50,16 +50,7 @@ public class NormalBullet : BaseBullet
     //        Debug.Log("Not in Layermask" + other.gameObject.name);
     //    }
     //}
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (!m_bCheckDead)
-        {
-            GameObject obj = other.gameObject;
-            obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
-            m_tagStatus.fLifeTime = 0;
-            m_eNextState = DataEnum.eState.Dead;
-        }
-    }
+ 
     protected override void DoNoActiveState()
     {
         if (!m_bObjActiveOnOff)
@@ -102,8 +93,8 @@ public class NormalBullet : BaseBullet
     {
         //d이펙트 생성
 
-        GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
-            Get_ObjPool(transform.position, "CornBust");
+        //GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
+        //    Get_ObjPool(transform.position, "CornBust");
 
         m_tagStatus.fMaxLifeTime = 0;
         m_tagStatus.fLifeTime = 0;

@@ -78,9 +78,9 @@ public class MagicBullet : BaseBullet
     protected override void DoDeadState()
     {
         //d이펙트 생성
-
+        //Instantiate()
         GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
-            Get_ObjPool(transform.position, "CornBust");
+            Get_ObjPool(transform.position, "MagicDead");
 
         m_tagStatus.fMaxLifeTime = 0;
         m_tagStatus.fLifeTime = 0;
