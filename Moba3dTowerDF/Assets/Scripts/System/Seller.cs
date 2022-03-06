@@ -11,6 +11,8 @@ public class Seller : MonoBehaviour
     [SerializeField]
     private PlayerController m_playerController;
 
+    public AudioClip m_audioClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,9 @@ public class Seller : MonoBehaviour
             //if ()
             //    return;
             //else
-
+            AudioSource audioSource = GameObject.FindGameObjectWithTag("TotalController").GetComponent<AudioSource>();
+            // audioSource.clip = 
+            audioSource.PlayOneShot(m_audioClip);
         }
     }
 

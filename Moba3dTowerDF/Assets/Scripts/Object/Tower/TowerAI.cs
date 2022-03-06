@@ -108,7 +108,7 @@ public abstract class TowerAI : BaseObj
         if (m_tagStatus.fMaxAtkCoolTime == 0)
             m_tagStatus.fMaxAtkCoolTime = 1f;
         if (m_tagStatus.fRange == 0)
-            m_tagStatus.fRange = 2f;
+            m_tagStatus.fRange = 3f;
         if (m_tagStatus.iAtk == 0)
             m_tagStatus.iAtk = 5;
 

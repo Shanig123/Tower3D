@@ -13,6 +13,8 @@ public class UI_MainSceneSetting : MonoBehaviour
     private bool m_bActive = false;
     public bool Get_Active { get { return m_bActive; } }
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {

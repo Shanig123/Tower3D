@@ -39,4 +39,9 @@ public class Bust_Effect : Base_Effect
         }
        // if()
     }
+
+    protected override void ActiveInit()
+    {
+       // throw new System.NotImplementedException();
+    }
 }

@@ -54,6 +54,10 @@ public abstract class BaseBullet : BaseObj
 
     #endregion
     // Start is called before the first frame update
+    private void Awake()
+    {
+        this.gameObject.SetActive(false);
+    }
     protected override void Start()
     {
         base.Start();
@@ -91,6 +95,11 @@ public abstract class BaseBullet : BaseObj
     protected abstract void DoDeadState();
     //protected abstract void CheckDead();
 
+    protected virtual void PlaySound_create()
+    {
+
+    }
+
     private void CheckState()
     {
         if (m_eCurState != m_eNextState)
@@ -114,7 +123,7 @@ public abstract class BaseBullet : BaseObj
                     break;
                 case DataEnum.eState.Active:
                     {
-
+                        PlaySound_create();
                     }
                     break;
                 case DataEnum.eState.Dead:

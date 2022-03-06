@@ -38,6 +38,7 @@ namespace DataEnum
         Infinite    = (1 << 4),
         End         = 0
     };
+    public enum eClip { Ambi, Sfx, UI, Bgm, _End };
 
     public enum ePickingMode { Tile, Obj_Tower, End };
 

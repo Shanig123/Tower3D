@@ -35,6 +35,8 @@ public class StageController : MonoBehaviour
 
     [SerializeField] private string m_strWaveName;
 
+    private int m_iCurTimerCount;
+    private int m_iPreTimerCount;
     [SerializeField] private int m_iCreateCount;
     [SerializeField] private int m_iMaxCreateCount;
     [SerializeField] private int m_iCurMobCount;
@@ -182,7 +184,18 @@ public class StageController : MonoBehaviour
         if (!m_bWaveOnOff && m_bWaveStart)
         {
             m_fWaitTimer += Time.deltaTime;
-            if(m_fWaitTimeMax < m_fWaitTimer)
+            if (m_fWaitTimer >1)
+            {
+                ++m_iCurTimerCount;
+                m_fWaitTimer -= 1f;
+            }
+            if ((m_iPreTimerCount != m_iCurTimerCount) &&
+                (m_fWaitTimeMax> m_iCurTimerCount))
+            {
+                m_iPreTimerCount = m_iCurTimerCount;
+                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 1);
+            }
+            if (m_fWaitTimeMax < (m_fWaitTimer+(float)m_iCurTimerCount))
             {
                 m_bWaveStart = false;
                 m_bWaveOnOff = true;
@@ -190,11 +203,12 @@ public class StageController : MonoBehaviour
                 ++m_iCurWave;
                 m_strWaveName = "Wave_" + m_iCurWave;
                 List<GameObject> gameObjects = new List<GameObject>(m_iMaxCreateCount);
-                m_Object_Manager.m_dictClone_Object.Add(m_strWaveName,gameObjects);
+                m_Object_Manager.m_dictClone_Object.Add(m_strWaveName, gameObjects);
+                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 2);
             }
         }
         else
-            m_fWaitTimer = 0;
+        { m_fWaitTimer = 0; m_iCurTimerCount = 0; m_iPreTimerCount = 0; }
     }
     
     private /*IEnumerator*/void WaveCtrl()

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ public class StageCreateController : MonoBehaviour
     #region Value
 
     [SerializeField] private bool m_bDayNight;
-
+    [SerializeField] private AudioSource m_audioSource;
     #endregion
     #region Property
     //true = day / false = night
@@ -55,6 +55,7 @@ public class StageCreateController : MonoBehaviour
     {
         Init_PlayerInfo();
         Init_AbilityInfo();
+        Init_Bgm();
     }
 
     void Init_PlayerInfo()
@@ -101,6 +102,22 @@ public class StageCreateController : MonoBehaviour
             {
                 GetComponent<AbilityController>().Add_Ability = istart;
             }
+        }
+    }
+
+    void Init_Bgm()
+    {
+        m_audioSource = this.gameObject.AddComponent<AudioSource>();
+        m_audioSource.loop = true;
+        if (m_bDayNight)
+        {
+            m_audioSource.clip = gameObject.GetComponent<AudioClipController>().m_clipAmbientSouds[0];
+            m_audioSource.Play();
+        }
+        else
+        {
+            m_audioSource.clip = gameObject.GetComponent<AudioClipController>().m_clipAmbientSouds[2];
+            m_audioSource.Play();
         }
     }
 }

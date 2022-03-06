@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Base_Effect : MonoBehaviour
+public abstract class Base_Effect : MonoBehaviour
 {
     public DataStruct.tagEffectInfo m_tEffectInfo = new DataStruct.tagEffectInfo();
     public  bool m_bIsOn = true;
-
+    public AudioClip m_audioClip;
+    public AudioSource m_audioSource;
     // Start is called before the first frame update
+    protected bool m_bIsActiveInit = false;
+
+
+    private void Awake()
+    {
+        m_audioSource = GetComponent<AudioSource>();
+    }
     protected virtual void Start()
     {
 
     }
+    protected abstract void ActiveInit();
 
     protected bool Do_Timer()
     {

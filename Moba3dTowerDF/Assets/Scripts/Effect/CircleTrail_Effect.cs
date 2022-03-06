@@ -30,6 +30,9 @@ public class CircleTrail_Effect : Base_Effect
             GetComponent<ParticleSystemRenderer>().material.shader = m_baseShader;
         }
     }
+    protected override void ActiveInit()
+    {
+        // throw new System.NotImplementedException();
+    }
 
-  
 }

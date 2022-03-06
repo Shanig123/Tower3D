@@ -458,7 +458,7 @@ public class PlayerController : MonoBehaviour
 
            if( Controller_Manager.Instance.LButtonUp())
             {
-                
+              
 
                 if (!GetComponent<StageController>().Get_WaveOnOff)
                     RayPicking();
@@ -573,6 +573,7 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tower()
     {
+        gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
         GFunc.Function.Print_simpleLog("picking Tower");
 
         m_objPickTower = m_objPicking;
@@ -729,7 +730,7 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tile() // 두번째 클릭시
     {
-
+      
         GFunc.Function.Print_simpleLog("picking Tile");
         
         if (INBOARD == m_iCheckPickingTower)
@@ -740,7 +741,7 @@ public class PlayerController : MonoBehaviour
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
-
+            gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
@@ -759,7 +760,7 @@ public class PlayerController : MonoBehaviour
 
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
-            
+            gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
         }
     }
     private void Picked_Tile()
@@ -782,8 +783,6 @@ public class PlayerController : MonoBehaviour
       
 
     }
-
-
 
     private bool Tile_Check_InTower(bool _bSort)
     {
@@ -876,6 +875,8 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position))
             {
+                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 7);
+                //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
                 return;
@@ -901,6 +902,8 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)), 0))
             {
+                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 7);
+                //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
             }
@@ -914,7 +917,7 @@ public class PlayerController : MonoBehaviour
 
     private void TowerStatUp(bool _bSort)
     {
-
+        gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 6);
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;

@@ -12,10 +12,16 @@ public class MagicBullet : BaseBullet
 
     public GameObject[] m_objTrailEffect;
     public float fAngle;
+
+   // public AudioClip audioClip;
+    public AudioSource audioSource;
+
     protected override void Start()
     {
         base.Start();
         GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
+
+   
        
     }
     private void OnEnable()
@@ -29,6 +35,7 @@ public class MagicBullet : BaseBullet
             vInitPos *= 0.3f;
             m_objTrailEffect[i].transform.localPosition = vInitPos;
         }
+
     }
     // Update is called once per frame
     protected override void Update()
@@ -57,7 +64,7 @@ public class MagicBullet : BaseBullet
         Vector3 TargetPos = m_objTargetMob.transform.position;
         TargetPos.y = transform.position.y;
         transform.LookAt(TargetPos);
-
+  
         m_eNextState = DataEnum.eState.Active;
     }
     protected override void DoActiveState()
@@ -82,13 +89,20 @@ public class MagicBullet : BaseBullet
         GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
             Get_ObjPool(transform.position, "MagicDead");
 
+        //AudioSource audioSource = 
+
+
         m_tagStatus.fMaxLifeTime = 0;
         m_tagStatus.fLifeTime = 0;
         m_objTargetMob = null;
         m_eNextState = DataEnum.eState.NoActive;
 
     }
-
+    protected override void PlaySound_create()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(audioSource.clip);
+    }
     private void RotateTrail()
     {
         for(int i=0; i<2;++i)
