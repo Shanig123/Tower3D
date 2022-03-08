@@ -71,6 +71,7 @@ public class EffectPoolController : MonoBehaviour
     {
         StartCoroutine(EffectLoad("CornBust"));
         StartCoroutine(EffectDeadLoad("MagicDead"));
+       // StartCoroutine(EffectLoad("Puff_"));
     }
 
     IEnumerator EffectLoad(string strName)
@@ -93,7 +94,14 @@ public class EffectPoolController : MonoBehaviour
         Queue<GameObject> queueObjs = new Queue<GameObject>();
         for (int i = 0; i < m_iMaxPoolSize; ++i)
         {
-            GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect_Dead"][strName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            GameObject createObject = Resource_Manager.Instance.InstanceObj("Effect", strName, m_vecInitPoolPosition);
+            if (createObject == null)
+                createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", strName, m_vecInitPoolPosition);
+
+            //GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect_Dead"][strName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+
+            createObject.GetComponent<Base_Effect>().m_strPrefabName = strName;
+
             createObject.name = createObject.name + "_" + i;
             queueObjs.Enqueue(createObject);
             yield return null;
@@ -110,23 +118,31 @@ public class EffectPoolController : MonoBehaviour
     {
         if (m_ObjEffectPool.ContainsKey(_strKeyName))
         {
-            GFunc.Function.Print_Log("GetEffect" + m_ObjEffectPool[_strKeyName].Count);
+            GFunc.Function.Print_Log("GetEffect_"+ _strKeyName +"_"+ m_ObjEffectPool[_strKeyName].Count);
             if (m_ObjEffectPool[_strKeyName].Count > 0)
             {
-                if(m_ObjEffectPool[_strKeyName].Peek())
+                if (m_ObjEffectPool[_strKeyName].Peek())
                 {
                     m_ObjEffectPool[_strKeyName].Peek().transform.position = _vCreatePos;
+                    GFunc.Function.Print_Log("Peekpos");
+                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.x.ToString());
+                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.y.ToString());
+                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.z.ToString());
+                    GFunc.Function.Print_Log("createpos");
+                    GFunc.Function.Print_Log(_vCreatePos.x.ToString());
+                    GFunc.Function.Print_Log(_vCreatePos.y.ToString());
+                    GFunc.Function.Print_Log(_vCreatePos.z.ToString());
                     m_ObjEffectPool[_strKeyName].Peek().SetActive(true);
                     //  m_ObjEffectPool[_strKeyName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
                     m_ObjEffectPool[_strKeyName].Peek().GetComponent<Base_Effect>().m_bIsOn = true;
-                   // m_ObjEffectPool[_strKeyName].Peek().GetComponent<ParticleSystem>().Play();
+                    // m_ObjEffectPool[_strKeyName].Peek().GetComponent<ParticleSystem>().Play();
 
                     return m_ObjEffectPool[_strKeyName].Dequeue();
                 }
-               else
+                else
                 {
                     GameObject createObject = Resource_Manager.Instance.InstanceObj("Effect", _strKeyName, _vCreatePos);
-                    if(createObject == null)
+                    if (createObject == null)
                         createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", _strKeyName, _vCreatePos);
 
                     createObject.name = createObject.name + "_" + m_iMaxPoolSize;
@@ -150,7 +166,32 @@ public class EffectPoolController : MonoBehaviour
 
         }
         else
+        {           
             GFunc.Function.Print_Log(_strKeyName + "NotFound");
+            Queue<GameObject> queueObjs = new Queue<GameObject>();
+
+            //GameObject createObject = Instantiate(Resource_Manager.Instance.m_dictPrefabs["Effect_Dead"][_strKeyName].objPrefabs, m_vecInitPoolPosition, Quaternion.identity);
+            GameObject createObject = Resource_Manager.Instance.InstanceObj("Effect", _strKeyName, _vCreatePos);
+            if (createObject == null)
+                createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", _strKeyName, _vCreatePos);
+
+            createObject.GetComponent<Base_Effect>().m_strPrefabName = _strKeyName;
+
+            createObject.name = createObject.name + "_" + 0;
+            queueObjs.Enqueue(createObject);
+            m_ObjEffectPool.Add(_strKeyName, queueObjs);
+
+            if (m_ObjEffectPool[_strKeyName].Peek())
+            {
+                m_ObjEffectPool[_strKeyName].Peek().transform.position = _vCreatePos;
+                m_ObjEffectPool[_strKeyName].Peek().SetActive(true);
+                //  m_ObjEffectPool[_strKeyName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
+                m_ObjEffectPool[_strKeyName].Peek().GetComponent<Base_Effect>().m_bIsOn = true;
+                // m_ObjEffectPool[_strKeyName].Peek().GetComponent<ParticleSystem>().Play();
+
+                return m_ObjEffectPool[_strKeyName].Dequeue();
+            }
+        }
         return null;
     }
 

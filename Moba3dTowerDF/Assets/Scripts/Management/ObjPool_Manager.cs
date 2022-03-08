@@ -137,13 +137,13 @@ public class ObjPool_Manager : MonoBehaviour
             }
             else
             {
-                //GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
+                GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
 
-                //createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
-                //createObject.name = createObject.name + "_" + m_iMaxPoolSize;
-                //++m_iMaxPoolSize;
-                //createObject.SetActive(true);
-                //return createObject;
+                createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
+                createObject.name = createObject.name + "_" + m_iMaxPoolSize;
+                ++m_iMaxPoolSize;
+                createObject.SetActive(true);
+                return createObject;
             }
 
         }

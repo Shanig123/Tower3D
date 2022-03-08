@@ -228,6 +228,8 @@ public class MobAI : BaseObj
         m_eNextMobState = DataEnum.eState.Dead;
        
         m_Ani.SetBool("isDead1", true);
+        m_Ani.SetBool("isDead", true);
+        //m_Ani.GetBool()
     }
 
     private void CheckTarget()

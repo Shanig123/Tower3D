@@ -69,6 +69,8 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fMasterVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[0].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[0].text =""+iConvert;
@@ -80,6 +82,8 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fSfxVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[1].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[1].text =""+iConvert;
@@ -91,6 +95,8 @@ public class UI_SoundOptionBoard : MonoBehaviour
         if(Option_Manager.Instance)
         {
             float fVol =  Option_Manager.Instance.m_tOptiondata.fBgmVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[2].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol*100f);
             m_ValueTextList[2].text =""+iConvert;
@@ -100,13 +106,17 @@ public class UI_SoundOptionBoard : MonoBehaviour
     public void Scroll_MasterVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
        float fVol = _scrollbar.value;
-       Option_Manager.Instance.m_tOptiondata.fMasterVol = fVol;
+        if (fVol > 1)
+            fVol = 1;
+        Option_Manager.Instance.m_tOptiondata.fMasterVol = fVol;
        ChangeMasterVolText();
     }
        
     public void Scroll_SFXVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
         float fVol = _scrollbar.value;
+        if (fVol > 1)
+            fVol = 1;
         Option_Manager.Instance.m_tOptiondata.fSfxVol = fVol;
        ChangeSFXVolText();
     }
@@ -114,6 +124,8 @@ public class UI_SoundOptionBoard : MonoBehaviour
     public void Scroll_BGMVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
         float fVol = _scrollbar.value;
+        if (fVol > 1)
+            fVol = 1;
         Option_Manager.Instance.m_tOptiondata.fBgmVol = fVol;
        ChangeBGMVolText();
     }

@@ -30,14 +30,24 @@ public class UI_MainSceneSetting : MonoBehaviour
     private void OnEnable()
     {
         m_bActive = true;
-        AllChangeText(Option_Manager.Instance.m_tOptiondata.bKor);
-        foreach(GameObject iter in m_listDimmed)
+        BoardInit();
+        foreach (GameObject iter in m_listDimmed)
         {
             iter.SetActive(false);
         }
         Game_Manager.Instance.Game_Pause(true);
     }
-
+    private void BoardInit()
+    {
+        if (Option_Manager.Instance)
+        {
+            AllChangeText(Option_Manager.Instance.m_tOptiondata.bKor);
+            ChangeMasterVolText();
+            ChangeSFXVolText();
+            ChangeBGMVolText();
+            GameObject.FindGameObjectWithTag("TotalController").GetComponent<PlayerController>().Reset_PickingInfo();
+        }
+    }
     private void OnDisable()
     {
         m_bActive = false;
@@ -64,6 +74,8 @@ public class UI_MainSceneSetting : MonoBehaviour
     public void Scroll_MasterVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
         float fVol = _scrollbar.value;
+        if (fVol > 1)
+            fVol = 1;
         Option_Manager.Instance.m_tOptiondata.fMasterVol = fVol;
         ChangeMasterVolText();
     }
@@ -71,6 +83,8 @@ public class UI_MainSceneSetting : MonoBehaviour
     public void Scroll_SFXVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
         float fVol = _scrollbar.value;
+        if (fVol > 1)
+            fVol = 1;
         Option_Manager.Instance.m_tOptiondata.fSfxVol = fVol;
         ChangeSFXVolText();
     }
@@ -78,6 +92,8 @@ public class UI_MainSceneSetting : MonoBehaviour
     public void Scroll_BGMVol(UnityEngine.UI.Scrollbar _scrollbar)
     {
         float fVol = _scrollbar.value;
+        if (fVol > 1)
+            fVol = 1;
         Option_Manager.Instance.m_tOptiondata.fBgmVol = fVol;
         ChangeBGMVolText();
     }
@@ -91,7 +107,9 @@ public class UI_MainSceneSetting : MonoBehaviour
             m_TextsList[2].text = "SFX 볼륨";
             m_TextsList[3].text = "BGM 볼륨";
 
-           //버튼 텍스트
+            //버튼 텍스트
+            m_TextsList[4].text = "돌아가기";
+            m_TextsList[5].text = "메인메뉴";
         }
         else
         {
@@ -101,6 +119,8 @@ public class UI_MainSceneSetting : MonoBehaviour
             m_TextsList[3].text = "BGM Vol";
 
             //버튼 텍스트
+            m_TextsList[4].text = "Back";
+            m_TextsList[5].text = "Mainemenu";
         }
     }
 
@@ -109,6 +129,8 @@ public class UI_MainSceneSetting : MonoBehaviour
         if (Option_Manager.Instance)
         {
             float fVol = Option_Manager.Instance.m_tOptiondata.fMasterVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[0].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol * 100f);
             m_ValueTextList[0].text = "" + iConvert;
@@ -120,6 +142,8 @@ public class UI_MainSceneSetting : MonoBehaviour
         if (Option_Manager.Instance)
         {
             float fVol = Option_Manager.Instance.m_tOptiondata.fSfxVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[1].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol * 100f);
             m_ValueTextList[1].text = "" + iConvert;
@@ -131,6 +155,8 @@ public class UI_MainSceneSetting : MonoBehaviour
         if (Option_Manager.Instance)
         {
             float fVol = Option_Manager.Instance.m_tOptiondata.fBgmVol;
+            if (fVol > 1)
+                fVol = 1;
             m_BarList[2].GetComponent<UnityEngine.UI.Scrollbar>().value = fVol;
             int iConvert = (int)(fVol * 100f);
             m_ValueTextList[2].text = "" + iConvert;

@@ -222,7 +222,7 @@ public class PlayerController : MonoBehaviour
         //m_upgradeController = new UpgradeController();
         m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
       
-        m_tPlayerData.iGold = 10000;
+        //m_tPlayerData.iGold = 10000;
         m_UI_UseScroll = GameObject.Find("Button_UseScroll");
         m_UI_SellTower = GameObject.Find("Button_SellAnimal");
         m_UI_AutoInBoard = GameObject.Find("Button_AutoInBoard");
@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CreateAllTower()
+    public void CreateAllTower()
     {
         int k = 0;
         for (int i = 0; i < 5; ++i)
@@ -573,7 +573,7 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tower()
     {
-        gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
         GFunc.Function.Print_simpleLog("picking Tower");
 
         m_objPickTower = m_objPicking;
@@ -741,7 +741,7 @@ public class PlayerController : MonoBehaviour
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
-            gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
@@ -760,7 +760,7 @@ public class PlayerController : MonoBehaviour
 
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
-            gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 0);
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
         }
     }
     private void Picked_Tile()
@@ -875,7 +875,7 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position))
             {
-                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 7);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5);
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -902,7 +902,7 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)), 0))
             {
-                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 7);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5);
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -917,7 +917,7 @@ public class PlayerController : MonoBehaviour
 
     private void TowerStatUp(bool _bSort)
     {
-        gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 6);
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 4);
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;
@@ -932,7 +932,8 @@ public class PlayerController : MonoBehaviour
         if (_bSort)
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
 
-        Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_1", m_objPicking.transform.position);
+        //Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_1", m_objPicking.transform.position);
+        gameObject.GetComponent<EffectPoolController>().Get_ObjPool(m_objPicking.transform.position, "DonutTrail_Bust_1");
 
         Destroy(m_objPickTower);
     }
@@ -951,9 +952,9 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
-
-            Resource_Manager.Instance.InstanceObj("Effect", "Twist_Bust", m_objPickTower.transform.position);
-
+            Vector3 vPos = m_objPickTower.transform.position; vPos.y += 1f;
+            //Resource_Manager.Instance.InstanceObj("Effect", "Puff_", vPos);
+            gameObject.GetComponent<EffectPoolController>().Get_ObjPool(vPos, "Puff_");
             Destroy(m_objPickTower);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
             return true;
@@ -963,7 +964,7 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public bool Use_Scroll()
+    public bool Use_Scroll(int _iAbilityNumber)
     {
 
         if (m_eCurControlState == DataEnum.ePickingMode.Tile
@@ -972,8 +973,13 @@ public class PlayerController : MonoBehaviour
            
             if (OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
             {
-                GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
+                gameObject.GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
+            Vector3 vPos = m_objPickTower.transform.position; vPos.y += 1f;
+            Resource_Manager.Instance.InstanceObj("Effect", "Puff_", vPos);
+            gameObject.GetComponent<AbilityController>().Add_Ability = _iAbilityNumber;
+
+
             Destroy(m_objPickTower);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
             return true;

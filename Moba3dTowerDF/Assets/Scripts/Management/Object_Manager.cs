@@ -93,16 +93,20 @@ public class Object_Manager : MonoBehaviour
         Debug.Log("Resource_Manager.Instance.Get_CheckLoad      /     " + Resource_Manager.Instance.Get_CheckLoad);
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
-            Debug.Log("SceneChange");
-           
+  
             m_StageController = GameObject.FindWithTag("TotalController").GetComponent<StageController>();
-           if(DataEnum.eDifficulty.End == m_StageController.Get_Difficulty)
+            //if (DataEnum.eDifficulty.End == m_StageController.Get_Difficulty)
+            //{
+            //    // pauseMenuCanvas.SetActive(true);
+
+            //    m_StageController.Set_Difficulty = DataEnum.eDifficulty.Easy;
+            //}
+            if (DataEnum.eDifficulty.End == Game_Manager.Instance.m_tStageInfo.eDifficulty)
             {
-               // pauseMenuCanvas.SetActive(true);
+                // pauseMenuCanvas.SetActive(true);
 
                 m_StageController.Set_Difficulty = DataEnum.eDifficulty.Easy;
             }
-
             InstanceObjects();
 
         }
@@ -122,6 +126,12 @@ public class Object_Manager : MonoBehaviour
     {
         InstanceAlphaBlock();
         if (DataEnum.eDifficulty.Easy == m_StageController.Get_Difficulty)
+            InstanceWaypointsType1();
+        else if (DataEnum.eDifficulty.Normal == m_StageController.Get_Difficulty)
+            InstanceWaypointsType1();
+        else if (DataEnum.eDifficulty.Hard == m_StageController.Get_Difficulty)
+            InstanceWaypointsType1();
+        else if (DataEnum.eDifficulty.Infinite == m_StageController.Get_Difficulty)
             InstanceWaypointsType1();
 
         InstanceAwaitBox();

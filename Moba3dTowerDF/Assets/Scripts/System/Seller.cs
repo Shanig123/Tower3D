@@ -43,9 +43,8 @@ public class Seller : MonoBehaviour
             //if ()
             //    return;
             //else
-            AudioSource audioSource = GameObject.FindGameObjectWithTag("TotalController").GetComponent<AudioSource>();
-            // audioSource.clip = 
-            audioSource.PlayOneShot(m_audioClip);
+
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 3);
         }
     }
 

@@ -9,6 +9,7 @@ public class UI_ScrollUseBoard : MonoBehaviour
     [SerializeField] private GameObject m_objUseScrollButton;
     [SerializeField] private GameObject m_objClose_Button;
     [SerializeField] private float m_fTime;
+    private int m_iPickAbilityNumber = -1;
     void Start()
     {
         
@@ -28,8 +29,6 @@ public class UI_ScrollUseBoard : MonoBehaviour
     private void OnEnable()
     {
         m_objClose_Button.SetActive(false);
-        GameObject.FindGameObjectWithTag("TotalController").GetComponent<AbilityController>().Add_Ability = 1;
-  
         Game_Manager.Instance.Game_Pause(true);
         Dissiable_UseScrollButton();
         m_bActive = true;
@@ -40,6 +39,12 @@ public class UI_ScrollUseBoard : MonoBehaviour
         ResetInfo();
         Game_Manager.Instance.Game_Pause(false);
         m_bActive = false;
+        if (m_iPickAbilityNumber < 0)
+            return;
+
+        GameObject.FindGameObjectWithTag("TotalController").GetComponent<PlayerController>().Use_Scroll(m_iPickAbilityNumber);
+
+        m_iPickAbilityNumber = -1;
     }
 
     public void OnClick_UseScroll()
@@ -56,7 +61,7 @@ public class UI_ScrollUseBoard : MonoBehaviour
         if(m_fTime>2f)
         {
             m_objClose_Button.SetActive(true);
-
+            m_iPickAbilityNumber = 1;
         }
 
 

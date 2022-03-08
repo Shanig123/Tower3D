@@ -118,6 +118,8 @@ public class StageController : MonoBehaviour
 
     void StageSettingInfo()
     {
+        m_eLevel = Game_Manager.Instance.m_tStageInfo.eDifficulty;
+
         if (Game_Manager.Instance.m_tStageInfo.eDifficulty == DataEnum.eDifficulty.Infinite)
         {
            m_iMaxWave = -1;
@@ -193,7 +195,7 @@ public class StageController : MonoBehaviour
                 (m_fWaitTimeMax> m_iCurTimerCount))
             {
                 m_iPreTimerCount = m_iCurTimerCount;
-                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 1);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 1);
             }
             if (m_fWaitTimeMax < (m_fWaitTimer+(float)m_iCurTimerCount))
             {
@@ -204,7 +206,7 @@ public class StageController : MonoBehaviour
                 m_strWaveName = "Wave_" + m_iCurWave;
                 List<GameObject> gameObjects = new List<GameObject>(m_iMaxCreateCount);
                 m_Object_Manager.m_dictClone_Object.Add(m_strWaveName, gameObjects);
-                gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 2);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 2);
             }
         }
         else

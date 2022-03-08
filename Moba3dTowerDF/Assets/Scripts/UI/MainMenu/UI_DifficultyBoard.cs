@@ -13,6 +13,8 @@ public class UI_DifficultyBoard : MonoBehaviour
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
         Game_Manager.Instance.m_tGameData.iUnLockLevel |= (uint)DataEnum.eDifficulty.Easy;
         Game_Manager.Instance.m_tGameData.iUnLockLevel |= (uint)DataEnum.eDifficulty.Normal;
+        if (Game_Manager.Instance)
+            Game_Manager.Instance.m_tStageInfo.eDifficulty = DataEnum.eDifficulty.Easy;
         ChangeSprite();
     }
 
@@ -28,8 +30,8 @@ public class UI_DifficultyBoard : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (Game_Manager.Instance)
-            Game_Manager.Instance.m_tStageInfo.eDifficulty = DataEnum.eDifficulty.End;
+        //if (Game_Manager.Instance)
+        //    Game_Manager.Instance.m_tStageInfo.eDifficulty = DataEnum.eDifficulty.End;
     }
 
     private void ChangeSprite()

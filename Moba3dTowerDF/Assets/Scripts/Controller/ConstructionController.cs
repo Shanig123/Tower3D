@@ -7,26 +7,15 @@ public class ConstructionController : MonoBehaviour
     ConstructionController()
         : base()
     {
-        m_eLevel = DataEnum.eDifficulty.End;
+  
     }
     #region Value
-
-    [SerializeField] private DataEnum.eDifficulty m_eLevel;
-    
 
     //[SerializeField] private Dictionary<int, string> m_mapIDToObjKey;
 
     #endregion
 
     #region Property
-
-    public DataEnum.eDifficulty Get_Difficulty
-    {
-        get
-        {
-            return m_eLevel;
-        }
-    }
 
     #endregion
 

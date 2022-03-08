@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: -1701281278602926134}
   - component: {fileID: 1653824594900361000}
   - component: {fileID: -4967611328517309703}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wave_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}

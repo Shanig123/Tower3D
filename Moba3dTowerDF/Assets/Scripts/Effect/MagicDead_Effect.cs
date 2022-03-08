@@ -57,7 +57,8 @@ public class MagicDead_Effect : Base_Effect
         if(m_bIsActiveInit)
         {
             m_bIsActiveInit = false;
-            m_audioSource.PlayOneShot(m_audioClip);
+
+            Sound_Manager.Instance.Play_Sfx(m_audioSource);     
         }
     }
 }

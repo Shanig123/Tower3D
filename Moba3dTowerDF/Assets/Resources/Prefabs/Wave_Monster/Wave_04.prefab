@@ -10775,7 +10775,7 @@ GameObject:
   - component: {fileID: -1772665314123164043}
   - component: {fileID: 3908000581937293985}
   - component: {fileID: -5421180841103098065}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wave_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

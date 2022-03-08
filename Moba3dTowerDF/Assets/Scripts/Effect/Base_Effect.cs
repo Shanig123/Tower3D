@@ -5,17 +5,19 @@ using UnityEngine;
 public abstract class Base_Effect : MonoBehaviour
 {
     public DataStruct.tagEffectInfo m_tEffectInfo = new DataStruct.tagEffectInfo();
+    public string m_strPrefabName;
+
     public  bool m_bIsOn = true;
     public AudioClip m_audioClip;
     public AudioSource m_audioSource;
     // Start is called before the first frame update
     protected bool m_bIsActiveInit = false;
 
-
-    private void Awake()
+    protected void Awake()
     {
         m_audioSource = GetComponent<AudioSource>();
     }
+  
     protected virtual void Start()
     {
 

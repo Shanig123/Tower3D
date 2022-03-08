@@ -32,7 +32,11 @@ public class Obj_DirLight : MonoBehaviour
             //    m_Light.shadows = LightShadows.Hard;
             //}
 
-            if (iShadow > 0)
+            if (iShadow < 0)
+            {
+                m_Light.shadows = LightShadows.None;
+            }
+            else if (iShadow > 0)
             {
                 m_Light.shadows = LightShadows.Soft;
             }
@@ -40,7 +44,6 @@ public class Obj_DirLight : MonoBehaviour
             {
                 m_Light.shadows = LightShadows.Hard;
             }
-
 
             m_bUpdateInit = true;
         }
