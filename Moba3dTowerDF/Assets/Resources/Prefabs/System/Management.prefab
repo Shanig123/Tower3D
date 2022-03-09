@@ -190,6 +190,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a10d9825b51d049e1a3c02268c72143e, type: 3}
   - {fileID: 8300000, guid: 5e6918c160aea4333835425efe3e7f20, type: 3}
   - {fileID: 8300000, guid: 890913127f62543968c4abb1267e360b, type: 3}
+  - {fileID: 8300000, guid: 8401456349c492a489ed90469e317e43, type: 3}
+  - {fileID: 8300000, guid: 5e1a9f876d3dafd47bc6b3dde25135fa, type: 3}
   m_UI_Sounds:
   - {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   - {fileID: 8300000, guid: f402e5d4eefb443379f9fe457bd39887, type: 3}
@@ -211,9 +213,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 04784ed23ebc443b4a46001751ad126b, type: 3}
   - {fileID: 8300000, guid: b556714bc36ea4124a6206d47703fbc1, type: 3}
   m_clipShortBGMs: []
-  m_audioSource: {fileID: 0}
+  m_AudioPlayer_Prefab: {fileID: 4967069419861442400, guid: 21a7898ed26c2a84f8ff603793f69cd6,
+    type: 3}
   m_audioSource_BGM: {fileID: 3273994814466261644}
   m_audioSource_Ambi: {fileID: -3844566672503703225}
+  m_objSfxPlayer:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_audioSource_UI: {fileID: 0}
   m_strPreSceneName: 
 --- !u!82 &3273994814466261644
 AudioSource:

@@ -14,7 +14,7 @@ public class MagicBullet : BaseBullet
     public float fAngle;
 
    // public AudioClip audioClip;
-    public AudioSource m_audioSource;
+  //  public AudioSource m_audioSource;
 
     protected override void Start()
     {
@@ -100,8 +100,8 @@ public class MagicBullet : BaseBullet
     }
     protected override void PlaySound_create()
     {
-        m_audioSource = GetComponent<AudioSource>();
-        Sound_Manager.Instance.Play_Sfx(m_audioSource, m_audioSource.clip);
+        //m_audioSource = GetComponent<AudioSource>();
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.Sfx, 6,this.transform.position);
     }
     private void RotateTrail()
     {
