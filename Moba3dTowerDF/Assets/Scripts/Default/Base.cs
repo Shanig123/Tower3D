@@ -38,10 +38,21 @@ namespace DataEnum
         Infinite    = (1 << 4),
         End         = 0
     };
+
+    public enum eTextEffect
+    {
+        Default_AlphaDown       = 1,
+        Volcano                 = (1 << 1),
+        Up                      = (1 << 2),
+        SizeDown                = (1 << 3),
+        End                     = 0
+    };
+
     public enum eClip { Ambi, Sfx, UI, Bgm, _End };
 
     public enum ePickingMode { Tile, Obj_Tower, End };
 
+  
 }
 namespace DataStruct
 {
@@ -220,6 +231,11 @@ namespace GFunc
             return tagData;
         }
         
+        public static float Jump(float _fYIn, float _fDeltaTime, float _fPower)
+        {
+            float fYTemp = _fYIn;
+            return fYTemp = fYTemp + (_fPower * _fDeltaTime - 0.5f * 9.807f * _fDeltaTime * _fDeltaTime);
+        }
 
     }
    

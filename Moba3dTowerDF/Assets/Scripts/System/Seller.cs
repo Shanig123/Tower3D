@@ -44,7 +44,7 @@ public class Seller : MonoBehaviour
             //    return;
             //else
 
-            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 3);
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 3, new Vector3(100, 100, 100));
         }
     }
 

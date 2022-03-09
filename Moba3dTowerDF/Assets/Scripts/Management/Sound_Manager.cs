@@ -85,29 +85,7 @@ public class Sound_Manager : MonoBehaviour
         //}
 
     }
-    public void Play_AudioClip(DataEnum.eClip _clip, int _iIdx)
-    {
-        if (_clip == DataEnum.eClip.Ambi)
-        {
-            //if (m_clipAmbientSouds.Count > _iIdx)
-            //    m_audioSource.PlayOneShot(m_clipAmbientSouds[_iIdx]);
-        }
-        else if (_clip == DataEnum.eClip.Sfx)
-        {
-            return;
-        }
-        else if (_clip == DataEnum.eClip.UI)
-        {
-            if (m_UI_Sounds.Count > _iIdx)
-                m_audioSource_UI.PlayOneShot(m_UI_Sounds[_iIdx]);
-        }
-        else if (_clip == DataEnum.eClip.Bgm)
-        {
-            // m_audioSource.PlayOneShot(m_clipAmbientSouds[iIdx]);
-        }
-        else
-            return;
-    }
+    
     public void Play_AudioClip(DataEnum.eClip _clip, int _iIdx, Vector3 _vPos)
     {
         if (_clip == DataEnum.eClip.Ambi)
@@ -123,7 +101,10 @@ public class Sound_Manager : MonoBehaviour
         else if (_clip == DataEnum.eClip.UI)
         {
             if (m_UI_Sounds.Count > _iIdx)
-                m_audioSource_UI.PlayOneShot(m_UI_Sounds[_iIdx]);           
+            {
+                m_audioSource_UI.volume = Option_Manager.Instance.m_tOptiondata.fMasterVol * Option_Manager.Instance.m_tOptiondata.fSfxVol;
+                m_audioSource_UI.PlayOneShot(m_UI_Sounds[_iIdx]);
+            }       
         }
         else if (_clip == DataEnum.eClip.Bgm)
         {

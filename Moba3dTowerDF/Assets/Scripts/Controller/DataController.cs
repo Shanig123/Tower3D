@@ -102,10 +102,17 @@ public class DataController : MonoBehaviour
     }
     public int ExtractRandomNumberFromSeed_NoCount(int _iMin, int _iMax)
     {
-        int iSeed =Time.deltaTime.GetHashCode();
+        int iSeed = System.DateTime.Now.GetHashCode();
         System.Random rd = new System.Random(iSeed);
         return rd.Next(_iMin, _iMax);
     }
+    public float ExtractRandomNumberFromSeed_NoCount()
+    {
+        int iSeed = System.DateTime.Now.GetHashCode();
+        System.Random rd = new System.Random(iSeed);
+        return (float)rd.NextDouble();
+    }
+
     public float ExtractRandomNumberFromSeed()
     {
         int iSeed = GameObject.FindWithTag("TotalController").GetComponent<DataController>().Get_Seed + m_iRandomFloatCallCount;

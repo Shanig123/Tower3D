@@ -149,7 +149,7 @@ public class UI_ArchiveBoard : MonoBehaviour
     public void ClickItem(UnityEngine.UI.Button _objButton)
     {
         UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
-
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (uI_AbilityMainMenu)
         {
             if (Game_Manager.Instance)

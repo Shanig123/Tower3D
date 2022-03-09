@@ -50,6 +50,7 @@ public class UI_MainSceneSetting : MonoBehaviour
     }
     private void OnDisable()
     {
+       
         m_bActive = false;
         foreach (GameObject iter in m_listDimmed)
         {
@@ -61,13 +62,20 @@ public class UI_MainSceneSetting : MonoBehaviour
     public void OnClick_SettingBoard()
     {
         if (m_bActive)
+        {
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
             this.gameObject.SetActive(false);
+        }
         else
+        {
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
             this.gameObject.SetActive(true);
+        }
     }
 
     public void OnClick_MainMenu()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
 
     }

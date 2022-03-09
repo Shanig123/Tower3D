@@ -57,6 +57,7 @@ public class UI_DifficultyBoard : MonoBehaviour
 
     public void OnClick_Easy()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         GameObject objDifficulty = gameObject.transform.Find("DifficultyText").gameObject;
         GameObject objScript = gameObject.transform.Find("DifficultyScriptTxt").gameObject;
 
@@ -81,6 +82,7 @@ public class UI_DifficultyBoard : MonoBehaviour
     }
     public void OnClick_Normal()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Normal) == (uint)DataEnum.eDifficulty.Normal)
         {
@@ -109,6 +111,7 @@ public class UI_DifficultyBoard : MonoBehaviour
     }
     public void OnClick_Hard()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
         if ((iUnlockLevl & (int)DataEnum.eDifficulty.Hard) == (uint)DataEnum.eDifficulty.Hard)
         {
@@ -142,6 +145,7 @@ public class UI_DifficultyBoard : MonoBehaviour
     }
     public void OnClick_Infinity()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         uint iUnlockLevl = Game_Manager.Instance.m_tGameData.iUnLockLevel;
         if((iUnlockLevl & (int)DataEnum.eDifficulty.Infinite) == (uint)DataEnum.eDifficulty.Infinite)
         {

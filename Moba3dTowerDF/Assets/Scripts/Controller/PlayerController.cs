@@ -573,7 +573,7 @@ public class PlayerController : MonoBehaviour
 
     private void Picking_Tower()
     {
-        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0, new Vector3(100,100,100));
         GFunc.Function.Print_simpleLog("picking Tower");
 
         m_objPickTower = m_objPicking;
@@ -741,7 +741,7 @@ public class PlayerController : MonoBehaviour
             Vector3 vPickPos = m_objPicking.transform.position;
             vPickPos.y = 0;
             m_objPickTower.transform.position = vPickPos;
-            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0, new Vector3(100, 100, 100));
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
         }
         else if(OUTBOARD == m_iCheckPickingTower) //보드 밖에 있는 것을 안으로 옮기는 경우
@@ -760,7 +760,7 @@ public class PlayerController : MonoBehaviour
 
             GameObject.FindWithTag("TotalController").GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             m_eNextControlState = DataEnum.ePickingMode.Obj_Tower;
-            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0);
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 0, new Vector3(100, 100, 100));
         }
     }
     private void Picked_Tile()
@@ -875,7 +875,7 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position))
             {
-                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5, new Vector3(100, 100, 100));
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -902,7 +902,7 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)), 0))
             {
-                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5, new Vector3(100, 100, 100));
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -917,7 +917,8 @@ public class PlayerController : MonoBehaviour
 
     private void TowerStatUp(bool _bSort)
     {
-        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 4);
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 4, new Vector3(100, 100, 100));
+
         DataStruct.tagTowerStatus towerinfo =    m_objPicking.GetComponent<TowerAI>().Get_TowerInfo;
         ++towerinfo.iLvl;
         m_objPicking.GetComponent<TowerAI>().Set_TowerInfo = towerinfo;

@@ -113,14 +113,39 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         if(Input.GetKey(KeyCode.Home))
         {
             //Android HomeKey
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                GameObject ui = GameObject.Find("Detect_SettingBoard");
+                if (ui)
+                {
+                    ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
+                }
+                return;
+            }
+            return;
         }
         else if (Input.GetKey(KeyCode.Escape))
         {
             //Android Escape
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                return;
+            }
             Game_Manager.Instance.AppQuit();
+            return;
         }
         else if (Input.GetKey(KeyCode.Menu))
         {
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                GameObject ui = GameObject.Find("Detect_SettingBoard");
+                if(ui)
+                {
+                    ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
+                }
+                return;
+            }
+            return;
             //Android Menu
         }
     }

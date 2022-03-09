@@ -195,7 +195,7 @@ public class StageController : MonoBehaviour
                 (m_fWaitTimeMax> m_iCurTimerCount))
             {
                 m_iPreTimerCount = m_iCurTimerCount;
-                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 1);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 1, new Vector3(100, 100, 100));
             }
             if (m_fWaitTimeMax < (m_fWaitTimer+(float)m_iCurTimerCount))
             {
@@ -206,7 +206,7 @@ public class StageController : MonoBehaviour
                 m_strWaveName = "Wave_" + m_iCurWave;
                 List<GameObject> gameObjects = new List<GameObject>(m_iMaxCreateCount);
                 m_Object_Manager.m_dictClone_Object.Add(m_strWaveName, gameObjects);
-                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 2);
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 2, new Vector3(100,100,100));
             }
         }
         else

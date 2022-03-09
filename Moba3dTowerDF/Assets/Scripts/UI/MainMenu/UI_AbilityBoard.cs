@@ -151,13 +151,15 @@ public class UI_AbilityBoard : MonoBehaviour
 
     public void ClickItem(UnityEngine.UI.Button _objButton)
     {
+       
         UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
 
         if(uI_AbilityMainMenu)
         {
             if(Game_Manager.Instance)
             {
-                if(Game_Manager.Instance.m_tGameData.bArrUnlockAbility[uI_AbilityMainMenu.m_iKey])
+                Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
+                if (Game_Manager.Instance.m_tGameData.bArrUnlockAbility[uI_AbilityMainMenu.m_iKey])
                 {
                     Game_Manager.Instance.m_tStageInfo.iStartAbility = uI_AbilityMainMenu.m_iKey;
                 }

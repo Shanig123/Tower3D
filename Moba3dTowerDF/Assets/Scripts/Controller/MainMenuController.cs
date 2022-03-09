@@ -66,6 +66,7 @@ public class MainMenuController : MonoBehaviour
     #region UiClick
     public void ClickTopButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (m_eCurMenuState == eMenuState.Main) // 메인화면에서 게임시작 버튼 눌렀을 때
         {
             m_eNextMenuState = eMenuState.StageSelect;
@@ -86,6 +87,7 @@ public class MainMenuController : MonoBehaviour
     }
     public void ClickMidButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (m_eCurMenuState == eMenuState.Main) // 메인화면에서 옵션 버튼 눌렀을 때
         {
             m_eNextMenuState = eMenuState.Option;
@@ -106,6 +108,7 @@ public class MainMenuController : MonoBehaviour
     }
     public void ClickBottomButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (m_eCurMenuState == eMenuState.Main)// 메인화면에서 엑시트 눌렀을 때
         {
             // Game_Manager.Instance.AppQuit();
@@ -128,6 +131,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ClickYesButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (m_eCurMenuState == eMenuState.StageSelect)
         {
             SceneManager.LoadScene("MainScene");
@@ -144,18 +148,21 @@ public class MainMenuController : MonoBehaviour
     }
     public void ClickNoButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
         m_eNextMenuState = eMenuState.Main;
         return;
     }
 
     public void ClickKorButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         Option_Manager.Instance.m_tOptiondata.bKor = true;
         ChangeAllText();
         return;
     }
     public void ClickEngButton()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         Option_Manager.Instance.m_tOptiondata.bKor = false;
         ChangeAllText();
         return;

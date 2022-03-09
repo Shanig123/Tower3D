@@ -29,6 +29,7 @@ public class Constructor : MonoBehaviour
     }
     public void Construct_Normal2()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (!m_stageController.Get_WaveOnOff)
              m_construction.CallTower(DataEnum.eRankID.Normal);
     }
@@ -62,6 +63,7 @@ public class Constructor : MonoBehaviour
 
     public void AotoInBoard()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         m_construction.AutoInBoard();
     }
 

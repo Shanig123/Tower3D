@@ -124,13 +124,20 @@ public class UI_AbilityInfoBoard : MonoBehaviour
     public void OnClick_AbilityInfoBoard()
     {
         if (m_bActive)
+        {
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
             gameObject.SetActive(false);
+        }
         else
+        {
+            Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
             gameObject.SetActive(true);
+        }
     }
 
     public void OnClick_Ability(UnityEngine.UI.Button _objButton)
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         UI_AbilityMainMenu uI_AbilityMainMenu = _objButton.GetComponent<UI_AbilityMainMenu>();
         if (uI_AbilityMainMenu)
         {

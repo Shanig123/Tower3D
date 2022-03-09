@@ -139,6 +139,7 @@ public class UI_GameOptionBoard : MonoBehaviour
 
     public void OnClickKor()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
         {
             Option_Manager.Instance.m_tOptiondata.bKor = true;
@@ -149,6 +150,7 @@ public class UI_GameOptionBoard : MonoBehaviour
     }
     public void OnClickEng()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
         {
             Option_Manager.Instance.m_tOptiondata.bKor = false;
@@ -158,42 +160,49 @@ public class UI_GameOptionBoard : MonoBehaviour
     }
     public void OnClickNight()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iDayNight = -1;
         Change_EnvSprite();
     }
     public void OnClickRandom()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iDayNight = 0;
         Change_EnvSprite();
     }
     public void OnClickDay()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iDayNight = 1;
         Change_EnvSprite();
     }
     public void OnClickLow()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iShadow = -1;
         Change_ShadowSprite();
     }
     public void OnClickMid()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iShadow = 0;
         Change_ShadowSprite();
     }
     public void OnClickHigh()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 8, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
             Option_Manager.Instance.m_tOptiondata.iShadow = 1;
         Change_ShadowSprite();
     }
     public void OnClickReset()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
         {
             Option_Manager.Instance.m_tOptiondata.iShadow = Option_Manager.Instance.Get_DefaultData.iShadow;

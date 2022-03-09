@@ -191,6 +191,10 @@ public abstract class BaseBullet : BaseObj
             obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
             m_tagStatus.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
+
+            GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+            obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+           obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tagStatus.iAtk.ToString(), new Color(1,0,0), (DataEnum.eTextEffect)11);
         }
     }
     protected void DoMove()

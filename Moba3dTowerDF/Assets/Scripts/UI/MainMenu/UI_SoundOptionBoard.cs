@@ -133,6 +133,7 @@ public class UI_SoundOptionBoard : MonoBehaviour
 
     public void OnClickReset()
     {
+        Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 9, new Vector3(100, 100, 100));
         if (Option_Manager.Instance)
         {
             Option_Manager.Instance.m_tOptiondata.fMasterVol = Option_Manager.Instance.Get_DefaultData.fMasterVol;
