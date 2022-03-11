@@ -190,7 +190,7 @@ public abstract class TowerAI : BaseObj
             }
             else if (DataEnum.eRankID.Epic == Get_TowerRank)
             {
-                effect.m_tEffectInfo.colorEffect = Color.magenta;
+                effect.m_tEffectInfo.colorEffect = new Color(30f / 255f, 30f/255f,1f);
                 effect.m_tEffectInfo.fSpeed = 1.75f;
             }
             else if (DataEnum.eRankID.Unique == Get_TowerRank)

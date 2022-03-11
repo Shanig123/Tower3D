@@ -312,8 +312,8 @@ public class PlayerController : MonoBehaviour
                 jmax = 10;
             for (int j = 0; j < jmax; ++j)
             {
-                if (i == 4 && j > 1)
-                    break;
+                //if (i == 4 && j > 1)
+                //    break;
                 if (Object_Manager.Instance.m_dictClone_Object.ContainsKey("AlphaBlock"))
                 {
                     while (k < Object_Manager.Instance.m_dictClone_Object["AlphaBlock"].Count)
@@ -335,17 +335,19 @@ public class PlayerController : MonoBehaviour
                             if (!(Physics.Raycast(ray, out hit, 3f, (1 << LayerMask.NameToLayer("Tower")))))
                             {
                                 vector3Orin.y += 1f;
-
-                                if (GetComponent<ConstructionController>().CallTower((DataEnum.eRankID)(1 << (i)),
+                                GetComponent<ConstructionController>().CallTower((DataEnum.eRankID)(1 << (i)),
                                     j,
-                                    vector3Orin))
-                                {
-                                    GFunc.Function.Print_Log("Create Tower");
-                                }
-                                else
-                                {
-                                    GFunc.Function.Print_Log("Create Fail");
-                                }
+                                    vector3Orin);
+                                //if (GetComponent<ConstructionController>().CallTower((DataEnum.eRankID)(1 << (i)),
+                                //    j,
+                                //    vector3Orin))
+                                //{
+                                //    GFunc.Function.Print_Log("Create Tower");
+                                //}
+                                //else
+                                //{
+                                //    GFunc.Function.Print_Log("Create Fail");
+                                //}
                                 ++k;
                                 break;
                             }

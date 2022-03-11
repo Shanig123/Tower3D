@@ -407,5 +407,28 @@ public class Resource_Manager : MonoBehaviour
         }
         return null;
     }
+    public GameObject InstanceObj(string _strCategory, string _strTagName, Vector3 _vCreatePos,Quaternion _qRotation)
+    {
+        if (m_dictPrefabs.ContainsKey(_strCategory))
+        {
+            if (m_dictPrefabs[_strCategory].ContainsKey(_strTagName))
+            {
+                return Instantiate(m_dictPrefabs[_strCategory][_strTagName].objPrefabs, _vCreatePos, _qRotation);
+            }
+        }
+        return null;
+    }
+
+    public GameObject Find_Object(string _strCategory, string _strTagName)
+    {
+        if (m_dictPrefabs.ContainsKey(_strCategory))
+        {
+            if (m_dictPrefabs[_strCategory].ContainsKey(_strTagName))
+            {
+                return m_dictPrefabs[_strCategory][_strTagName].objPrefabs;
+            }
+        }
+        return null;
+    }
 
 }

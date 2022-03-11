@@ -193,7 +193,7 @@ public class Object_Manager : MonoBehaviour
         {
 
             Quaternion temp = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs[_strPrefabsKeyName0][_strPrefabsKeyName1].objPrefabs, _vCreatePos, temp);
+            GameObject createObj = Instantiate(Resource_Manager.Instance.Find_Object(_strPrefabsKeyName0,_strPrefabsKeyName1), _vCreatePos, temp);
 
             createObj.GetComponent<BaseObj>().m_strPrefabName = _strPrefabsKeyName1;
 
@@ -207,7 +207,7 @@ public class Object_Manager : MonoBehaviour
         {
             List<GameObject> gameObjects = new List<GameObject>();
             Quaternion temp = Quaternion.LookRotation(new Vector3(0, 0, -1));
-            GameObject createObj = Instantiate(Resource_Manager.Instance.m_dictPrefabs[_strPrefabsKeyName0][_strPrefabsKeyName1].objPrefabs, _vCreatePos, temp);
+            GameObject createObj = Instantiate(Resource_Manager.Instance.Find_Object(_strPrefabsKeyName0, _strPrefabsKeyName1), _vCreatePos, temp);
 
             createObj.GetComponent<BaseObj>().m_strPrefabName = _strPrefabsKeyName1;
             gameObjects.Add(createObj);
