@@ -86,11 +86,15 @@ public abstract class BaseBullet : BaseObj
 
     protected virtual void DoReadyState()
     {
+        m_eNextState = DataEnum.eState.Active;
         //CheckInStageBoard();
         //InStageBoard();
         //ReadyToActive();
     }
-    protected abstract void DoNoActiveState();
+    protected virtual void DoNoActiveState()
+    {
+        Return_Pool();
+    }
     protected abstract void DoActiveState();
     protected abstract void DoDeadState();
     //protected abstract void CheckDead();
@@ -183,7 +187,7 @@ public abstract class BaseBullet : BaseObj
     }
 
     #endregion
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (!m_bCheckDead)
         {
@@ -191,15 +195,42 @@ public abstract class BaseBullet : BaseObj
             obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
             m_tagStatus.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
-
-            GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
-            obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
-           obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tagStatus.iAtk.ToString(), new Color(1,0,0), (DataEnum.eTextEffect)11);
+            Create_DamageEffect();
         }
     }
     protected void DoMove()
     {
         m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;
         // m_Ani.SetBool("isRunning", true);
+    }
+
+    protected void Create_DamageEffect()
+    {
+        GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+        obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tagStatus.iAtk.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
+    }
+
+    protected void Return_Pool()
+    {
+        if (!m_bObjActiveOnOff)
+        {
+            //ref GameObject temp = this.gameObject;
+            GameObject temp = this.gameObject;
+            m_tagStatus.objTarget = null;
+            ObjPool_Manager.Instance.ReturnPool(ref temp, this.m_tagStatus.strObjTagName); //? 
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+
+            m_eNextState = DataEnum.eState.Ready;
+        }
+    }
+    protected void LookAt_Target()
+    {
+        Vector3 TargetPos = m_objTargetMob.transform.position;
+        TargetPos.y = transform.position.y;
+        transform.LookAt(TargetPos);
     }
 }

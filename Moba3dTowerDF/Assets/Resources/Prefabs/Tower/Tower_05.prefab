@@ -468,22 +468,28 @@ MonoBehaviour:
     iMaxHp: 0
     iAtk: 0
     iLvl: 0
+    eType: 0
     iTowerId: 0
     iStatus: 0
     fRange: 0
     fAtkCoolTime: 0
     fMaxAtkCoolTime: 0
+  m_tEffectInfo:
+    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    vScale: {x: 1, y: 1, z: 1}
+    fParticleScale: 1
+    fSpeed: 1
+    fLifeTime: 0
+    fTimerSpeed: 1
+    fMaxLifeTime: 0
+    bLoop: 1
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
-  m_tEffectInfo:
-    colorEffect: {r: 1, g: 1, b: 1, a: 1}
-    vScale: {x: 1, y: 1, z: 1}
-    fParticleScale: 1
-    fSpeed: 1
+  m_strBulletName: Swarm_Fire
 --- !u!1 &1227004588433028
 GameObject:
   m_ObjectHideFlags: 0

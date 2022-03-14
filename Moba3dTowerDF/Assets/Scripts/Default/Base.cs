@@ -52,7 +52,14 @@ namespace DataEnum
 
     public enum ePickingMode { Tile, Obj_Tower, End };
 
-  
+    public enum eStatus
+    {
+        Poison      = 1,
+        Fire        = (1 << 1),
+        Slow        = (1 << 2),
+        Sturn       = (1 << 3),
+        End         = 0
+    }
 }
 namespace DataStruct
 {
@@ -64,14 +71,15 @@ namespace DataStruct
 
         public int iAtk;
         public int iLvl;
+
+        public int iStatus;
     }
 
     [System.Serializable]
     public class tagMobStatus : tagStatus
     {
+ 
         public float fMoveSpeed;
-
-
         public float fDeadTime;
     }
 
@@ -82,8 +90,7 @@ namespace DataStruct
        
         public DataEnum.eTowerType eType;
         public int iTowerId;
-        public int iStatus;
-
+      
         public float fRange;
 
         public float fAtkCoolTime;

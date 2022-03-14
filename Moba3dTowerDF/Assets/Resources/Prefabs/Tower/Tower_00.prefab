@@ -1999,19 +1999,23 @@ MonoBehaviour:
     iStatus: 0
     fRange: 0
     fAtkCoolTime: 0
-    fMaxAtkCoolTime: 0
+    fMaxAtkCoolTime: 5
   m_tEffectInfo:
     colorEffect: {r: 1, g: 1, b: 1, a: 1}
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1
+    fLifeTime: 0
+    fTimerSpeed: 1
+    fMaxLifeTime: 0
+    bLoop: 1
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
-  m_strBulletName: Magic_Bullet_1
+  m_strBulletName: Swarm_Fire
 --- !u!1 &1926030801303212
 GameObject:
   m_ObjectHideFlags: 0

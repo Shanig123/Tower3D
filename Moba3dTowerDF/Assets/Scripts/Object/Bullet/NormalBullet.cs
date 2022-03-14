@@ -51,30 +51,12 @@ public class NormalBullet : BaseBullet
     //    }
     //}
  
-    protected override void DoNoActiveState()
-    {
-        if (!m_bObjActiveOnOff)
-        {
-            //ref GameObject temp = this.gameObject;
-            GameObject temp = this.gameObject;
-            m_tagStatus.objTarget = null;
-            ObjPool_Manager.Instance.ReturnPool(ref temp, this.m_tagStatus.strObjTagName); //? 
-            this.gameObject.SetActive(false);
-        }
-        else
-        {
-
-            m_eNextState = DataEnum.eState.Ready;
-        }
-    }
     protected override void DoReadyState()
     {
-        Vector3 TargetPos = m_objTargetMob.transform.position;
-        TargetPos.y = transform.position.y;
-        transform.LookAt(TargetPos);
-
-        m_eNextState = DataEnum.eState.Active;
+        base.DoReadyState();
+        LookAt_Target();
     }
+
     protected override void DoActiveState()
     {
         m_tagStatus.fLifeTime += Time.deltaTime;
