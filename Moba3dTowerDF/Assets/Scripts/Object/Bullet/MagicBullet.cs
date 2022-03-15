@@ -51,13 +51,13 @@ public class MagicBullet : BaseBullet
 
     protected override void DoActiveState()
     {
-        m_tagStatus.fLifeTime += Time.deltaTime;
+        m_tBulletInfo.fLifeTime += Time.deltaTime;
 
         RotateTrail();
 
-        if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
+        if ((m_vCreatePos - transform.position).magnitude > m_tBulletInfo.fMaxLifeTime)
         {
-            m_tagStatus.fLifeTime = 0;
+            m_tBulletInfo.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
         }
         else
@@ -74,8 +74,8 @@ public class MagicBullet : BaseBullet
         //AudioSource audioSource = 
 
 
-        m_tagStatus.fMaxLifeTime = 0;
-        m_tagStatus.fLifeTime = 0;
+        m_tBulletInfo.fMaxLifeTime = 0;
+        m_tBulletInfo.fLifeTime = 0;
         m_objTargetMob = null;
         m_eNextState = DataEnum.eState.NoActive;
 
@@ -89,7 +89,7 @@ public class MagicBullet : BaseBullet
     {
         for(int i=0; i<2;++i)
         {
-            fAngle += m_tagStatus.fLifeTime*Mathf.Deg2Rad*15;
+            fAngle += m_tBulletInfo.fLifeTime*Mathf.Deg2Rad*15;
             Vector3 vRotPos = new Vector3(Mathf.Cos(fAngle * (i+1)), Mathf.Sin(fAngle * (i + 1)), 0);
             vRotPos *= 0.3f;
             m_objTrailEffect[i].transform.localPosition = vRotPos;

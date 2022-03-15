@@ -78,9 +78,9 @@ public class UI_3DText : MonoBehaviour
         
         if ((m_iTextEffect & ((int)DataEnum.eTextEffect.Default_AlphaDown)) == ((int)DataEnum.eTextEffect.Default_AlphaDown))
         {
-            float fAspect = 1f - (m_fLifetime / m_fMaxLifetime);
+            float fRatio = 1f - (m_fLifetime / m_fMaxLifetime);
             Color lcolor = m_textMesh.color;
-            lcolor.a = fAspect;
+            lcolor.a = fRatio;
             m_textMesh.color = lcolor;
         }
         if ((m_iTextEffect & ((int)DataEnum.eTextEffect.Volcano)) == ((int)DataEnum.eTextEffect.Volcano))

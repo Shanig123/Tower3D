@@ -9,9 +9,10 @@ public abstract class TowerAI : BaseObj
 
     #region Value
 
-    [SerializeField] protected DataStruct.tagTowerStatus m_tagStatus;
+    [SerializeField] protected DataStruct.tagTowerStatus m_tTowerInfo;
 
     public DataStruct.tagEffectInfo m_tEffectInfo;
+    [SerializeField] protected DataStruct.tagStatusInfo m_tStatusInfo;
 
     [SerializeField] protected GameObject m_objTargetMob;
     [SerializeField] protected int m_iTargetID;
@@ -29,10 +30,10 @@ public abstract class TowerAI : BaseObj
 
     #region Property
     public DataEnum.eState GetStat { get { return m_eCurState; } }
-    public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tagStatus; } }
+    public DataStruct.tagTowerStatus Get_TowerInfo { get { return m_tTowerInfo; } }
     public DataEnum.eRankID Get_TowerRank { get
         {
-            int id = m_tagStatus.iTowerId + 10;
+            int id = m_tTowerInfo.iTowerId + 10;
             int num = (int)(id * 0.1);
 
             if (1 == num)
@@ -53,21 +54,21 @@ public abstract class TowerAI : BaseObj
     {
         get
         {
-            if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_0) == (int)DataEnum.eRankID.RankID_0)
+            if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_0) == (int)DataEnum.eRankID.RankID_0)
                 return DataEnum.eRankID.RankID_0;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_1) == (int)DataEnum.eRankID.RankID_1)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_1) == (int)DataEnum.eRankID.RankID_1)
                 return DataEnum.eRankID.RankID_1;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_2) == (int)DataEnum.eRankID.RankID_2)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_2) == (int)DataEnum.eRankID.RankID_2)
                 return DataEnum.eRankID.RankID_2;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_3) == (int)DataEnum.eRankID.RankID_3)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_3) == (int)DataEnum.eRankID.RankID_3)
                 return DataEnum.eRankID.RankID_3;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_4) == (int)DataEnum.eRankID.RankID_4)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_4) == (int)DataEnum.eRankID.RankID_4)
                 return DataEnum.eRankID.RankID_4;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_5) == (int)DataEnum.eRankID.RankID_5)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_5) == (int)DataEnum.eRankID.RankID_5)
                 return DataEnum.eRankID.RankID_5;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_6) == (int)DataEnum.eRankID.RankID_6)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_6) == (int)DataEnum.eRankID.RankID_6)
                 return DataEnum.eRankID.RankID_6;
-            else if ((m_tagStatus.iTowerId & (int)DataEnum.eRankID.RankID_7) == (int)DataEnum.eRankID.RankID_7)
+            else if ((m_tTowerInfo.iTowerId & (int)DataEnum.eRankID.RankID_7) == (int)DataEnum.eRankID.RankID_7)
                 return DataEnum.eRankID.RankID_7;
             else
                 return DataEnum.eRankID.End;
@@ -75,15 +76,11 @@ public abstract class TowerAI : BaseObj
     }
 
     public DataEnum.eState SetState { set { m_eNextState = value; } }
-    public int Set_TowerID { set { m_tagStatus.iTowerId = value; } }
-    public DataStruct.tagTowerStatus Set_TowerInfo { set { m_tagStatus = value; } }
+    public int Set_TowerID { set { m_tTowerInfo.iTowerId = value; } }
+    public DataStruct.tagTowerStatus Set_TowerInfo { set { m_tTowerInfo = value; } }
 
     #endregion
 
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
     protected virtual void Update()
     {
         if (!m_bFirstInit)
@@ -105,13 +102,16 @@ public abstract class TowerAI : BaseObj
         {
             m_fReadyTimer = 3;
         }
-        if (m_tagStatus.fMaxAtkCoolTime == 0)
-            m_tagStatus.fMaxAtkCoolTime = 1f;
-        if (m_tagStatus.fRange == 0)
-            m_tagStatus.fRange = 3f;
-        if (m_tagStatus.iAtk == 0)
-            m_tagStatus.iAtk = 5;
+        if (m_tTowerInfo.fMaxAtkCoolTime == 0)
+            m_tTowerInfo.fMaxAtkCoolTime = 1f;
+        if (m_tTowerInfo.fRange == 0)
+            m_tTowerInfo.fRange = 3f;
+        if (m_tTowerInfo.iAtk == 0)
+            m_tTowerInfo.iAtk = 5;
+        //if( m_tTowerInfo.eType == DataEnum.eTowerType.Buff)
+        //{
 
+        //}
         m_bFirstInit = true;
     }
 
@@ -364,7 +364,7 @@ public abstract class TowerAI : BaseObj
 
     private void CheckInStageBoard()
     {
-        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+        if ((m_tTowerInfo.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
             != GConst.BaseValue.iStatFlag_CheckInStage)
         {
             Vector3 vPos = transform.position;
@@ -382,7 +382,7 @@ public abstract class TowerAI : BaseObj
                 m_vCurModifyPos = vPos;
                 m_vNextModifyPos = vPos;
 
-                m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
+                m_tTowerInfo.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
             }
 
 
@@ -395,7 +395,7 @@ public abstract class TowerAI : BaseObj
             //        m_vCurModifyPos = vPos;
             //        m_vNextModifyPos = vPos;
 
-            //        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
+            //        m_tTowerInfo.iStatus |= GConst.BaseValue.iStatFlag_CheckInStage;
             //    }
             //}
         }
@@ -405,10 +405,10 @@ public abstract class TowerAI : BaseObj
     {
         //타워가 게임 보드 안으로 들어왔을 때
 
-        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
+        if ((m_tTowerInfo.iStatus & GConst.BaseValue.iStatFlag_CheckInStage)
             == GConst.BaseValue.iStatFlag_CheckInStage)
         {
-            if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
+            if ((m_tTowerInfo.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
              != GConst.BaseValue.iStatFlag_ReadyToIdle)
             {
                 if(m_vCurModifyPos == m_vNextModifyPos)
@@ -418,7 +418,7 @@ public abstract class TowerAI : BaseObj
                     //{
                         m_fReadyTimer = 0;
                         m_eNextState = DataEnum.eState.Active;
-                        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_ReadyToIdle;
+                        m_tTowerInfo.iStatus |= GConst.BaseValue.iStatFlag_ReadyToIdle;
                    // }
                 }
                 else
@@ -435,7 +435,7 @@ public abstract class TowerAI : BaseObj
 
     private void ReadyToActive()
     {
-        if ((m_tagStatus.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
+        if ((m_tTowerInfo.iStatus & GConst.BaseValue.iStatFlag_ReadyToIdle)
             == GConst.BaseValue.iStatFlag_ReadyToIdle)
         {
             EndModifyPos();
@@ -483,7 +483,7 @@ public abstract class TowerAI : BaseObj
                     Vector3 vecTargetToLength = temp.transform.position - m_Transform.position;
                     float fLength = vecTargetToLength.magnitude;
 
-                    if (fLength > m_tagStatus.fRange)
+                    if (fLength > m_tTowerInfo.fRange)
                         continue;
 
                     m_objTargetMob = temp;
@@ -500,7 +500,7 @@ public abstract class TowerAI : BaseObj
 
     private void DoAttack()
     {
-        m_tagStatus.fAtkCoolTime += Time.deltaTime;
+        m_tTowerInfo.fAtkCoolTime += Time.deltaTime;
 
         if (m_objTargetMob != null)
         {
@@ -519,7 +519,7 @@ public abstract class TowerAI : BaseObj
             Vector3 vecTargetToLength = m_objTargetMob.transform.position - m_Transform.position;
             float fLength = vecTargetToLength.magnitude;
 
-            if (fLength > m_tagStatus.fRange)
+            if (fLength > m_tTowerInfo.fRange)
             {
                 //  Debug.Log("RangeOut");
                 m_objTargetMob = null;
@@ -527,9 +527,9 @@ public abstract class TowerAI : BaseObj
             }
         }
 
-        if (m_tagStatus.fAtkCoolTime > m_tagStatus.fMaxAtkCoolTime)
+        if (m_tTowerInfo.fAtkCoolTime > m_tTowerInfo.fMaxAtkCoolTime)
         {
-            m_tagStatus.fAtkCoolTime = 0;
+            m_tTowerInfo.fAtkCoolTime = 0;
             CreateBullet(/*"Magic_Bullet_0"*/);
         }
     }
@@ -541,9 +541,13 @@ public abstract class TowerAI : BaseObj
        
         // Debug.Log("Attack");
         DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
-        tagTemp.iAtk = m_tagStatus.iAtk;
-        if (m_tagStatus.fRange > 0 || tagTemp.fMaxLifeTime<0)
-            tagTemp.fMaxLifeTime = m_tagStatus.fRange;
+        if (m_tTowerInfo.iAtk < 0)
+            tagTemp.iAtk = 0;
+        else
+            tagTemp.iAtk = m_tTowerInfo.iAtk;
+
+        if (m_tTowerInfo.fRange > 0 || tagTemp.fMaxLifeTime<0)
+            tagTemp.fMaxLifeTime = m_tTowerInfo.fRange;
         else
             tagTemp.fMaxLifeTime = 1f;
 
@@ -555,8 +559,12 @@ public abstract class TowerAI : BaseObj
         vDir.Normalize();
         Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
-        if(retObj)
+        if (retObj)
+        {
             retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
+            retObj.GetComponent<BaseBullet>().m_tStatusInfo = m_tStatusInfo;
+            retObj.GetComponent<BaseBullet>().m_tBulletInfo.iStatus = m_tTowerInfo.iBulletStatus;
+        }
         //공격
         //공격 중 타겟팅이 벗어나면 해제
         //  m_objTargetMob
@@ -564,19 +572,19 @@ public abstract class TowerAI : BaseObj
 
     private void DoIdle()
     {
-        m_tagStatus.fAtkCoolTime = 0;
+        m_tTowerInfo.fAtkCoolTime = 0;
     }
 
     #endregion
 
     public void StartModifyPos()
     {
-        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyStart;
+        m_tTowerInfo.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyStart;
 
     }
     public void EndModifyPos()
     {
-        m_tagStatus.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyEnd;
+        m_tTowerInfo.iStatus |= GConst.BaseValue.iStatFlag_CheckModifyEnd;
     }
     private void Modify_Pos()
     {

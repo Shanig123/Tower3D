@@ -12,7 +12,7 @@ public class ScrollTower : TowerAI
     {
        
         base.Start();
-        m_tagStatus.eType = DataEnum.eTowerType.Scrl;
+        m_tTowerInfo.eType = DataEnum.eTowerType.Scrl;
         //  m_tagStatus.strTowerName = gameObject.name;
         //EditorUtility
     }

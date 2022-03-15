@@ -59,12 +59,12 @@ public class NormalBullet : BaseBullet
 
     protected override void DoActiveState()
     {
-        m_tagStatus.fLifeTime += Time.deltaTime;
+        m_tBulletInfo.fLifeTime += Time.deltaTime;
 
 
-        if ((m_vCreatePos - transform.position).magnitude > m_tagStatus.fMaxLifeTime)
+        if ((m_vCreatePos - transform.position).magnitude > m_tBulletInfo.fMaxLifeTime)
         {
-            m_tagStatus.fLifeTime = 0;
+            m_tBulletInfo.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
         }
         else
@@ -78,8 +78,8 @@ public class NormalBullet : BaseBullet
         //GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
         //    Get_ObjPool(transform.position, "CornBust");
 
-        m_tagStatus.fMaxLifeTime = 0;
-        m_tagStatus.fLifeTime = 0;
+        m_tBulletInfo.fMaxLifeTime = 0;
+        m_tBulletInfo.fLifeTime = 0;
         m_objTargetMob = null;
         m_eNextState = DataEnum.eState.NoActive;
 

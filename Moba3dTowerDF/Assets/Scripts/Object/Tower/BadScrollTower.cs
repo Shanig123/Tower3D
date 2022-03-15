@@ -10,7 +10,7 @@ public class BadScrollTower : TowerAI
     // Start is called before the first frame update
     protected override void Start()
     {
-        m_tagStatus.eType = DataEnum.eTowerType.Scrl;
+        m_tTowerInfo.eType = DataEnum.eTowerType.Scrl;
         base.Start();
         //  m_tagStatus.strTowerName = gameObject.name;
         //EditorUtility

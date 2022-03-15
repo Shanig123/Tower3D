@@ -9,7 +9,7 @@ public class BaseAttack : TowerAI
     // Start is called before the first frame update
     protected override void Start()
     {
-        m_tagStatus.eType = DataEnum.eTowerType.Atk;
+        m_tTowerInfo.eType = DataEnum.eTowerType.Atk;
         base.Start();
         if((m_strBulletName == null) || (m_strBulletName == ""))
         {

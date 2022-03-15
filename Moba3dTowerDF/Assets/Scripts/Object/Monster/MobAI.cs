@@ -15,8 +15,8 @@ public class MobAI : BaseObj
 
 
 
-    public DataStruct.tagMobStatus m_tagStatus;
-
+    public DataStruct.tagMobStatus m_tMobInfo;
+    public DataStruct.tagStatusInfo m_tStatusInfo;
     [SerializeField] private PlayerController m_playerController;
 
     [SerializeField] private Vector3[] m_arrWaypoints;
@@ -27,6 +27,7 @@ public class MobAI : BaseObj
     [SerializeField] private DataEnum.eState m_eNextMobState = DataEnum.eState.End;
     [SerializeField] private DataEnum.eState m_eCurMobState = DataEnum.eState.End;
 
+    private int m_iDamage_Buffer;
     #endregion
     #region Property
     public DataEnum.eState GetState
@@ -36,6 +37,9 @@ public class MobAI : BaseObj
             return m_eCurMobState;
         }
     }
+    public int Get_Status { get { return m_tMobInfo.iStatus; } }
+
+
     public DataEnum.eState SetState
     {
         set
@@ -47,8 +51,74 @@ public class MobAI : BaseObj
     {
         set
         {
-            m_tagStatus.iHp += value;
+            m_tMobInfo.iHp += value;
         }
+    }
+
+    public int Add_Damage
+    {
+        set
+        {
+            m_iDamage_Buffer += value;
+        }
+    }
+
+    public void Set_FireStatus(DataStruct.tagStatusInfo _tStatusInfo)
+    {
+        m_tMobInfo.iStatus |= (int)DataEnum.eStatus.Fire;
+        m_tStatusInfo.fFireStatusTime = 0;
+        m_tStatusInfo.fFireMaxStatusTime = _tStatusInfo.fFireMaxStatusTime;
+        m_tStatusInfo.iFireDamage = _tStatusInfo.iFireDamage;
+    }
+    public void Set_PoisonStatus(DataStruct.tagStatusInfo _tStatusInfo)
+    {
+        m_tMobInfo.iStatus |= (int)DataEnum.eStatus.Poison;
+        m_tStatusInfo.fPoisonStatusTime = 0;
+        m_tStatusInfo.fPoisonDotTime = 0;
+        if (_tStatusInfo.fPoisonMaxStatusTime > 0)
+            m_tStatusInfo.fPoisonMaxStatusTime = _tStatusInfo.fPoisonMaxStatusTime;
+        else
+            m_tStatusInfo.fPoisonMaxStatusTime = 1f;
+
+        if (_tStatusInfo.fPoisonDotMaxTime > 0)
+            m_tStatusInfo.fPoisonDotMaxTime = _tStatusInfo.fPoisonDotMaxTime;
+        else
+            m_tStatusInfo.fPoisonDotMaxTime = 0.5f;
+
+        if (_tStatusInfo.iPoisonDamage > 0)
+            m_tStatusInfo.iPoisonDamage = _tStatusInfo.iPoisonDamage;
+        else
+            m_tStatusInfo.iPoisonDamage = 3;
+
+    }
+
+    public void Set_SlowStatus(DataStruct.tagStatusInfo _tStatusInfo)
+    {
+        m_tMobInfo.iStatus |= (int)DataEnum.eStatus.Slow;
+        m_tStatusInfo.fSlowSpeed = 0;
+
+        if (_tStatusInfo.fSlowMaxStatusTime > 0)
+            m_tStatusInfo.fSlowMaxStatusTime = _tStatusInfo.fSlowMaxStatusTime;
+        else
+            m_tStatusInfo.fSlowMaxStatusTime = 1f;
+
+        if (_tStatusInfo.fSlowSpeed > 0)
+            m_tStatusInfo.fSlowSpeed = _tStatusInfo.fSlowSpeed;
+        else
+            m_tStatusInfo.fSlowSpeed = 0.25f;      
+        
+    }
+
+    public void Set_StunStatus(DataStruct.tagStatusInfo _tStatusInfo)
+    {
+        m_tMobInfo.iStatus |= (int)DataEnum.eStatus.Stun;
+        m_tStatusInfo.fStunStatusTime = 0;
+
+        if (_tStatusInfo.fStunMaxStatusTime > 0)
+            m_tStatusInfo.fStunMaxStatusTime = _tStatusInfo.fStunMaxStatusTime;
+        else
+            m_tStatusInfo.fStunMaxStatusTime = 1f;
+
     }
     #endregion
     // Start is called before the first frame update
@@ -88,13 +158,13 @@ public class MobAI : BaseObj
 
     private void DefaultStat()
     {
-        if (m_tagStatus.fMoveSpeed == 0)
-            m_tagStatus.fMoveSpeed = 3f;
-        if (m_tagStatus.iHp == 0)
+        if (m_tMobInfo.fMoveSpeed == 0)
+            m_tMobInfo.fMoveSpeed = 3f;
+        if (m_tMobInfo.iHp == 0)
         {
             StageController stageController= GameObject.FindGameObjectWithTag("TotalController").GetComponent<StageController>();
-            m_tagStatus.iHp = 5 + (stageController.Get_Wave * 2);
-            m_tagStatus.iMaxHp = m_tagStatus.iHp;
+            m_tMobInfo.iHp = 5 + (stageController.Get_Wave * 2);
+            m_tMobInfo.iMaxHp = m_tMobInfo.iHp;
 
         }
     }
@@ -198,8 +268,10 @@ public class MobAI : BaseObj
     }
     private void DoActiveState()
     {
-      
-        if(m_tagStatus.iHp < 0)
+        Statuse_Phase();
+        Damage_Phase();
+
+        if (m_tMobInfo.iHp < 0)
         {
             CheckDead();
         }
@@ -208,13 +280,13 @@ public class MobAI : BaseObj
     }
     private void DoDeadState()
     {
-        m_tagStatus.fDeadTime += Time.deltaTime;
-        if (m_tagStatus.fDeadTime > 5.0f)
+        m_tMobInfo.fDeadTime += Time.deltaTime;
+        if (m_tMobInfo.fDeadTime > 5.0f)
         {
             StageController temp = GameObject.FindWithTag("TotalController").GetComponent<StageController>();
             temp.Min_MobCount();
             Destroy(gameObject);
-            m_tagStatus.fDeadTime = 0;
+            m_tMobInfo.fDeadTime = 0;
 
         }
         //m_Ani.GetCurrentAnimatorStateInfo().normalizedTime
@@ -263,11 +335,181 @@ public class MobAI : BaseObj
             m_iCurTargetWaypoint = m_iNextTargetWaypoint;
         }
     }
+    private float Calculate_Speed()
+    {
+        return  (float)((1-(int)m_tMobInfo.fMoveSpeed_Stun)) *
+            m_tMobInfo.fMoveSpeed * (1f + (m_tMobInfo.fMoveSpeed_Fast - m_tMobInfo.fMoveSpeed_Slow));
 
+    }
     private void DoMove()
     {
-        m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;
+        float fResultSpeed = Calculate_Speed();
+        if(fResultSpeed >0)
+        {
+            m_Transform.position += Time.deltaTime * fResultSpeed * m_Transform.forward;
+            Ani_Run();
+            m_Ani.speed = fResultSpeed * 0.5f;
+        }
+        else if(fResultSpeed ==0)
+        {
+            // m_Transform.position += Time.deltaTime * fResultSpeed * m_Transform.forward;
+            Ani_Idle();
+            m_Ani.speed = fResultSpeed * 0.5f;
+        }
+        
+    }
+    private void Ani_Run()
+    {
         m_Ani.SetBool("isRunning", true);
-        m_Ani.speed = m_tagStatus.fMoveSpeed * 0.5f;
+    }
+    private void Ani_Idle()
+    {
+        m_Ani.SetBool("isIdle", true);
+        m_Ani.SetBool("Idle", true);
+    }
+    private void Create_DamageEffect()
+    {
+        GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+        obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_iDamage_Buffer.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
+    }
+    private void Create_StatusEffect(string _strStatusMessage, Color _color)
+    {
+        GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+        obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(_strStatusMessage, _color, (DataEnum.eTextEffect.Up | DataEnum.eTextEffect.SizeDown | DataEnum.eTextEffect.Default_AlphaDown));
+    }
+    private void Damage_Phase()
+    {
+   
+       if( m_iDamage_Buffer>0)
+       {
+            m_tMobInfo.iHp -= m_iDamage_Buffer;
+            Create_DamageEffect();
+            m_iDamage_Buffer = 0;
+
+       }
+
+    }
+    private void Reset_Status()
+    {
+        m_tStatusInfo = new DataStruct.tagStatusInfo();
+        //m_tStatusInfo.fDotMaxTime = 0;
+        //m_tStatusInfo.fFireStatusTime = 0;
+        //m_tStatusInfo.fFireMaxStatusTime = 0;
+        //m_tStatusInfo.fFireCoolTime = 0;
+        //m_tStatusInfo.fPoisonStatusTime = 0;
+        //m_tStatusInfo.fPoisonMaxStatusTime = 0;
+        //m_tStatusInfo.fPoisonCoolTime = 0;
+        //m_tStatusInfo.fSlowStatusTime = 0;
+        //m_tStatusInfo.fSlowMaxStatusTime = 0;
+        //m_tStatusInfo.fStunStatusTime = 0;
+        //m_tStatusInfo.fStunMaxStatusTime = 0;
+
+        //m_tStatusInfo.fDotTime = 0;
+        //m_tStatusInfo.fDotMaxTime = 0;
+
+        //m_tStatusInfo.iPoisonDamage = 0;
+        //m_tStatusInfo.iFireDamage = 0;
+
+    }
+    private void Statuse_Phase()
+    {
+        int iStatus = m_tMobInfo.iStatus;
+        if(iStatus == 0)
+        {
+            Reset_Status();
+            return;
+        }
+
+        if ((iStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
+        {
+            if (m_tStatusInfo.fStunStatusTime == 0)
+            {
+                Create_StatusEffect("STUN!", Color.gray);
+            }
+            m_tStatusInfo.fStunStatusTime += Time.deltaTime;
+            if(m_tStatusInfo.fStunStatusTime > m_tStatusInfo.fStunMaxStatusTime)
+            {
+                m_tStatusInfo.fStunStatusTime = 0;
+                m_tStatusInfo.fStunMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Stun);
+                m_tMobInfo.fMoveSpeed_Stun = 0;
+            }
+            else
+            {
+                //기절상태이상 처리
+                m_tMobInfo.fMoveSpeed_Stun = 1;
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
+        {
+            if(m_tStatusInfo.fSlowStatusTime == 0)
+            {
+                Create_StatusEffect("SLOW!", Color.blue);
+            }
+            m_tStatusInfo.fSlowStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fSlowStatusTime > m_tStatusInfo.fSlowMaxStatusTime)
+            {
+                m_tStatusInfo.fSlowStatusTime = 0;
+                m_tStatusInfo.fSlowMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Slow);
+
+                m_tMobInfo.fMoveSpeed_Slow = 0;
+                m_tStatusInfo.fSlowSpeed = 0;
+            }
+            else
+            { 
+                //슬로우상태이상 처리
+                m_tMobInfo.fMoveSpeed_Slow = m_tStatusInfo.fSlowSpeed;
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
+        {
+            if (m_tStatusInfo.fFireStatusTime == 0)
+            {
+                Create_StatusEffect("FIRE!", Color.yellow);
+            }
+            m_tStatusInfo.fFireStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fFireStatusTime > m_tStatusInfo.fFireMaxStatusTime)
+            {
+                m_tStatusInfo.fFireStatusTime = 0;
+                m_tStatusInfo.fFireMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Fire);
+            }
+            else
+            {
+                //화염상태이상 처리
+
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
+        {
+            if (m_tStatusInfo.fPoisonStatusTime == 0)
+            {
+                Create_StatusEffect("POISON!", Color.green);
+            }
+            m_tStatusInfo.fPoisonStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fPoisonStatusTime > m_tStatusInfo.fPoisonMaxStatusTime)
+            {
+                m_tStatusInfo.fPoisonStatusTime = 0;
+                m_tStatusInfo.fPoisonMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Poison);
+                m_tStatusInfo.iPoisonDamage = 0;
+                m_tStatusInfo.fPoisonDotTime = 0;
+            }
+            else
+            { 
+                //독상태이상 처리
+                m_tStatusInfo.fPoisonDotTime += Time.deltaTime;
+                if (m_tStatusInfo.fPoisonDotTime > m_tStatusInfo.fPoisonDotMaxTime)
+                {
+                    m_iDamage_Buffer += m_tStatusInfo.iPoisonDamage;
+                    m_tStatusInfo.fPoisonDotTime = 0;
+                }
+                
+            }
+        }
+        
     }
 }

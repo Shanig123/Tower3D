@@ -1989,17 +1989,17 @@ MonoBehaviour:
   m_Transform: {fileID: 0}
   m_Ani: {fileID: 0}
   m_strPrefabName: 
-  m_tagStatus:
+  m_tTowerInfo:
     iHp: 0
     iMaxHp: 0
-    iAtk: 0
+    iAtk: -1
     iLvl: 0
+    iStatus: 0
     eType: 0
     iTowerId: 0
-    iStatus: 0
     fRange: 0
     fAtkCoolTime: 0
-    fMaxAtkCoolTime: 5
+    fMaxAtkCoolTime: 0
   m_tEffectInfo:
     colorEffect: {r: 1, g: 1, b: 1, a: 1}
     vScale: {x: 1, y: 1, z: 1}
@@ -2009,6 +2009,20 @@ MonoBehaviour:
     fTimerSpeed: 1
     fMaxLifeTime: 0
     bLoop: 1
+  m_tStatusInfo:
+    fFireStatusTime: 0
+    fFireMaxStatusTime: 0
+    iFireDamage: 0
+    fPoisonStatusTime: 0
+    fPoisonMaxStatusTime: 0
+    fPoisonDotTime: 0
+    fPoisonDotMaxTime: 0
+    iPoisonDamage: 0
+    fSlowStatusTime: 0
+    fSlowMaxStatusTime: 0
+    fSlowSpeed: 0
+    fStunStatusTime: 0
+    fStunMaxStatusTime: 0
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4

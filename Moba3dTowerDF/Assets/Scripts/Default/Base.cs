@@ -57,14 +57,39 @@ namespace DataEnum
         Poison      = 1,
         Fire        = (1 << 1),
         Slow        = (1 << 2),
-        Sturn       = (1 << 3),
+        Stun       = (1 << 3),
         End         = 0
     }
 }
 namespace DataStruct
 {
     [System.Serializable]
-    public class tagStatus
+    public class tagStatusInfo
+    {
+        public tagStatusInfo() { var a = this; a = null; }
+
+        public float fFireStatusTime;
+        public float fFireMaxStatusTime;
+        public int iFireDamage;
+
+        public float fPoisonStatusTime;
+        public float fPoisonMaxStatusTime;
+        public float fPoisonDotTime;
+        public float fPoisonDotMaxTime;
+        public int iPoisonDamage;
+
+        public float fSlowStatusTime;
+        public float fSlowMaxStatusTime;
+        public float fSlowSpeed;
+
+        public float fStunStatusTime;
+        public float fStunMaxStatusTime;
+
+
+
+    }
+    [System.Serializable]
+    public class tagBaseStatus
     {
         public int iHp;
         public int iMaxHp;
@@ -76,18 +101,22 @@ namespace DataStruct
     }
 
     [System.Serializable]
-    public class tagMobStatus : tagStatus
+    public class tagMobStatus : tagBaseStatus
     {
  
         public float fMoveSpeed;
+        public float fMoveSpeed_Stun;
+        public float fMoveSpeed_Slow;
+        public float fMoveSpeed_Fast;
         public float fDeadTime;
     }
 
     [System.Serializable]
-    public class tagTowerStatus : tagStatus
+    public class tagTowerStatus : tagBaseStatus
     {
         //DataEnum.eRankID
-       
+
+        public int iBulletStatus;
         public DataEnum.eTowerType eType;
         public int iTowerId;
       
@@ -98,7 +127,7 @@ namespace DataStruct
     }
 
     [System.Serializable]
-    public class tagBulletStatus : tagStatus
+    public class tagBulletStatus : tagBaseStatus
     {
         //public int iAtk;
         public GameObject objTarget;

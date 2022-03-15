@@ -6,8 +6,8 @@ public abstract class BaseBullet : BaseObj
 {
     #region Values
 
-    public DataStruct.tagBulletStatus m_tagStatus;
-
+    public DataStruct.tagBulletStatus m_tBulletInfo;
+    public DataStruct.tagStatusInfo m_tStatusInfo;
     [SerializeField] protected GameObject m_objTargetMob;
     [SerializeField] protected int m_iTargetID;
 
@@ -32,7 +32,7 @@ public abstract class BaseBullet : BaseObj
     {
         get
         {
-            return m_tagStatus.strObjTagName;
+            return m_tBulletInfo.strObjTagName;
         }
 
     }
@@ -40,7 +40,7 @@ public abstract class BaseBullet : BaseObj
     {
         set
         {
-            m_tagStatus = value;
+            m_tBulletInfo = value;
         }
     }
 
@@ -120,7 +120,7 @@ public abstract class BaseBullet : BaseObj
                 case DataEnum.eState.Ready:
                     {
                         m_vCreatePos = transform.position;
-                        m_objTargetMob = m_tagStatus.objTarget;
+                        m_objTargetMob = m_tBulletInfo.objTarget;
                         m_bObjActiveOnOff = true;
                         m_bCheckDead = false;
                     }
@@ -192,24 +192,62 @@ public abstract class BaseBullet : BaseObj
         if (!m_bCheckDead)
         {
             GameObject obj = other.gameObject;
-            obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
-            m_tagStatus.fLifeTime = 0;
+            if (m_tBulletInfo.iAtk > 0)
+                obj.GetComponent<MobAI>().Add_Damage = (m_tBulletInfo.iAtk);
+
+            Passing_StatusInfo(obj);
+
+            m_tBulletInfo.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
-            Create_DamageEffect();
+            //Create_DamageEffect();
         }
     }
+
+    protected void Passing_StatusInfo(GameObject _obj)
+    {
+        int iMobStatus = _obj.GetComponent<MobAI>().m_tMobInfo.iStatus;
+        if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire))
+            {
+                _obj.GetComponent<MobAI>().Set_FireStatus(m_tStatusInfo);
+            }
+        }
+        if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison))
+            {
+                _obj.GetComponent<MobAI>().Set_PoisonStatus(m_tStatusInfo);
+            }
+        }
+        if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow))
+            {
+                _obj.GetComponent<MobAI>().Set_SlowStatus(m_tStatusInfo);
+            }
+        }
+        if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun))
+            {
+                _obj.GetComponent<MobAI>().Set_StunStatus(m_tStatusInfo);
+            }
+        }
+    }
+
     protected void DoMove()
     {
-        m_Transform.position += Time.deltaTime * m_tagStatus.fMoveSpeed * m_Transform.forward;
+        m_Transform.position += Time.deltaTime * m_tBulletInfo.fMoveSpeed * m_Transform.forward;
         // m_Ani.SetBool("isRunning", true);
     }
 
-    protected void Create_DamageEffect()
-    {
-        GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
-        obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
-        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tagStatus.iAtk.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
-    }
+    //protected void Create_DamageEffect()
+    //{
+    //    GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+    //    obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+    //    obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tagStatus.iAtk.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
+    //}
 
     protected void Return_Pool()
     {
@@ -217,8 +255,8 @@ public abstract class BaseBullet : BaseObj
         {
             //ref GameObject temp = this.gameObject;
             GameObject temp = this.gameObject;
-            m_tagStatus.objTarget = null;
-            ObjPool_Manager.Instance.ReturnPool(ref temp, this.m_tagStatus.strObjTagName); //? 
+            m_tBulletInfo.objTarget = null;
+            ObjPool_Manager.Instance.ReturnPool(ref temp, this.m_tBulletInfo.strObjTagName); //? 
             this.gameObject.SetActive(false);
         }
         else

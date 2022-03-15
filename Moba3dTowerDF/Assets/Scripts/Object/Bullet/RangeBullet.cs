@@ -29,11 +29,11 @@ public class RangeBullet : BaseBullet
 
     protected override void DoActiveState()
     {
-        m_tagStatus.fLifeTime += Time.deltaTime;
+        m_tBulletInfo.fLifeTime += Time.deltaTime;
 
-        if (m_tagStatus.fLifeTime > m_tagStatus.fMaxLifeTime)
+        if (m_tBulletInfo.fLifeTime > m_tBulletInfo.fMaxLifeTime)
         {
-            m_tagStatus.fLifeTime = 0;
+            m_tBulletInfo.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
         }
         else
@@ -69,16 +69,16 @@ public class RangeBullet : BaseBullet
         {
             m_fDeadTime = 0;
             m_fAtkCoolTime = 0;
-            m_tagStatus.fLifeTime = 0;
+            m_tBulletInfo.fLifeTime = 0;
 
-            m_tagStatus.fMaxLifeTime = 0;
+            m_tBulletInfo.fMaxLifeTime = 0;
             m_objTargetMob = null;
             m_eNextState = DataEnum.eState.NoActive;
         }
         else
         {
-            float fAspect = 1f - (m_fDeadTime/4f);
-            transform.localScale = new Vector3(fAspect, fAspect, fAspect);
+            float fRatio = 1f - (m_fDeadTime/4f);
+            transform.localScale = new Vector3(fRatio, fRatio, fRatio);
         }
     }
     protected override void OnTriggerEnter(Collider other)
@@ -86,9 +86,10 @@ public class RangeBullet : BaseBullet
         if (!m_bCheckDead)
         {
             GameObject obj = other.gameObject;
-            obj.GetComponent<MobAI>().Add_HP = (-m_tagStatus.iAtk);
-
-            Create_DamageEffect();
+            if(m_tBulletInfo.iAtk>0)
+                obj.GetComponent<MobAI>().Add_Damage = (m_tBulletInfo.iAtk);
+            Passing_StatusInfo(obj);
+            //  Create_DamageEffect();
         }
     }
 }
