@@ -181,6 +181,8 @@ public class ConstructionController : MonoBehaviour
         }
         else
         {
+            //골드 부족 사운드 재생 필요함.
+
             GFunc.Function.Print_Log("Not enough gold.");
         }
 

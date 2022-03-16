@@ -29,6 +29,30 @@ public class CircleTrail_Effect : Base_Effect
         {
             GetComponent<ParticleSystemRenderer>().material.shader = m_baseShader;
         }
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+        if(!ps.isPlaying)
+        {
+        
+            GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().ReturnPool(this.gameObject, m_strPrefabName);
+            m_bIsOn = false;
+            ps.Clear();
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnEnable()
+    {
+        ParticleSystem ps = GetComponent<ParticleSystem>();
+        var mainModule = ps.main;
+        mainModule.startColor = m_tEffectInfo.colorEffect;
+        mainModule.simulationSpeed = m_tEffectInfo.fSpeed;
+
+        var scale = GetComponent<Transform>().localScale;
+        scale.x *= m_tEffectInfo.vScale.x; scale.y *= m_tEffectInfo.vScale.y; scale.z *= m_tEffectInfo.vScale.z;
+        GetComponent<Transform>().localScale = scale;
+
+        m_baseShader = Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply");
+
     }
     protected override void ActiveInit()
     {

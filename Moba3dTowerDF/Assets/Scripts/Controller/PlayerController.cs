@@ -506,8 +506,10 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 20.0f, iLayerMask))
         {
-            Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_0", hit.collider.gameObject.transform.position);
-       
+           // Resource_Manager.Instance.InstanceObj("Effect", "DonutTrail_Bust_0", hit.collider.gameObject.transform.position);
+            GetComponent<EffectPoolController>().Get_ObjPool(hit.collider.gameObject.transform.position, "DonutTrail_Bust_0");
+
+
             if (hit.collider.gameObject)
             {
                 m_objPicking = hit.collider.gameObject;
@@ -859,7 +861,9 @@ public class PlayerController : MonoBehaviour
         if(iPickingTowerRank >0 && iPickingTowerRank<5)
         {
             GFunc.Function.Print_simpleLog("TowerRankUp");
-            Resource_Manager.Instance.InstanceObj("Effect", "CircleTrail_Bust", m_objPicking.transform.position);
+           // Resource_Manager.Instance.InstanceObj("Effect", "CircleTrail_Bust", m_objPicking.transform.position);
+      
+
             CreateRankUpTower(_bSort, iPickingTowerRank);
         }
         else
@@ -877,7 +881,9 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower_NoAwait((DataEnum.eRankID)(1 << (_iPickiTowerRank)), m_objPicking.transform.position))
             {
+                GetComponent<EffectPoolController>().Get_ObjPool(m_objPicking.transform.position, "CircleTrail_Bust");
                 Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5, new Vector3(100, 100, 100));
+
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -904,7 +910,9 @@ public class PlayerController : MonoBehaviour
         {
             if (objEvent.GetComponent<Constructor>().Construction_Tower((DataEnum.eRankID)(1 << (_iPickiTowerRank)), 0))
             {
+                GetComponent<EffectPoolController>().Get_ObjPool(m_objPicking.transform.position, "CircleTrail_Bust");
                 Sound_Manager.Instance.Play_AudioClip(DataEnum.eClip.UI, 5, new Vector3(100, 100, 100));
+
                 //gameObject.GetComponent<AudioClipController>().Play_AudioClip(DataEnum.eClip.Sfx, 8);
                 Destroy(m_objPicking);
                 Destroy(m_objPickTower);
@@ -979,7 +987,9 @@ public class PlayerController : MonoBehaviour
                 gameObject.GetComponent<ConstructionController>().Sort_AwaitList(m_iPick_AwaitBoxNumber);
             }
             Vector3 vPos = m_objPickTower.transform.position; vPos.y += 1f;
-            Resource_Manager.Instance.InstanceObj("Effect", "Puff_", vPos);
+
+            //Resource_Manager.Instance.InstanceObj("Effect", "Puff_", vPos);
+            GetComponent<EffectPoolController>().Get_ObjPool(vPos, "Puff_");
             gameObject.GetComponent<AbilityController>().Add_Ability = _iAbilityNumber;
 
 

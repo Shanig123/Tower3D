@@ -75,8 +75,9 @@ public class NormalBullet : BaseBullet
     {
         //d이펙트 생성
 
-        //GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
-        //    Get_ObjPool(transform.position, "CornBust");
+        GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().
+            Get_ObjPool(transform.position, m_strDeadEffectName);
+
 
         m_tBulletInfo.fMaxLifeTime = 0;
         m_tBulletInfo.fLifeTime = 0;
