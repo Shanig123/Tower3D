@@ -12,7 +12,26 @@ public abstract class Base_Effect : MonoBehaviour
     public AudioSource m_audioSource;
     // Start is called before the first frame update
     protected bool m_bIsActiveInit = false;
-
+    [SerializeField] protected ParticleSystem m_ps;
+    public void Set_Color()
+    {
+        if (m_ps != null)
+        {
+            var mainModule = m_ps.main;
+            mainModule.startColor = m_tEffectInfo.colorEffect;
+        }
+    }
+    public void Set_Color(Color _color)
+    {
+        m_tEffectInfo.colorEffect = _color;
+        
+        if(m_ps != null)
+        {
+            var mainModule = m_ps.main;
+            mainModule.startColor = m_tEffectInfo.colorEffect;
+        }
+      
+    }
     protected void Awake()
     {
         m_audioSource = GetComponent<AudioSource>();

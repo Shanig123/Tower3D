@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Short_Effect : Base_Effect
 {
-    [SerializeField] private ParticleSystem m_ps;
     protected override void Start()
     {
         base.Start();
@@ -21,18 +20,13 @@ public class Short_Effect : Base_Effect
     }
     private void OnEnable() 
     {
-       // ParticleSystem ps = GetComponent<ParticleSystem>();
         var _main =   m_ps.main;
         _main.startColor = m_tEffectInfo.colorEffect;
-
-        //m_ps.main = _main;
     }
     private void OnDisable() 
     {
         var _main =   m_ps.main;
-
         _main.startColor = Color.white;
-        //m_ps.main = _main;
     }
     // Update is called once per frame
     void Update()

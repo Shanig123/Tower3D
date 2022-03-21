@@ -601,7 +601,7 @@ public abstract class TowerAI : BaseObj
         //이펙트 추가
         GFunc.Function.Print_Log("HitScan");
         GameObject objEffect=  GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().Get_ObjPool(vCreateEffectPos, m_strBulletName);
-        objEffect.GetComponent<Base_Effect>().m_tEffectInfo.colorEffect = m_tEffectInfo.colorEffect;
+        objEffect.GetComponent<Base_Effect>().Set_Color(m_tEffectInfo.colorEffect);
     }
     
     protected void Passing_StatusInfo(GameObject _objMonster)
