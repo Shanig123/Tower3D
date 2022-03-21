@@ -108,11 +108,11 @@ public class Game_Manager : MonoBehaviour
     {
         Resource_Manager.Instance.SaveData();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
-                Application.OpenURL("some url such as your homepage");
+            Application.OpenURL("some url such as your homepage");
 #else
-                Application.Quit();
+            Application.Quit();
 #endif
 
     }
