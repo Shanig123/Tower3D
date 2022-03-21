@@ -203,35 +203,35 @@ public abstract class BaseBullet : BaseObj
         }
     }
 
-    protected void Passing_StatusInfo(GameObject _obj)
+    protected void Passing_StatusInfo(GameObject _objMonster)
     {
-        int iMobStatus = _obj.GetComponent<MobAI>().m_tMobInfo.iStatus;
+        int iMobStatus = _objMonster.GetComponent<MobAI>().m_tMobInfo.iStatus;
         if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire))
             {
-                _obj.GetComponent<MobAI>().Set_FireStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_FireStatus(m_tStatusInfo);
             }
         }
         if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison))
             {
-                _obj.GetComponent<MobAI>().Set_PoisonStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_PoisonStatus(m_tStatusInfo);
             }
         }
         if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow))
             {
-                _obj.GetComponent<MobAI>().Set_SlowStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_SlowStatus(m_tStatusInfo);
             }
         }
         if ((m_tBulletInfo.iStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun))
             {
-                _obj.GetComponent<MobAI>().Set_StunStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_StunStatus(m_tStatusInfo);
             }
         }
     }
@@ -271,4 +271,5 @@ public abstract class BaseBullet : BaseObj
         TargetPos.y = transform.position.y;
         transform.LookAt(TargetPos);
     }
+
 }

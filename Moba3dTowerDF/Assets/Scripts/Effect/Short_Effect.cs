@@ -19,7 +19,21 @@ public class Short_Effect : Base_Effect
 
        // m_baseShader = Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply");
     }
+    private void OnEnable() 
+    {
+       // ParticleSystem ps = GetComponent<ParticleSystem>();
+        var _main =   m_ps.main;
+        _main.startColor = m_tEffectInfo.colorEffect;
 
+        //m_ps.main = _main;
+    }
+    private void OnDisable() 
+    {
+        var _main =   m_ps.main;
+
+        _main.startColor = Color.white;
+        //m_ps.main = _main;
+    }
     // Update is called once per frame
     void Update()
     {

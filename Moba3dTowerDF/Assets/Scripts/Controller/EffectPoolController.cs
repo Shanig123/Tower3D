@@ -145,6 +145,7 @@ public class EffectPoolController : MonoBehaviour
                     if (createObject == null)
                         createObject = Resource_Manager.Instance.InstanceObj("Effect_Dead", _strKeyName, _vCreatePos);
 
+                    createObject.GetComponent<Base_Effect>().m_strPrefabName = _strKeyName;
                     createObject.name = createObject.name + "_" + m_iMaxPoolSize;
                     ++m_iMaxPoolSize;
                     createObject.SetActive(true);
@@ -194,6 +195,8 @@ public class EffectPoolController : MonoBehaviour
         }
         return null;
     }
+
+
 
     public void ReturnPool(GameObject _objReturn, string _strTagName)
     {

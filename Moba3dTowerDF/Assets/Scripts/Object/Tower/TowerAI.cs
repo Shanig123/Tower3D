@@ -527,10 +527,14 @@ public abstract class TowerAI : BaseObj
             }
         }
 
+        //추후 쿨타임이 아닌 애니메이션 기반으로 변경 필요함.
         if (m_tTowerInfo.fAtkCoolTime > m_tTowerInfo.fMaxAtkCoolTime)
         {
             m_tTowerInfo.fAtkCoolTime = 0;
-            CreateBullet(/*"Magic_Bullet_0"*/);
+            if(m_tTowerInfo.eType == DataEnum.eTowerType.Atk)
+                CreateBullet(/*"Magic_Bullet_0"*/);
+            else if(m_tTowerInfo.eType == DataEnum.eTowerType.Atk_HitScan)
+                HitScan();
         }
     }
 
@@ -559,15 +563,78 @@ public abstract class TowerAI : BaseObj
         vDir.Normalize();
         Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
+
         if (retObj)
         {
             retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
             retObj.GetComponent<BaseBullet>().m_tStatusInfo = m_tStatusInfo;
             retObj.GetComponent<BaseBullet>().m_tBulletInfo.iStatus = m_tTowerInfo.iBulletStatus;
         }
+
         //공격
         //공격 중 타겟팅이 벗어나면 해제
         //  m_objTargetMob
+    }
+
+   protected void HitScan()
+    {
+        GFunc.Function.Print_Log("Called HitScan");
+        
+        if (m_objTargetMob == null)
+            return;
+ 
+        Vector3 vCreateEffectPos = m_objTargetMob.transform.position;
+        vCreateEffectPos.y += 1f;
+
+        int iTempAtk = 0;
+    
+        if (m_tTowerInfo.iAtk < 0)
+            iTempAtk = 0;
+        else
+            iTempAtk = m_tTowerInfo.iAtk;
+        
+        if (iTempAtk > 0)
+            m_objTargetMob.GetComponent<MobAI>().Add_Damage = (iTempAtk);
+
+        Passing_StatusInfo(m_objTargetMob);
+
+        //이펙트 추가
+        GFunc.Function.Print_Log("HitScan");
+        GameObject objEffect=  GameObject.FindGameObjectWithTag("TotalController").GetComponent<EffectPoolController>().Get_ObjPool(vCreateEffectPos, m_strBulletName);
+        objEffect.GetComponent<Base_Effect>().m_tEffectInfo.colorEffect = m_tEffectInfo.colorEffect;
+    }
+    
+    protected void Passing_StatusInfo(GameObject _objMonster)
+    {
+        int iMobStatus = _objMonster.GetComponent<MobAI>().m_tMobInfo.iStatus;
+        if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire))
+            {
+                _objMonster.GetComponent<MobAI>().Set_FireStatus(m_tStatusInfo);
+            }
+        }
+        if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison))
+            {
+                _objMonster.GetComponent<MobAI>().Set_PoisonStatus(m_tStatusInfo);
+            }
+        }
+        if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow))
+            {
+                _objMonster.GetComponent<MobAI>().Set_SlowStatus(m_tStatusInfo);
+            }
+        }
+        if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
+        {
+            if (!((iMobStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun))
+            {
+                _objMonster.GetComponent<MobAI>().Set_StunStatus(m_tStatusInfo);
+            }
+        }
     }
 
     private void DoIdle()
@@ -596,4 +663,5 @@ public abstract class TowerAI : BaseObj
             transform.position = m_vCurModifyPos;
         }
     }
+
 }

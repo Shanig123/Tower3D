@@ -9,7 +9,7 @@ namespace DataEnum
 {
     public enum eState
     { NoActive, Ready, Active, Dead, End };
-    public enum eTowerType { Atk, Buff, Scrl, End }
+    public enum eTowerType { Atk, Atk_HitScan,Buff, Scrl, End }
     public enum eRankID
     {
         Normal      = 1,

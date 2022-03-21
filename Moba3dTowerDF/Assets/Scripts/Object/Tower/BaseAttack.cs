@@ -7,9 +7,12 @@ public class BaseAttack : TowerAI
     BaseAttack()
            : base() { }
     // Start is called before the first frame update
+
+    [SerializeField] private bool m_bHitScan;
     protected override void Start()
     {
-        m_tTowerInfo.eType = DataEnum.eTowerType.Atk;
+        if(DataEnum.eTowerType.End == m_tTowerInfo.eType)
+            m_tTowerInfo.eType = DataEnum.eTowerType.Atk;
         base.Start();
         if((m_strBulletName == null) || (m_strBulletName == ""))
         {
