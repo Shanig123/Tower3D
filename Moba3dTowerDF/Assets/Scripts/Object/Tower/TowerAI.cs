@@ -10,7 +10,7 @@ public abstract class TowerAI : BaseObj
     #region Value
 
     [SerializeField] protected DataStruct.tagTowerStatus m_tTowerInfo;
-
+    [SerializeField] protected DataStruct.tagBulletStatus m_tTowerBulletInfo;
     public DataStruct.tagEffectInfo m_tEffectInfo;
     //[SerializeField] protected DataStruct.tagStatusInfo m_tStatusInfo;
 
@@ -105,6 +105,18 @@ public abstract class TowerAI : BaseObj
         Rename_Clone();
         UpdateInit_Effect();
 
+       
+        DefaultStat();
+
+        //if( m_tTowerInfo.eType == DataEnum.eTowerType.Buff)
+        //{
+
+        //}
+        m_bFirstInit = true;
+    }
+
+    private void DefaultStat()
+    {
         if (0 == m_fReadyTimerMax)
         {
             m_fReadyTimer = 3;
@@ -115,11 +127,24 @@ public abstract class TowerAI : BaseObj
             m_tTowerInfo.fRange = 3f;
         if (m_tTowerInfo.iAtk == 0)
             m_tTowerInfo.iAtk = 5;
-        //if( m_tTowerInfo.eType == DataEnum.eTowerType.Buff)
-        //{
 
-        //}
-        m_bFirstInit = true;
+
+        if (m_tTowerInfo.iAtk < 0)
+            m_tTowerBulletInfo.iAtk = 0;
+        else
+            m_tTowerBulletInfo.iAtk = m_tTowerInfo.iAtk;
+
+        if (m_tTowerInfo.fRange > 0 || m_tTowerBulletInfo.fMaxLifeTime < 0)
+            m_tTowerBulletInfo.fMaxLifeTime = m_tTowerInfo.fRange;
+        else
+            m_tTowerBulletInfo.fMaxLifeTime = 1f;
+
+        m_tTowerBulletInfo.fLifeTime = 0;
+       
+        if(0 == m_tTowerBulletInfo.fMoveSpeed)
+            m_tTowerBulletInfo.fMoveSpeed = 6.0f;
+
+        m_tTowerBulletInfo.strObjTagName = m_strBulletName; 
     }
 
     protected virtual void EffectFunc()
@@ -551,25 +576,14 @@ public abstract class TowerAI : BaseObj
             return;
        
         // Debug.Log("Attack");
-        DataStruct.tagBulletStatus tagTemp = new DataStruct.tagBulletStatus();
-        if (m_tTowerInfo.iAtk < 0)
-            tagTemp.iAtk = 0;
-        else
-            tagTemp.iAtk = m_tTowerInfo.iAtk;
-
-        if (m_tTowerInfo.fRange > 0 || tagTemp.fMaxLifeTime<0)
-            tagTemp.fMaxLifeTime = m_tTowerInfo.fRange;
-        else
-            tagTemp.fMaxLifeTime = 1f;
-
-        tagTemp.fLifeTime = 0;
-        tagTemp.strObjTagName = m_strBulletName;
-        tagTemp.objTarget = m_objTargetMob;
-        tagTemp.fMoveSpeed = 5.0f;
+   
         Vector3 vDir = m_objTargetMob.transform.position - this.transform.position;
         vDir.Normalize();
         Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
-        GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, tagTemp);
+
+        m_tTowerBulletInfo.objTarget = m_objTargetMob;
+
+        GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, m_tTowerBulletInfo);
 
         if (retObj)
         {
