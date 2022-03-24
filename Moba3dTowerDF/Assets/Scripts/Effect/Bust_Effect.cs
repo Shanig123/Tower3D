@@ -22,7 +22,8 @@ public class Bust_Effect : Base_Effect
     }
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    protected override void LateUpdate()
     {
         if (m_baseShader != GetComponent<ParticleSystemRenderer>().material.shader)
         {

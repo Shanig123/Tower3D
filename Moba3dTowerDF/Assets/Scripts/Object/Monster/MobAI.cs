@@ -134,11 +134,19 @@ public class MobAI : BaseObj
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!m_bFirstInit)
             FirstInit();
+    }
+    void LateUpdate()
+    {
+ 
         CheckMobState();
+       
+    }
+    private void FixedUpdate()
+    {
         MobController();
     }
     private void FirstInit()

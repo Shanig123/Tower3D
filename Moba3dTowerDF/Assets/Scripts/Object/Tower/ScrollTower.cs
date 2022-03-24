@@ -18,9 +18,9 @@ public class ScrollTower : TowerAI
     }
 
     // Update is called once per frame
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         Scroll_RotateY();
     }
 

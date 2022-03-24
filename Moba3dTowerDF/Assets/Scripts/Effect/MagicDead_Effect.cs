@@ -22,7 +22,7 @@ public class MagicDead_Effect : Base_Effect
         m_bIsActiveInit = true;
     }
     // Update is called once per frame
-    void Update()
+    protected override void LateUpdate()
     {
         if(m_bIsOn)
         {

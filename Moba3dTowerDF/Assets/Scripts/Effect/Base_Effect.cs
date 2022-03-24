@@ -41,6 +41,7 @@ public abstract class Base_Effect : MonoBehaviour
     {
 
     }
+    protected abstract void LateUpdate();
     protected abstract void ActiveInit();
 
     protected bool Do_Timer()

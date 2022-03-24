@@ -24,12 +24,12 @@ public class NormalBullet : BaseBullet
 
     }
 
-    protected override void Update()
+    protected override void LateUpdate()
     {
         
         if (!m_bFirstInit)
             FirstInit();
-        base.Update();
+        base.LateUpdate();
         if (m_objTargetMob == null)
             m_iTargetID = 0;
      

@@ -76,9 +76,13 @@ public abstract class BaseBullet : BaseObj
     }
 
     // Update is called once per frame
-   protected virtual void Update()
+   protected virtual void LateUpdate()
     {
         CheckState();
+       
+    }
+    protected virtual void FixedUpdate()
+    {
         DoController();
     }
 

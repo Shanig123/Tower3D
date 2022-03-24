@@ -23,7 +23,7 @@ public class CircleTrail_Effect : Base_Effect
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void LateUpdate()
     {
         if(m_baseShader != GetComponent<ParticleSystemRenderer>().material.shader)
         {

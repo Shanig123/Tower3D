@@ -38,9 +38,9 @@ public class MagicBullet : BaseBullet
 
     }
     // Update is called once per frame
-    protected override void Update()
+    protected override void LateUpdate()
     {
-        base.Update();
+        base.LateUpdate();
     }
 
     protected override void DoReadyState()

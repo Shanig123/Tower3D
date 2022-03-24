@@ -29,7 +29,7 @@ public class Short_Effect : Base_Effect
         _main.startColor = Color.white;
     }
     // Update is called once per frame
-    void Update()
+    protected override void LateUpdate()
     {
         //ParticleSystem ps = GetComponent<ParticleSystem>();
 

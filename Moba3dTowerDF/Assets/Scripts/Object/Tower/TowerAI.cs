@@ -80,17 +80,24 @@ public abstract class TowerAI : BaseObj
     public DataStruct.tagTowerStatus Set_TowerInfo { set { m_tTowerInfo = value; } }
 
     #endregion
-
-    protected virtual void Update()
+    private void Update()
     {
         if (!m_bFirstInit)
             UpdateInit();
+    }
+    protected virtual void FixedUpdate()
+    {
+      
         if (m_objTargetMob == null)
             m_iTargetID = 0;
+ 
+        DoController();
+    }
+    private void LateUpdate()
+    {
         EffectFunc();
         RenderFunc();
         CheckState();
-        DoController();
     }
 
     protected virtual void UpdateInit()
