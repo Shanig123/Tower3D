@@ -1682,8 +1682,8 @@ MonoBehaviour:
   m_Ani: {fileID: 1479808885326176708}
   m_strPrefabName: 
   m_tMobInfo:
-    iHp: 100
-    iMaxHp: 100
+    iHp: 114
+    iMaxHp: 114
     iAtk: 0
     iLvl: 0
     iStatus: 0

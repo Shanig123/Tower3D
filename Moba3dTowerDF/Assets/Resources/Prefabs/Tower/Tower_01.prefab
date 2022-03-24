@@ -2000,7 +2000,7 @@ MonoBehaviour:
     iTowerId: 0
     fRange: 0
     fAtkCoolTime: 0
-    fMaxAtkCoolTime: 3
+    fMaxAtkCoolTime: 1
     tStatusInfo:
       fFireStatusTime: 0
       fFireMaxStatusTime: 0

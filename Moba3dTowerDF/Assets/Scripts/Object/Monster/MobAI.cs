@@ -294,8 +294,9 @@ public class MobAI : BaseObj
             m_tMobInfo.fDeadTime = 0;
 
         }
+        FadeOut();
         //m_Ani.GetCurrentAnimatorStateInfo().normalizedTime
-    
+
     }
 
     private void CheckDead()
@@ -589,4 +590,26 @@ public class MobAI : BaseObj
     }
 
     #endregion
+
+    private void FadeOut()
+    {
+        Material mtrl = GetComponentInChildren<Renderer>().material;
+        if(mtrl == null)
+        {
+            GFunc.Function.Print_Log("Material is null");
+            return;
+        }
+        float fTime = m_tMobInfo.fDeadTime;
+        if (fTime < 1f)
+            return;
+
+        float fAlphaRatio = 1f - (fTime / 5f);
+
+        //shader.SetFloat("",)
+        //  mtrl.shader.render =
+        GFunc.Function.ChangeRenderMode(mtrl, DataEnum.eBlendMode.Transparent);
+        mtrl.SetColor("_Color", new Color(1f, 1f, 1f, fAlphaRatio));
+    }
+   
+
 }

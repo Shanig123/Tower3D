@@ -124,14 +124,14 @@ public class EffectPoolController : MonoBehaviour
                 if (m_ObjEffectPool[_strKeyName].Peek())
                 {
                     m_ObjEffectPool[_strKeyName].Peek().transform.position = _vCreatePos;
-                    GFunc.Function.Print_Log("Peekpos");
-                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.x.ToString());
-                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.y.ToString());
-                    GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.z.ToString());
-                    GFunc.Function.Print_Log("createpos");
-                    GFunc.Function.Print_Log(_vCreatePos.x.ToString());
-                    GFunc.Function.Print_Log(_vCreatePos.y.ToString());
-                    GFunc.Function.Print_Log(_vCreatePos.z.ToString());
+                    //GFunc.Function.Print_Log("Peekpos");
+                    //GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.x.ToString());
+                    //GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.y.ToString());
+                    //GFunc.Function.Print_Log(m_ObjEffectPool[_strKeyName].Peek().transform.position.z.ToString());
+                    //GFunc.Function.Print_Log("createpos");
+                    //GFunc.Function.Print_Log(_vCreatePos.x.ToString());
+                    //GFunc.Function.Print_Log(_vCreatePos.y.ToString());
+                    //GFunc.Function.Print_Log(_vCreatePos.z.ToString());
                     m_ObjEffectPool[_strKeyName].Peek().SetActive(true);
                     //  m_ObjEffectPool[_strKeyName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
                     m_ObjEffectPool[_strKeyName].Peek().GetComponent<Base_Effect>().m_bIsOn = true;

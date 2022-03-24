@@ -61,6 +61,9 @@ namespace DataEnum
         Stun       = (1 << 3),  //8
         End         = 0
     }
+    public enum eBlendMode { Opaque = 0, Cutout, Fade, Transparent }
+
+
 }
 namespace DataStruct
 {
@@ -282,6 +285,55 @@ namespace GFunc
         {
             float fYTemp = _fYIn;
             return fYTemp = fYTemp + (_fPower * _fDeltaTime - 0.5f * 9.807f * _fDeltaTime * _fDeltaTime);
+        }
+
+        public static void ChangeRenderMode(Material standardShaderMaterial, DataEnum.eBlendMode blendMode)
+        {
+            switch (blendMode)
+            {
+                case DataEnum.eBlendMode.Opaque:
+                    standardShaderMaterial.SetFloat("_Mode", 0.0f);
+                    standardShaderMaterial.SetOverrideTag("RenderType", "Opaque");
+                    standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                    standardShaderMaterial.SetInt("_ZWrite", 1); standardShaderMaterial.DisableKeyword("_ALPHATEST_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHABLEND_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    standardShaderMaterial.renderQueue = -1;
+                    break;
+                case DataEnum.eBlendMode.Cutout:
+                    standardShaderMaterial.SetFloat("_Mode", 1.0f);
+                    standardShaderMaterial.SetOverrideTag("RenderType", "Opaque");
+                    standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                    standardShaderMaterial.SetInt("_ZWrite", 1);
+                    standardShaderMaterial.EnableKeyword("_ALPHATEST_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHABLEND_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    standardShaderMaterial.renderQueue = 2450;
+                    break;
+                case DataEnum.eBlendMode.Fade:
+                    standardShaderMaterial.SetFloat("_Mode", 2.0f);
+                    standardShaderMaterial.SetOverrideTag("RenderType", "Transparent");
+                    standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    standardShaderMaterial.SetInt("_ZWrite", 0);
+                    standardShaderMaterial.DisableKeyword("_ALPHATEST_ON");
+                    standardShaderMaterial.EnableKeyword("_ALPHABLEND_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    standardShaderMaterial.renderQueue = 3000;
+                    break;
+                case DataEnum.eBlendMode.Transparent:
+                    standardShaderMaterial.SetFloat("_Mode", 3.0f);
+                    standardShaderMaterial.SetOverrideTag("RenderType", "Transparent");
+                    standardShaderMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    standardShaderMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    standardShaderMaterial.SetInt("_ZWrite", 0); standardShaderMaterial.DisableKeyword("_ALPHATEST_ON");
+                    standardShaderMaterial.DisableKeyword("_ALPHABLEND_ON");
+                    standardShaderMaterial.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                    standardShaderMaterial.renderQueue = 3000;
+                    break;
+            }
         }
 
     }
