@@ -142,7 +142,7 @@ public abstract class TowerAI : BaseObj
         m_tTowerBulletInfo.fLifeTime = 0;
        
         if(0 == m_tTowerBulletInfo.fMoveSpeed)
-            m_tTowerBulletInfo.fMoveSpeed = 6.0f;
+            m_tTowerBulletInfo.fMoveSpeed = GConst.BaseValue.fBulletSpeed;
 
         m_tTowerBulletInfo.strObjTagName = m_strBulletName; 
     }
@@ -582,7 +582,8 @@ public abstract class TowerAI : BaseObj
         Vector3 vCreatePos = (vDir * 0.85f) + this.transform.position;
 
         m_tTowerBulletInfo.objTarget = m_objTargetMob;
-
+        DataStruct.tagBulletStatus temp = new DataStruct.tagBulletStatus();
+        temp = m_tTowerBulletInfo;
         GameObject retObj = ObjPool_Manager.Instance.Get_ObjPool(vCreatePos, m_tTowerBulletInfo);
 
         if (retObj)

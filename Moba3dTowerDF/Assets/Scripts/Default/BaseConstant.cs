@@ -6,6 +6,8 @@ namespace GConst
 {
     static class BaseValue
     {
+        public const float fBulletSpeed = 10f;
+
         public const int iTowerGold = 10;
         public const int iHorizontal = 11;
         public const int iMaxRank_Lvl_Count = 5;

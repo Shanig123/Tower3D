@@ -40,7 +40,21 @@ public abstract class BaseBullet : BaseObj
     {
         set
         {
-            m_tBulletInfo = value;
+            DataStruct.tagBulletStatus temp = new DataStruct.tagBulletStatus();
+            temp.fLifeTime = value.fLifeTime;
+            temp.fMaxLifeTime = value.fMaxLifeTime;
+            temp.fMoveSpeed = value.fMoveSpeed;
+       
+            temp.objTarget = value.objTarget;
+            temp.strObjTagName = value.strObjTagName;
+
+            temp.iHp = value.iHp;
+            temp.iMaxHp = value.iMaxHp;
+            temp.iAtk = value.iAtk;
+            temp.iLvl = value.iLvl;
+            temp.iStatus = value.iStatus;
+
+            m_tBulletInfo = temp;
         }
     }
 

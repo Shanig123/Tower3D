@@ -55,7 +55,7 @@ public class MagicBullet : BaseBullet
 
         RotateTrail();
 
-        if ((m_vCreatePos - transform.position).magnitude > m_tBulletInfo.fMaxLifeTime)
+        if ((transform.position - m_vCreatePos).magnitude > m_tBulletInfo.fMaxLifeTime)
         {
             m_tBulletInfo.fLifeTime = 0;
             m_eNextState = DataEnum.eState.Dead;
