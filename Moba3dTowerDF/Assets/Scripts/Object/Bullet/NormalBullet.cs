@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NormalBullet : BaseBullet
 {
+    protected bool m_bRimLightShader = false;
     NormalBullet()
            : base()
     {
@@ -14,6 +15,10 @@ public class NormalBullet : BaseBullet
     // Update is called once per frame
     protected override void Start()
     {
+        if (m_Transform == null)
+            m_Transform = GetComponent<Transform>();
+        if (!m_bRimLightShader)
+            return;
         base.Start();
         GetComponentInChildren<Renderer>().material.SetColor("_RimCol", new Color(0, 0, 1));
 

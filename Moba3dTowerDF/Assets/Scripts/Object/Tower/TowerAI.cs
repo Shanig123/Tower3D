@@ -12,7 +12,7 @@ public abstract class TowerAI : BaseObj
     [SerializeField] protected DataStruct.tagTowerStatus m_tTowerInfo;
 
     public DataStruct.tagEffectInfo m_tEffectInfo;
-    [SerializeField] protected DataStruct.tagStatusInfo m_tStatusInfo;
+    //[SerializeField] protected DataStruct.tagStatusInfo m_tStatusInfo;
 
     [SerializeField] protected GameObject m_objTargetMob;
     [SerializeField] protected int m_iTargetID;
@@ -567,7 +567,7 @@ public abstract class TowerAI : BaseObj
         if (retObj)
         {
             retObj.GetComponent<BaseBullet>().SetState = DataEnum.eState.Ready;
-            retObj.GetComponent<BaseBullet>().m_tStatusInfo = m_tStatusInfo;
+            retObj.GetComponent<BaseBullet>().m_tStatusInfo = m_tTowerInfo.tStatusInfo;
             retObj.GetComponent<BaseBullet>().m_tBulletInfo.iStatus = m_tTowerInfo.iBulletStatus;
         }
 
@@ -611,28 +611,28 @@ public abstract class TowerAI : BaseObj
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire))
             {
-                _objMonster.GetComponent<MobAI>().Set_FireStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_FireStatus(m_tTowerInfo.tStatusInfo);
             }
         }
         if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison))
             {
-                _objMonster.GetComponent<MobAI>().Set_PoisonStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_PoisonStatus(m_tTowerInfo.tStatusInfo);
             }
         }
         if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow))
             {
-                _objMonster.GetComponent<MobAI>().Set_SlowStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_SlowStatus(m_tTowerInfo.tStatusInfo);
             }
         }
         if (( m_tTowerInfo.iBulletStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
         {
             if (!((iMobStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun))
             {
-                _objMonster.GetComponent<MobAI>().Set_StunStatus(m_tStatusInfo);
+                _objMonster.GetComponent<MobAI>().Set_StunStatus(m_tTowerInfo.tStatusInfo);
             }
         }
     }

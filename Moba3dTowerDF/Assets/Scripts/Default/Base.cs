@@ -41,10 +41,11 @@ namespace DataEnum
 
     public enum eTextEffect
     {
-        Default_AlphaDown       = 1,
-        Volcano                 = (1 << 1),
-        Up                      = (1 << 2),
-        SizeDown                = (1 << 3),
+        Default_AlphaDown       = 1,            //1
+        Volcano                 = (1 << 1),     //2
+        Up                      = (1 << 2),     //4
+        SizeDown                = (1 << 3),     //8
+        BillBoard               = (1 << 4),     //16
         End                     = 0
     };
 
@@ -54,10 +55,10 @@ namespace DataEnum
 
     public enum eStatus
     {
-        Poison      = 1,
-        Fire        = (1 << 1),
-        Slow        = (1 << 2),
-        Stun       = (1 << 3),
+        Poison      = 1,        //1
+        Fire        = (1 << 1), //2
+        Slow        = (1 << 2), //4
+        Stun       = (1 << 3),  //8
         End         = 0
     }
 }
@@ -70,7 +71,7 @@ namespace DataStruct
 
         public float fFireStatusTime;
         public float fFireMaxStatusTime;
-        public int iFireDamage;
+        public float fFireRatio;
 
         public float fPoisonStatusTime;
         public float fPoisonMaxStatusTime;
@@ -124,6 +125,8 @@ namespace DataStruct
 
         public float fAtkCoolTime;
         public float fMaxAtkCoolTime;
+
+        public tagStatusInfo tStatusInfo;
     }
 
     [System.Serializable]
@@ -151,7 +154,15 @@ namespace DataStruct
         public bool[] bArrUnlockAbility;
     }
 
-  
+    [System.Serializable]
+    public struct tagDamageStruct
+    {
+        public int iDamage_Buffer;
+        public int iDotDamage_Buffer;
+        public int iFireStatusDamage_Buffer;
+
+        public int iTotalDamage;
+    }
 
     //public struct tagAbilityInfo
     //{

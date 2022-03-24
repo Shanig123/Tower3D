@@ -31,9 +31,11 @@ public class UI_MainSceneSetting : MonoBehaviour
     {
         m_bActive = true;
         BoardInit();
+        int i = 0;
         foreach (GameObject iter in m_listDimmed)
         {
-            iter.SetActive(false);
+            if(iter.activeSelf == true)
+                iter.SetActive(false);
         }
         Game_Manager.Instance.Game_Pause(true);
     }
@@ -52,8 +54,15 @@ public class UI_MainSceneSetting : MonoBehaviour
     {
        
         m_bActive = false;
+        int i = 0;
         foreach (GameObject iter in m_listDimmed)
         {
+            if (i == 0)
+            {
+                ++i;
+                continue;
+            }
+
             iter.SetActive(true);
         }
         Game_Manager.Instance.Game_Pause(false);

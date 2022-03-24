@@ -1126,17 +1126,31 @@ MonoBehaviour:
   m_tTowerInfo:
     iHp: 0
     iMaxHp: 0
-    iAtk: -1
+    iAtk: 9
     iLvl: 0
     iStatus: 0
-    iBulletStatus: 8
-    eType: 0
+    iBulletStatus: 4
+    eType: 1
     iTowerId: 0
     fRange: 0
     fAtkCoolTime: 0
     fMaxAtkCoolTime: 3
+    tStatusInfo:
+      fFireStatusTime: 0
+      fFireMaxStatusTime: 0
+      fFireRatio: 0
+      fPoisonStatusTime: 0
+      fPoisonMaxStatusTime: 0
+      fPoisonDotTime: 0
+      fPoisonDotMaxTime: 0
+      iPoisonDamage: 0
+      fSlowStatusTime: 0
+      fSlowMaxStatusTime: 3
+      fSlowSpeed: 0.4
+      fStunStatusTime: 0
+      fStunMaxStatusTime: 1
   m_tEffectInfo:
-    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    colorEffect: {r: 0, g: 0, b: 1, a: 1}
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1
@@ -1144,27 +1158,14 @@ MonoBehaviour:
     fTimerSpeed: 1
     fMaxLifeTime: 0
     bLoop: 1
-  m_tStatusInfo:
-    fFireStatusTime: 0
-    fFireMaxStatusTime: 0
-    iFireDamage: 0
-    fPoisonStatusTime: 0
-    fPoisonMaxStatusTime: 0
-    fPoisonDotTime: 0
-    fPoisonDotMaxTime: 0
-    iPoisonDamage: 0
-    fSlowStatusTime: 0
-    fSlowMaxStatusTime: 0
-    fSlowSpeed: 0
-    fStunStatusTime: 0
-    fStunMaxStatusTime: 5
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
-  m_strBulletName: Swarm_Smoke
+  m_strBulletName: SmokeBust
+  m_bHitScan: 0
 --- !u!1 &1451636307177142
 GameObject:
   m_ObjectHideFlags: 0

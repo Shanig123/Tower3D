@@ -1126,15 +1126,29 @@ MonoBehaviour:
   m_tTowerInfo:
     iHp: 0
     iMaxHp: 0
-    iAtk: 1
+    iAtk: 5
     iLvl: 0
-    iStatus: 2
-    iBulletStatus: 0
+    iStatus: 0
+    iBulletStatus: 1
     eType: 1
     iTowerId: 0
     fRange: 0
     fAtkCoolTime: 0
-    fMaxAtkCoolTime: 0.5
+    fMaxAtkCoolTime: 1
+    tStatusInfo:
+      fFireStatusTime: 0
+      fFireMaxStatusTime: 0
+      fFireRatio: 0
+      fPoisonStatusTime: 0
+      fPoisonMaxStatusTime: 10
+      fPoisonDotTime: 0
+      fPoisonDotMaxTime: 2
+      iPoisonDamage: 1
+      fSlowStatusTime: 0
+      fSlowMaxStatusTime: 0
+      fSlowSpeed: 0
+      fStunStatusTime: 0
+      fStunMaxStatusTime: 0
   m_tEffectInfo:
     colorEffect: {r: 0, g: 1, b: 0, a: 1}
     vScale: {x: 1, y: 1, z: 1}
@@ -1144,20 +1158,6 @@ MonoBehaviour:
     fTimerSpeed: 1
     fMaxLifeTime: 0
     bLoop: 1
-  m_tStatusInfo:
-    fFireStatusTime: 0
-    fFireMaxStatusTime: 0
-    iFireDamage: 0
-    fPoisonStatusTime: 0
-    fPoisonMaxStatusTime: 0
-    fPoisonDotTime: 0
-    fPoisonDotMaxTime: 0
-    iPoisonDamage: 0
-    fSlowStatusTime: 0
-    fSlowMaxStatusTime: 0
-    fSlowSpeed: 0
-    fStunStatusTime: 0
-    fStunMaxStatusTime: 0
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4

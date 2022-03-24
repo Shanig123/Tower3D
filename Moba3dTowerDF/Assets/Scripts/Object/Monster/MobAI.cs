@@ -27,7 +27,11 @@ public class MobAI : BaseObj
     [SerializeField] private DataEnum.eState m_eNextMobState = DataEnum.eState.End;
     [SerializeField] private DataEnum.eState m_eCurMobState = DataEnum.eState.End;
 
-    private int m_iDamage_Buffer;
+    //private int m_iDamage_Buffer;
+    //private int m_iDotDamage_Buffer;
+    //private int m_iFireStatusDamage_Buffer;
+
+    private DataStruct.tagDamageStruct m_tDamageStruct;
     #endregion
     #region Property
     public DataEnum.eState GetState
@@ -59,7 +63,8 @@ public class MobAI : BaseObj
     {
         set
         {
-            m_iDamage_Buffer += value;
+            m_tDamageStruct.iDamage_Buffer += value;
+            //m_iFireStatusDamage_Buffer += value;
         }
     }
 
@@ -68,7 +73,7 @@ public class MobAI : BaseObj
         m_tMobInfo.iStatus |= (int)DataEnum.eStatus.Fire;
         m_tStatusInfo.fFireStatusTime = 0;
         m_tStatusInfo.fFireMaxStatusTime = _tStatusInfo.fFireMaxStatusTime;
-        m_tStatusInfo.iFireDamage = _tStatusInfo.iFireDamage;
+        m_tStatusInfo.fFireRatio = _tStatusInfo.fFireRatio;
     }
     public void Set_PoisonStatus(DataStruct.tagStatusInfo _tStatusInfo)
     {
@@ -268,7 +273,7 @@ public class MobAI : BaseObj
     }
     private void DoActiveState()
     {
-        Statuse_Phase();
+        Status_Phase();
         Damage_Phase();
 
         if (m_tMobInfo.iHp < 0)
@@ -304,6 +309,8 @@ public class MobAI : BaseObj
         //m_Ani.GetBool()
     }
 
+    #region Move_Func
+
     private void CheckTarget()
     {
         Vector3 vTargetPos = m_arrWaypoints[m_iCurTargetWaypoint];
@@ -313,13 +320,9 @@ public class MobAI : BaseObj
 
         if (fLength < 0.1)
         {
-            if (m_arrWaypoints[m_iCurTargetWaypoint] == m_arrWaypoints[m_arrWaypoints.Length-1] && fLength < 1.0)
+            if (!EndCheckPoint(fLength))
             {
-                m_eNextMobState = DataEnum.eState.NoActive;
-            }
-            else
-            {
-              ++m_iNextTargetWaypoint;
+                ++m_iNextTargetWaypoint;
             }
         }
         else
@@ -334,6 +337,18 @@ public class MobAI : BaseObj
         {
             m_iCurTargetWaypoint = m_iNextTargetWaypoint;
         }
+    }
+
+    private bool EndCheckPoint(float _fLengTh)
+    {  //마지막 체크포인트 도달했을 때
+        if (m_arrWaypoints[m_iCurTargetWaypoint] == m_arrWaypoints[m_arrWaypoints.Length - 1] && _fLengTh < 1.0)
+        {
+            GameObject.FindGameObjectWithTag("TotalController").GetComponent<PlayerController>().Add_Life(-1);
+    
+            m_eNextMobState = DataEnum.eState.NoActive;
+            return true;
+        }
+        return false;
     }
     private float Calculate_Speed()
     {
@@ -367,29 +382,188 @@ public class MobAI : BaseObj
         m_Ani.SetBool("isIdle", true);
         m_Ani.SetBool("Idle", true);
     }
+
+    #endregion
+
+    #region Damage+Status_Fuc
+
     private void Create_DamageEffect()
     {
         GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
         obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
-        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_iDamage_Buffer.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(m_tDamageStruct.iDamage_Buffer.ToString(), new Color(1, 0, 0), (DataEnum.eTextEffect)11);
+    }
+    private void Create_DamageEffect(int _iDamage, Color _color)
+    {
+        GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
+        obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
+        float fScale = 1.5f + (GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().ExtractRandomNumberFromSeed_NoCount()*0.5f);
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(_iDamage.ToString(), _color, (DataEnum.eTextEffect)27, fScale);
     }
     private void Create_StatusEffect(string _strStatusMessage, Color _color)
     {
         GameObject obj3DText = Resource_Manager.Instance.InstanceObj("3DText", "3DTextObject", transform.position);
         obj3DText.GetComponent<UI_3DText>().m_bEffect = true;
-        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(_strStatusMessage, _color, (DataEnum.eTextEffect.Up | DataEnum.eTextEffect.SizeDown | DataEnum.eTextEffect.Default_AlphaDown));
+        obj3DText.GetComponent<UI_3DText>().Set_TextInfo(_strStatusMessage, _color, (DataEnum.eTextEffect.Up | DataEnum.eTextEffect.BillBoard | DataEnum.eTextEffect.SizeDown | DataEnum.eTextEffect.Default_AlphaDown));
     }
+
+    private void Status_Phase()
+    {
+        int iStatus = m_tMobInfo.iStatus;
+        if (iStatus == 0)
+        {
+            Reset_Status();
+            return;
+        }
+
+        if ((iStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
+        {
+            if (m_tStatusInfo.fStunStatusTime == 0)
+            {
+                Create_StatusEffect("STUN!", Color.gray);
+            }
+            m_tStatusInfo.fStunStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fStunStatusTime > m_tStatusInfo.fStunMaxStatusTime)
+            {
+                m_tStatusInfo.fStunStatusTime = 0;
+                m_tStatusInfo.fStunMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Stun);
+                m_tMobInfo.fMoveSpeed_Stun = 0;
+            }
+            else
+            {
+                //기절상태이상 처리
+                m_tMobInfo.fMoveSpeed_Stun = 1;
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
+        {
+            if (m_tStatusInfo.fSlowStatusTime == 0)
+            {
+                Create_StatusEffect("SLOW!", Color.blue);
+            }
+            m_tStatusInfo.fSlowStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fSlowStatusTime > m_tStatusInfo.fSlowMaxStatusTime)
+            {
+                m_tStatusInfo.fSlowStatusTime = 0;
+                m_tStatusInfo.fSlowMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Slow);
+
+                m_tMobInfo.fMoveSpeed_Slow = 0;
+                m_tStatusInfo.fSlowSpeed = 0;
+            }
+            else
+            {
+                //슬로우상태이상 처리
+                m_tMobInfo.fMoveSpeed_Slow = m_tStatusInfo.fSlowSpeed;
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
+        {
+            if (m_tStatusInfo.fFireStatusTime == 0)
+            {
+                Create_StatusEffect("FIRE!", Color.yellow);
+            }
+            m_tStatusInfo.fFireStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fFireStatusTime > m_tStatusInfo.fFireMaxStatusTime)
+            {
+                m_tStatusInfo.fFireStatusTime = 0;
+                m_tStatusInfo.fFireMaxStatusTime = 0;
+
+                m_tStatusInfo.fFireRatio = 0;
+
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Fire);
+            }
+            else
+            {
+                //화염상태이상 처리
+                if (m_tDamageStruct.iDamage_Buffer > 0)
+                    m_tDamageStruct.iFireStatusDamage_Buffer =(int)((float)(m_tDamageStruct.iDamage_Buffer)* m_tStatusInfo.fFireRatio);
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
+        {
+            if (m_tStatusInfo.fPoisonStatusTime == 0)
+            {
+                Create_StatusEffect("POISON!", Color.green);
+            }
+            m_tStatusInfo.fPoisonStatusTime += Time.deltaTime;
+            if (m_tStatusInfo.fPoisonStatusTime > m_tStatusInfo.fPoisonMaxStatusTime)
+            {
+                m_tStatusInfo.fPoisonStatusTime = 0;
+                m_tStatusInfo.fPoisonMaxStatusTime = 0;
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Poison);
+                m_tStatusInfo.iPoisonDamage = 0;
+                m_tStatusInfo.fPoisonDotTime = 0;
+            }
+            else
+            {
+                //독상태이상 처리
+                m_tStatusInfo.fPoisonDotTime += Time.deltaTime;
+                if (m_tStatusInfo.fPoisonDotTime > m_tStatusInfo.fPoisonDotMaxTime)
+                {
+                    m_tDamageStruct.iDotDamage_Buffer += m_tStatusInfo.iPoisonDamage;
+                    m_tStatusInfo.fPoisonDotTime = 0;
+                }
+
+            }
+        }
+
+    }
+
     private void Damage_Phase()
     {
-   
-       if( m_iDamage_Buffer>0)
-       {
-            m_tMobInfo.iHp -= m_iDamage_Buffer;
-            Create_DamageEffect();
-            m_iDamage_Buffer = 0;
+        StatusDamage_Pahse();
+        if(m_tDamageStruct.iDamage_Buffer > 0)
+        {
+            m_tDamageStruct.iTotalDamage += m_tDamageStruct.iDamage_Buffer;
+            Color color_ = Color.white;
+           // color_.r -= 0.1f; color_.g -= 0.1f; color_.b -= 0.1f;
+            Create_DamageEffect(m_tDamageStruct.iDamage_Buffer, color_);
+            m_tDamageStruct.iDamage_Buffer = 0;
 
-       }
+        }
+        if( m_tDamageStruct.iTotalDamage>0)
+        {
+        
 
+            m_tMobInfo.iHp -= m_tDamageStruct.iTotalDamage;
+           // Create_DamageEffect();
+            m_tDamageStruct.iTotalDamage = 0;
+
+        }
+
+    }
+
+    private void StatusDamage_Pahse()
+    {
+        int iStatus = m_tMobInfo.iStatus;
+        if ((iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
+        {
+            if (m_tDamageStruct.iFireStatusDamage_Buffer > 0)
+            {
+                // m_tDamageStruct.iFireStatusDamage_Buffer
+                m_tDamageStruct.iTotalDamage += m_tDamageStruct.iFireStatusDamage_Buffer;
+                Create_DamageEffect(m_tDamageStruct.iFireStatusDamage_Buffer, Color.red);
+                m_tDamageStruct.iFireStatusDamage_Buffer = 0;
+
+                m_tStatusInfo.fFireStatusTime = 0;
+                m_tStatusInfo.fFireMaxStatusTime = 0;
+
+                m_tStatusInfo.fFireRatio = 0;
+
+                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Fire);
+            }
+        }
+        if ((iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
+        {
+            if(  m_tDamageStruct.iDotDamage_Buffer > 0)
+            {
+                m_tDamageStruct.iTotalDamage += m_tDamageStruct.iDotDamage_Buffer;
+                Create_DamageEffect(m_tDamageStruct.iDotDamage_Buffer, Color.green);
+                m_tDamageStruct.iDotDamage_Buffer = 0;
+            }
+        }
     }
     private void Reset_Status()
     {
@@ -413,103 +587,6 @@ public class MobAI : BaseObj
         //m_tStatusInfo.iFireDamage = 0;
 
     }
-    private void Statuse_Phase()
-    {
-        int iStatus = m_tMobInfo.iStatus;
-        if(iStatus == 0)
-        {
-            Reset_Status();
-            return;
-        }
 
-        if ((iStatus & (int)DataEnum.eStatus.Stun) == (int)DataEnum.eStatus.Stun)
-        {
-            if (m_tStatusInfo.fStunStatusTime == 0)
-            {
-                Create_StatusEffect("STUN!", Color.gray);
-            }
-            m_tStatusInfo.fStunStatusTime += Time.deltaTime;
-            if(m_tStatusInfo.fStunStatusTime > m_tStatusInfo.fStunMaxStatusTime)
-            {
-                m_tStatusInfo.fStunStatusTime = 0;
-                m_tStatusInfo.fStunMaxStatusTime = 0;
-                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Stun);
-                m_tMobInfo.fMoveSpeed_Stun = 0;
-            }
-            else
-            {
-                //기절상태이상 처리
-                m_tMobInfo.fMoveSpeed_Stun = 1;
-            }
-        }
-        if ((iStatus & (int)DataEnum.eStatus.Slow) == (int)DataEnum.eStatus.Slow)
-        {
-            if(m_tStatusInfo.fSlowStatusTime == 0)
-            {
-                Create_StatusEffect("SLOW!", Color.blue);
-            }
-            m_tStatusInfo.fSlowStatusTime += Time.deltaTime;
-            if (m_tStatusInfo.fSlowStatusTime > m_tStatusInfo.fSlowMaxStatusTime)
-            {
-                m_tStatusInfo.fSlowStatusTime = 0;
-                m_tStatusInfo.fSlowMaxStatusTime = 0;
-                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Slow);
-
-                m_tMobInfo.fMoveSpeed_Slow = 0;
-                m_tStatusInfo.fSlowSpeed = 0;
-            }
-            else
-            { 
-                //슬로우상태이상 처리
-                m_tMobInfo.fMoveSpeed_Slow = m_tStatusInfo.fSlowSpeed;
-            }
-        }
-        if ((iStatus & (int)DataEnum.eStatus.Fire) == (int)DataEnum.eStatus.Fire)
-        {
-            if (m_tStatusInfo.fFireStatusTime == 0)
-            {
-                Create_StatusEffect("FIRE!", Color.yellow);
-            }
-            m_tStatusInfo.fFireStatusTime += Time.deltaTime;
-            if (m_tStatusInfo.fFireStatusTime > m_tStatusInfo.fFireMaxStatusTime)
-            {
-                m_tStatusInfo.fFireStatusTime = 0;
-                m_tStatusInfo.fFireMaxStatusTime = 0;
-                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Fire);
-            }
-            else
-            {
-                //화염상태이상 처리
-
-            }
-        }
-        if ((iStatus & (int)DataEnum.eStatus.Poison) == (int)DataEnum.eStatus.Poison)
-        {
-            if (m_tStatusInfo.fPoisonStatusTime == 0)
-            {
-                Create_StatusEffect("POISON!", Color.green);
-            }
-            m_tStatusInfo.fPoisonStatusTime += Time.deltaTime;
-            if (m_tStatusInfo.fPoisonStatusTime > m_tStatusInfo.fPoisonMaxStatusTime)
-            {
-                m_tStatusInfo.fPoisonStatusTime = 0;
-                m_tStatusInfo.fPoisonMaxStatusTime = 0;
-                m_tMobInfo.iStatus &= ~((int)DataEnum.eStatus.Poison);
-                m_tStatusInfo.iPoisonDamage = 0;
-                m_tStatusInfo.fPoisonDotTime = 0;
-            }
-            else
-            { 
-                //독상태이상 처리
-                m_tStatusInfo.fPoisonDotTime += Time.deltaTime;
-                if (m_tStatusInfo.fPoisonDotTime > m_tStatusInfo.fPoisonDotMaxTime)
-                {
-                    m_iDamage_Buffer += m_tStatusInfo.iPoisonDamage;
-                    m_tStatusInfo.fPoisonDotTime = 0;
-                }
-                
-            }
-        }
-        
-    }
+    #endregion
 }

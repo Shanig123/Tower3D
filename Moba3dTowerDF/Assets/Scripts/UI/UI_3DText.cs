@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI_3DText : MonoBehaviour
 {
-    [SerializeField] private TextMesh m_textMesh;
+    [SerializeField] private TMPro.TextMeshPro m_textMesh;
     [SerializeField] private Transform m_transform;
    
     private float m_fcolorAlpha = 1f;
@@ -19,7 +19,7 @@ public class UI_3DText : MonoBehaviour
 
     [SerializeField] private float m_fMaxLifetime;
     public bool m_bEffect;
-
+    public float m_fPower;
     
 
     public void Set_TextInfo(string _strText, Color _textColor, DataEnum.eTextEffect _ePatern = (DataEnum.eTextEffect)1, float fScale =1f)
@@ -51,6 +51,9 @@ public class UI_3DText : MonoBehaviour
                 m_fMaxLifetime = 1f;
             }
         }
+
+        m_fPower = GameObject.FindGameObjectWithTag("TotalController").GetComponent<DataController>().ExtractRandomNumberFromSeed_NoCount();
+        m_fPower += 5f;
     }
     private void Update()
     {
@@ -88,7 +91,8 @@ public class UI_3DText : MonoBehaviour
             var vPos = transform.position;
             vPos.x += m_vRandAxis.x * Time.deltaTime;
             vPos.z += m_vRandAxis.y * Time.deltaTime;
-            vPos.y = GFunc.Function.Jump(m_vCreatePos.y,m_fLifetime,5f);
+            
+            vPos.y = GFunc.Function.Jump(m_vCreatePos.y,m_fLifetime, m_fPower);
             transform.position = vPos;
         }
         if ((m_iTextEffect & ((int)DataEnum.eTextEffect.Up)) == ((int)DataEnum.eTextEffect.Up))
@@ -101,5 +105,19 @@ public class UI_3DText : MonoBehaviour
         {
             m_transform.localScale *= 1f - ((m_fLifetime*0.1f) / m_fMaxLifetime);
         }
+        if ((m_iTextEffect & ((int)DataEnum.eTextEffect.BillBoard)) == ((int)DataEnum.eTextEffect.BillBoard))
+        {
+            IsBillBoard();
+        }
     }
+
+    private void IsBillBoard()
+    {
+        Matrix4x4 matBill = Camera.main.transform.localToWorldMatrix;
+
+        matBill.m30 = 0; matBill.m31 = 0; matBill.m32 = 0; matBill.m33 = 1;
+        transform.rotation = matBill.rotation;
+
+    }
+
 }

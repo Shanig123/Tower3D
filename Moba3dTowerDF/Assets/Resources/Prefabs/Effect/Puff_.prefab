@@ -4799,7 +4799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_tEffectInfo:
-    colorEffect: {r: 1, g: 1, b: 1, a: 1}
+    colorEffect: {r: 1, g: 1, b: 1, a: 0.3137255}
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1

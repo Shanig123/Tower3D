@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5885689987410922748}
   - component: {fileID: 923465128054339172}
+  - component: {fileID: 8869312834644501624}
   m_Layer: 8
   m_Name: Cannon_Fire
   m_TagString: Untagged
@@ -49,6 +50,58 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8869312834644501624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5433909046628612112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0f532aa04556844bd78d52ef156d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bCheckDead: 1
+  m_bObjActiveOnOff: 0
+  m_bSelect: 0
+  m_bFirstInit: 0
+  m_fReadyTimer: 0
+  m_fReadyTimerMax: 0
+  m_Transform: {fileID: 0}
+  m_Ani: {fileID: 0}
+  m_strPrefabName: 
+  m_tBulletInfo:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iStatus: 2
+    objTarget: {fileID: 0}
+    fMoveSpeed: 0
+    fLifeTime: 0
+    fMaxLifeTime: 0
+    strObjTagName: 
+  m_tStatusInfo:
+    fFireStatusTime: 0
+    fFireMaxStatusTime: 0
+    fFireRatio: 0
+    fPoisonStatusTime: 0
+    fPoisonMaxStatusTime: 0
+    fPoisonDotTime: 0
+    fPoisonDotMaxTime: 0
+    iPoisonDamage: 0
+    fSlowStatusTime: 0
+    fSlowMaxStatusTime: 0
+    fSlowSpeed: 0
+    fStunStatusTime: 0
+    fStunMaxStatusTime: 0
+  m_objTargetMob: {fileID: 0}
+  m_iTargetID: 0
+  m_eNextState: 4
+  m_eCurState: 4
+  m_vCreatePos: {x: 0, y: 0, z: 0}
+  m_strDeadEffectName: FireBallDead
 --- !u!1 &9017869104611483737
 GameObject:
   m_ObjectHideFlags: 0

@@ -13332,13 +13332,31 @@ MonoBehaviour:
   m_Transform: {fileID: 0}
   m_Ani: {fileID: 0}
   m_strPrefabName: 
-  m_tagStatus:
-    iHp: 0
-    iMaxHp: 0
+  m_tMobInfo:
+    iHp: 90
+    iMaxHp: 90
     iAtk: 0
     iLvl: 0
+    iStatus: 0
     fMoveSpeed: 0
+    fMoveSpeed_Stun: 0
+    fMoveSpeed_Slow: 0
+    fMoveSpeed_Fast: 0
     fDeadTime: 0
+  m_tStatusInfo:
+    fFireStatusTime: 0
+    fFireMaxStatusTime: 0
+    fFireRatio: 0
+    fPoisonStatusTime: 0
+    fPoisonMaxStatusTime: 0
+    fPoisonDotTime: 0
+    fPoisonDotMaxTime: 0
+    iPoisonDamage: 0
+    fSlowStatusTime: 0
+    fSlowMaxStatusTime: 0
+    fSlowSpeed: 0
+    fStunStatusTime: 0
+    fStunMaxStatusTime: 0
   m_playerController: {fileID: 0}
   m_arrWaypoints: []
   m_iCurTargetWaypoint: 0

@@ -17,6 +17,7 @@ public class DataController : MonoBehaviour
 
     #region Value
 
+    [SerializeField] private int m_iRandomNo_CallCount = 0;
     [SerializeField] private int m_iRandomIntCallCount = 0;
     [SerializeField] private int m_iRandomFloatCallCount = 0;
     [SerializeField] private int m_iRandomTotalCallCount = 0;
@@ -102,13 +103,15 @@ public class DataController : MonoBehaviour
     }
     public int ExtractRandomNumberFromSeed_NoCount(int _iMin, int _iMax)
     {
-        int iSeed = System.DateTime.Now.GetHashCode();
+        int iSeed = System.DateTime.Now.GetHashCode()+ m_iRandomNo_CallCount;
+        ++m_iRandomNo_CallCount;
         System.Random rd = new System.Random(iSeed);
         return rd.Next(_iMin, _iMax);
     }
     public float ExtractRandomNumberFromSeed_NoCount()
     {
-        int iSeed = System.DateTime.Now.GetHashCode();
+        int iSeed = System.DateTime.Now.GetHashCode()+ m_iRandomNo_CallCount;
+        ++m_iRandomNo_CallCount;
         System.Random rd = new System.Random(iSeed);
         return (float)rd.NextDouble();
     }

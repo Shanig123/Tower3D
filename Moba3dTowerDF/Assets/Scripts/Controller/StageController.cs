@@ -159,26 +159,37 @@ public class StageController : MonoBehaviour
 
             //if(m_iCurWave >0 )
             //{
-                if (1 > m_iCurMobCount&& m_bWaveOnOff)
+                if (1 > m_iCurMobCount&& m_bWaveOnOff) //웨이브 내 몹이 없을 때
                 {
                     if(m_Object_Manager.m_dictClone_Object.ContainsKey(m_strWaveName))
                     {
                         if (m_Object_Manager.m_dictClone_Object[m_strWaveName].Count > 0)
                         {
-                            Debug.Log(m_Object_Manager.m_dictClone_Object[m_strWaveName].Count);
+                            GFunc.Function.Print_Log(m_Object_Manager.m_dictClone_Object[m_strWaveName].Count.ToString());
                         }
                         m_Object_Manager.m_dictClone_Object.Remove(m_strWaveName);
                         if (!m_Object_Manager.m_dictClone_Object.ContainsKey(m_strWaveName))
                         {
-                            Debug.Log(m_strWaveName+" Remove!");
+                            GFunc.Function.Print_Log(m_strWaveName+" Remove!");
                         }
                     }
+                    WaveEnd_ReWard();
                     m_bWaveOnOff = false;
                    // ++m_iCurWave;
                 }
            // }
         }
 
+    }
+
+    private void WaveEnd_ReWard()
+    {
+        GetComponent<PlayerController>().Add_Gold(CaculateGold());
+    }
+    private int CaculateGold()
+    {
+        //추후 특성에 따른 추가 함수 작성 필요함.
+        return (GConst.BaseValue.iTowerGold*2);
     }
 
     private void CheckWait()

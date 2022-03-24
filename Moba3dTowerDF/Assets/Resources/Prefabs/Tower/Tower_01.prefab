@@ -1992,7 +1992,7 @@ MonoBehaviour:
   m_tTowerInfo:
     iHp: 0
     iMaxHp: 0
-    iAtk: -1
+    iAtk: 10
     iLvl: 0
     iStatus: 0
     iBulletStatus: 4
@@ -2001,6 +2001,20 @@ MonoBehaviour:
     fRange: 0
     fAtkCoolTime: 0
     fMaxAtkCoolTime: 3
+    tStatusInfo:
+      fFireStatusTime: 0
+      fFireMaxStatusTime: 0
+      fFireRatio: 0
+      fPoisonStatusTime: 0
+      fPoisonMaxStatusTime: 0
+      fPoisonDotTime: 0
+      fPoisonDotMaxTime: 0
+      iPoisonDamage: 0
+      fSlowStatusTime: 0
+      fSlowMaxStatusTime: 5
+      fSlowSpeed: 0.5
+      fStunStatusTime: 0
+      fStunMaxStatusTime: 0
   m_tEffectInfo:
     colorEffect: {r: 1, g: 1, b: 1, a: 1}
     vScale: {x: 1, y: 1, z: 1}
@@ -2010,27 +2024,14 @@ MonoBehaviour:
     fTimerSpeed: 1
     fMaxLifeTime: 0
     bLoop: 1
-  m_tStatusInfo:
-    fFireStatusTime: 0
-    fFireMaxStatusTime: 0
-    iFireDamage: 0
-    fPoisonStatusTime: 0
-    fPoisonMaxStatusTime: 0
-    fPoisonDotTime: 0
-    fPoisonDotMaxTime: 0
-    iPoisonDamage: 0
-    fSlowStatusTime: 0
-    fSlowMaxStatusTime: 2.5
-    fSlowSpeed: 0.25
-    fStunStatusTime: 0
-    fStunMaxStatusTime: 0
   m_objTargetMob: {fileID: 0}
   m_iTargetID: 0
   m_eNextState: 4
   m_eCurState: 4
   m_vCurModifyPos: {x: 0, y: 0, z: 0}
   m_vNextModifyPos: {x: 0, y: 0, z: 0}
-  m_strBulletName: Swarm_Bubble
+  m_strBulletName: Cannon_Water
+  m_bHitScan: 0
 --- !u!1 &1926030801303212
 GameObject:
   m_ObjectHideFlags: 0
