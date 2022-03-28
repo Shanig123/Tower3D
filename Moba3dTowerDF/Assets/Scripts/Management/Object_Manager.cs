@@ -90,7 +90,6 @@ public class Object_Manager : MonoBehaviour
 
     private void SceneCheange()
     {
-        Debug.Log("Resource_Manager.Instance.Get_CheckLoad      /     " + Resource_Manager.Instance.Get_CheckLoad);
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
   

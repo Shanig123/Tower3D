@@ -159,7 +159,7 @@ public class Option_Manager : MonoBehaviour
 
     }
 
-    void  SaveFileData()
+    public void  SaveFileData()
     {
         if (Application.platform == RuntimePlatform.Android)
         {

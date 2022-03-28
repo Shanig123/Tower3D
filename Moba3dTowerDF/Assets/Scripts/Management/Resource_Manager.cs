@@ -173,7 +173,7 @@ public class Resource_Manager : MonoBehaviour
         int iLoadCount = 0;
 
         if (arrTempPrefabs == null)
-            Debug.Log("arrTempPrefabs is NULL.");
+            GFunc.Function.Print_Log("arrTempPrefabs is NULL.");
         for (int i = 0; i < arrTempPrefabs.Length; ++i)
         {
             DataStruct.tagPrefab temp = new DataStruct.tagPrefab();

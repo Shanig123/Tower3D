@@ -135,6 +135,18 @@ namespace DataStruct
     [System.Serializable]
     public class tagBulletStatus : tagBaseStatus
     {
+        //tagBulletStatus()
+        //    :base()
+        //{
+        //    var th = this;
+        //    th = null;
+        //}
+        //tagBulletStatus(tagBulletStatus val)
+        //    : base()
+        //{
+        //    var th = this;
+        //    th = val;
+        //}
         //public int iAtk;
         public GameObject objTarget;
 

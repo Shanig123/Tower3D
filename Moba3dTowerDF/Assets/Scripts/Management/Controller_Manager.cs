@@ -113,16 +113,16 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         if(Input.GetKey(KeyCode.Home))
         {
             //Android HomeKey
-            if (SceneManager.GetActiveScene().name == "MainScene")
-            {
-                GameObject ui = GameObject.Find("Detect_SettingBoard");
-                if (ui)
-                {
-                    ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
-                }
-                return;
-            }
-            return;
+            //if (SceneManager.GetActiveScene().name == "MainScene")
+            //{
+            //    GameObject ui = GameObject.Find("Detect_SettingBoard");
+            //    if (ui)
+            //    {
+            //        ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
+            //    }
+            //    return;
+            //}
+            //return;
         }
         else if (Input.GetKey(KeyCode.Escape))
         {
@@ -136,15 +136,15 @@ public class Controller_Manager : MonoBehaviour, UnityEngine.EventSystems.IDragH
         }
         else if (Input.GetKey(KeyCode.Menu))
         {
-            if (SceneManager.GetActiveScene().name == "MainScene")
-            {
-                GameObject ui = GameObject.Find("Detect_SettingBoard");
-                if(ui)
-                {
-                    ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
-                }
-                return;
-            }
+            //if (SceneManager.GetActiveScene().name == "MainScene")
+            //{
+            //    GameObject ui = GameObject.Find("Detect_SettingBoard");
+            //    if(ui)
+            //    {
+            //        ui.GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
+            //    }
+            //    return;
+            //}
             return;
             //Android Menu
         }

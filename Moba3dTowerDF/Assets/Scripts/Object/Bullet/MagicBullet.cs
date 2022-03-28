@@ -74,7 +74,7 @@ public class MagicBullet : BaseBullet
         //AudioSource audioSource = 
 
 
-        m_tBulletInfo.fMaxLifeTime = 0;
+        //m_tBulletInfo.fMaxLifeTime = 0;
         m_tBulletInfo.fLifeTime = 0;
         m_objTargetMob = null;
         m_eNextState = DataEnum.eState.NoActive;

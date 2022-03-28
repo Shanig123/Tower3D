@@ -48,10 +48,9 @@ public class EffectPoolController : MonoBehaviour
 
     private void SceneCheange()
     {
-        Debug.Log("Resource_Manager.Instance.Get_CheckLoad      /     " + Resource_Manager.Instance.Get_CheckLoad);
+        GFunc.Function.Print_Log("Resource_Manager.Instance.Get_CheckLoad      /     " + Resource_Manager.Instance.Get_CheckLoad);
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
-            Debug.Log("SceneChange");
             if (!m_bCheckLoad)
                 MainGameDataLoad();
         }

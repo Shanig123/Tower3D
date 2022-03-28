@@ -87,7 +87,7 @@ public class Tex_PerlinNoise : MonoBehaviour
 
                 pix[(int)y * width + (int)x] = new Color(sample, sample, sample);
                 //Debug.Log(noiseMap[x, y]+" / "+ octaves);
-                Debug.Log(noiseHeight);
+                //Debug.Log(noiseHeight);
                 noiseMap[x, y] = noiseHeight;
                 m_arrfPixel[x * width + y] = noiseHeight;
              

@@ -28,6 +28,8 @@ public class Game_Manager : MonoBehaviour
     [SerializeField]
     private DataStruct.tagGameData m_tDefaultGameData;
     public DataStruct.tagStageInfo m_tStageInfo;
+
+    private bool m_bAppPause = false;
     #endregion
     #region Property
     public static Game_Manager Instance
@@ -92,21 +94,45 @@ public class Game_Manager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "MainMenuScene")
         {
-            Debug.Log("SceneChange");
             Resource_Manager.Instance.SaveData();
             //메인메뉴 씬 진입 시 초기화 해야 할 값들을 지정해야함.
 
         }
         else
         {
-         
         }
+        
+    }
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if(pauseStatus)
+        {
+            m_bAppPause = true;
+            Resource_Manager.Instance.SaveData();
+            Option_Manager.Instance.SaveFileData();
 
+            if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                Game_Pause(true);
+                GameObject.Find("Detect_SettingBoard").GetComponent<Detect_SettingBoard>().m_mainSceneSetting.OnClick_SettingBoard();
+            }
+        }
+        else
+        {
+            if(m_bAppPause)
+            {
+                m_bAppPause = false;
+
+            
+            }
+        }
+      
     }
 
     public void AppQuit()
     {
         Resource_Manager.Instance.SaveData();
+        Option_Manager.Instance.SaveFileData();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #elif UNITY_WEBPLAYER
@@ -116,6 +142,9 @@ public class Game_Manager : MonoBehaviour
 #endif
 
     }
+    
+    
+
 
     public void Game_Pause(bool _bPause)
     {

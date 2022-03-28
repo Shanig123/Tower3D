@@ -82,10 +82,8 @@ public class ObjPool_Manager : MonoBehaviour
 
     private void SceneCheange()
     {
-        Debug.Log("Resource_Manager.Instance.Get_CheckLoad      /     " + Resource_Manager.Instance.Get_CheckLoad);
         if (SceneManager.GetActiveScene().name == "MainScene")
         {
-            Debug.Log("SceneChange");
             if (!m_bCheckLoad)
                 MainGameDataLoad();
         }
@@ -124,13 +122,13 @@ public class ObjPool_Manager : MonoBehaviour
 
     public GameObject Get_ObjPool(Vector3 _vCreatePos, in DataStruct.tagBulletStatus _tagBulletStat)
     {
-       
-        if(m_ObjBulletPool.ContainsKey(_tagBulletStat.strObjTagName))
+        if (m_ObjBulletPool.ContainsKey(_tagBulletStat.strObjTagName))
         {
             if(m_ObjBulletPool[_tagBulletStat.strObjTagName].Count > 0)
             {
                 m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().transform.position = _vCreatePos;
                 m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().SetActive(true);
+               // DataStruct.tagBulletStatus temp = _tagBulletStat;
                 m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;               
                 return m_ObjBulletPool[_tagBulletStat.strObjTagName].Dequeue();
                
@@ -138,7 +136,7 @@ public class ObjPool_Manager : MonoBehaviour
             else
             {
                 GameObject createObject = Resource_Manager.Instance.InstanceObj("Bullets", _tagBulletStat.strObjTagName, _vCreatePos);
-
+                //DataStruct.tagBulletStatus temp = _tagBulletStat;
                 createObject.GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
                 createObject.name = createObject.name + "_" + m_iMaxPoolSize;
                 ++m_iMaxPoolSize;
@@ -166,6 +164,7 @@ public class ObjPool_Manager : MonoBehaviour
                     {
                         m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().transform.position = _vCreatePos;
                         m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().SetActive(true);
+                        //DataStruct.tagBulletStatus temp =  _tagBulletStat;
                         m_ObjBulletPool[_tagBulletStat.strObjTagName].Peek().GetComponent<BaseBullet>().Set_Data = _tagBulletStat;
                         return m_ObjBulletPool[_tagBulletStat.strObjTagName].Dequeue();
 
