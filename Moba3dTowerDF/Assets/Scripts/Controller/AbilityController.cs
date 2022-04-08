@@ -15,13 +15,19 @@ public class AbilityController : MonoBehaviour
         // m_playerController   m_playerController.Get_AbilityArr;
         if (_iAbilityCode < 1)
             return false;
-
-        foreach(int iter in m_listAbility)
+        for(int i= 0; i<m_listAbility.Count;++i)
         {
-            if (iter == _iAbilityCode)
+            if (_iAbilityCode == m_listAbility[i])
                 return true;
         }
         return false;
+
+        //foreach(int iter in m_listAbility)
+        //{
+        //    if (iter == _iAbilityCode)
+        //        return true;
+        //}
+        //return false;
     }
 
     public int Add_Ability { set { if (value > 0) m_listAbility.Add(value); m_listAbility.Sort(); } }

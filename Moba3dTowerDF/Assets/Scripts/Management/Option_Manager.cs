@@ -101,6 +101,10 @@ public class Option_Manager : MonoBehaviour
             try
             {
                 tData = (DataStruct.tagOptionData)(bf.Deserialize(fs)); // 여기서문제 발생
+                //if(tData == null)
+                //{
+
+                //}
             }
             catch (System.Runtime.Serialization.SerializationException e)
             {
@@ -111,7 +115,8 @@ public class Option_Manager : MonoBehaviour
             finally
             {
                 fs.Close();
-                Save_EditorFileData(_strFileName);
+                SaveFileData();
+               // Save_EditorFileData(_strFileName);
             }
             m_tOptiondata = tData;
 

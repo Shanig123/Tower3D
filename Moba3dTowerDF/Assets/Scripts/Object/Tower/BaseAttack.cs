@@ -9,6 +9,12 @@ public class BaseAttack : TowerAI
     // Start is called before the first frame update
 
     [SerializeField] private bool m_bHitScan;
+    [SerializeField] private int m_iAtkCount;
+    [SerializeField] private int m_iAtkMaxCount;
+
+    [SerializeField] private int m_iBulletCount;
+    [SerializeField] private int m_iBulletMaxCount;
+
     protected override void Start()
     {
         if(DataEnum.eTowerType.End == m_tTowerInfo.eType)

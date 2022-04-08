@@ -469,7 +469,7 @@ MonoBehaviour:
     iAtk: 5
     iLvl: 0
     iStatus: 0
-    iBulletStatus: 1
+    iBulletStatus: 2
     eType: 1
     iTowerId: 0
     fRange: 0
@@ -489,8 +489,19 @@ MonoBehaviour:
       fSlowSpeed: 0
       fStunStatusTime: 0
       fStunMaxStatusTime: 0
+  m_tTowerBulletInfo:
+    iHp: 0
+    iMaxHp: 0
+    iAtk: 0
+    iLvl: 0
+    iStatus: 0
+    objTarget: {fileID: 0}
+    fMoveSpeed: 0
+    fLifeTime: 0
+    fMaxLifeTime: 0
+    strObjTagName: 
   m_tEffectInfo:
-    colorEffect: {r: 1, g: 0, b: 0, a: 1}
+    colorEffect: {r: 0.4392157, g: 0, b: 0, a: 1}
     vScale: {x: 1, y: 1, z: 1}
     fParticleScale: 1
     fSpeed: 1
